@@ -1,0 +1,117 @@
+/* General Styles */
+.search-page {
+    padding: 2rem;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Header Section */
+  .search-header {
+    margin-bottom: 2rem;
+  }
+  
+  .search-header .header-icon img {
+    width: 50px;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  
+  .search-header h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .search-header p {
+    color: #666;
+    font-size: 1rem;
+  }
+  
+  /* Search Bar */
+  .search-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .search-input {
+    width: 70%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-size: 1rem;
+  }
+  
+  .filter-button {
+    background: none;
+    border: none;
+    margin-left: -50px;
+    cursor: pointer;
+  }
+  
+  .filter-button img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  /* Product Sections */
+  .product-section {
+    margin-bottom: 2rem;
+  }
+  
+  .product-category {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+  }
+  
+  .product-category h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .see-more {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .product-carousel {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 1rem 2rem;
+  }
+  
+  .product-carousel img {
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .product-carousel img:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Footer Note */
+  .search-footer {
+    margin-top: 2rem;
+    color: #666;
+    font-size: 0.875rem;
+  }
+  
+  .search-footer span {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+    /* Footer Icon Styling */
+    .search-footer .info-icon {
+        width: 16px; /* Adjust the size as needed */
+        height: 16px;
+        margin-right: 0.5rem; /* Add spacing between the icon and the text */
+        vertical-align: middle;
+    }
+    

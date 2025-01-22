@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
+import SearchPage from './pages/SearchPage'; // Import SearchPage
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+
 
 const App = () => {
   return (
@@ -10,9 +11,8 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        {/* Add more routes as needed */}
+        <Route path="/search" element={<SearchPage />} /> {/* Add SearchPage route */}
       </Routes>
-      <Footer />
     </Router>
   );
 };

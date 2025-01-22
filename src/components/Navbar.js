@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import routes from '../routes'; // Import centralized routes
 import '../styles/components/Navbar.css';
 
 const Navbar = () => {
@@ -7,22 +8,21 @@ const Navbar = () => {
     <nav className="navbar">
       {/* Logo */}
       <div className="navbar-logo">
-  <Link to="/">
-    <img src="/assets/images/thumbsytransparent 1.svg" alt="Thumbsy Logo" />
-  </Link>
-</div>
-
+        <Link to={routes.home}>
+          <img src="/assets/images/thumbsy-icon.svg" alt="Thumbsy Logo" />
+        </Link>
+      </div>
 
       {/* Navigation Links */}
       <ul className="navbar-links">
         <li>
-          <Link to="/">Home</Link>
+          <Link to={routes.home}>Home</Link>
         </li>
         <li>
-          <Link to="/search">Thumbsy</Link>
+          <Link to={routes.search}>Thumbsy</Link>
         </li>
         <li>
-          <Link to="/about">About us</Link>
+          <Link to={routes.about}>About us</Link>
         </li>
       </ul>
     </nav>
