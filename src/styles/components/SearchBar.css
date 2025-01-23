@@ -41,7 +41,7 @@
   opacity: 0.5;
 }
 
-/* Make the input fill remaining space and have a subtle focus style */
+/* Make the input fill remaining space and remove focus styles */
 .search-input {
   flex: 1;
   border: none;
@@ -56,10 +56,10 @@
   color: #999;
 }
 
-/* Focus styles for input */
+/* Remove the focus underline */
 .search-input:focus {
   outline: none;
-  box-shadow: inset 0 -1px 0 #333;
+  box-shadow: none; /* Remove the box-shadow that was creating the underline */
 }
 
 /* Button for opening filters */
