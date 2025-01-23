@@ -1,26 +1,208 @@
-.search-bar-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.search-input {
-  width: 70%;
-  padding: 0.75rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 25px;
-  font-size: 1rem;
-}
-
-.filter-button {
-  background: none;
-  border: none;
-  margin-left: -50px;
-  cursor: pointer;
-}
-
-.filter-button img {
-  width: 20px;
-  height: 20px;
-} 
+/* Wrapper for the search bar (centered container) */
+.search-wrapper {
+    width: 70%;
+    max-width: 800px;
+    min-width: 320px;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  /* Main container with border & box-shadow */
+  .search-bar-container {
+    width: 100%;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.03);
+    border: 1px solid #EAEAEA;
+  }
+  
+  /* --- Search Input Section --- */
+  .search-input-section {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid #EAEAEA;
+    min-height: 48px;
+  }
+  
+  .search-icon {
+    padding-right: 0.75rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-icon img {
+    width: 22px;
+    height: auto;
+    opacity: 0.4;
+    margin-top: -8px;
+  }
+  
+  .search-input {
+    flex: 1;
+    border: none;
+    padding: 0.5rem 0;
+    font-size: 0.95rem;
+    outline: none;
+    color: #333;
+    line-height: 1.2;
+    margin-top: -8px;
+    margin-left: 10px;
+  }
+  
+  .search-input::placeholder {
+    color: #999;
+  }
+  
+  .filter-button {
+    background: #F8F8F8;
+    border: none;
+    width: 32px;
+    height: 32px;
+    padding: 0.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -10px;
+  }
+  
+  /* --- Filter Panel --- */
+  .filter-panel {
+    padding: 1.5rem;
+  }
+  
+  /* Filter section wrappers */
+  .filter-section {
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
+  }
+  
+  .filter-section h3 {
+    font-size: 1rem;
+    color: #666;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  
+  /* --- Filter Tags --- */
+  .filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  
+  .filter-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #F8F8F8;
+    border: 1px solid #EAEAEA;
+    border-radius: 20px;
+    color: #333;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  
+  .filter-tag:hover {
+    background: #F5F5F5;
+  }
+  
+  .add-tag {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    background: #F8F8F8;
+    border: 1px solid #EAEAEA;
+    font-size: 1.2rem;
+    color: #666;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .add-tag:hover {
+    background: #F5F5F5;
+  }
+  
+  .remove-tag {
+    font-size: 1.1rem;
+    color: #666;
+    margin-left: 0.25rem;
+  }
+  
+  /* --- Range Slider --- */
+  .price-range {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 0;
+  }
+  
+  /* The container for both range inputs and the highlight track */
+  .range-slider {
+    position: relative;
+    flex: 1;
+    height: 2px;
+    background: #EAEAEA; /* The inactive track color */
+    border-radius: 1px;
+  }
+  
+  /* The highlighted segment between the two thumbs */
+  .range-slider .slider-track {
+    position: absolute;
+    top: 0;
+    height: 2px;
+    background: #333; /* Active portion color */
+    border-radius: 1px;
+    z-index: 1;
+  }
+  
+  /* Both range inputs should fully overlap the .range-slider */
+  .range-slider input[type="range"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: none;
+    pointer-events: none; /* So you only grab the thumb */
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    z-index: 2;
+  }
+  
+  /* The second slider is above the first so its thumb is on top */
+  .range-slider input[type="range"]:last-of-type {
+    z-index: 3;
+  }
+  
+  /* Style the thumbs */
+  .range-slider input[type="range"]::-webkit-slider-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #333;
+    cursor: pointer;
+    pointer-events: auto;
+    -webkit-appearance: none;
+    margin-top: -7px; /* centers the thumb over a 2px track */
+  }
+  
+  .range-slider input[type="range"]::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #333;
+    cursor: pointer;
+    pointer-events: auto;
+    margin-top: -7px; /* same offset for Firefox */
+  }
+  
