@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/components/SearchPage.css';
+import SearchBar from '../components/SearchBar';
 
 const SearchPage = () => {
   return (
@@ -16,18 +17,7 @@ const SearchPage = () => {
         </p>
       </header>
 
-      {/* Search Bar */}
-      <div className="search-bar-container">
-  <input
-    type="text"
-    placeholder="Search for a product"
-    className="search-input"
-  />
-  <button className="filter-button">
-    <img src="/assets/images/SearchFilter.svg" alt="Search Filter Icon" />
-  </button>
-</div>
-
+      <SearchBar />
 
       {/* Product Carousels */}
       <section className="product-section">

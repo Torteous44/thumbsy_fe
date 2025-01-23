@@ -1,0 +1,26 @@
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.search-input {
+  width: 70%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 1rem;
+}
+
+.filter-button {
+  background: none;
+  border: none;
+  margin-left: -50px;
+  cursor: pointer;
+}
+
+.filter-button img {
+  width: 20px;
+  height: 20px;
+} 
