@@ -1,0 +1,26 @@
+@font-face {
+  font-family: 'sohne-medium';
+  src: url('../fonts/TestSöhne/TestSöhne-Buch.woff2') format('woff2'),
+       url('../fonts/TestSöhne/TestSöhne-Buch.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'sohne-semibold';
+  src: url('../fonts/TestSöhne/TestSöhne-Kräftig.woff2') format('woff2'),
+       url('../fonts/TestSöhne/TestSöhne-Kräftig.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'tiempos-regular';
+  src: url('../fonts/TestTiemposText/TestTiemposText-Regular.woff2') format('woff2'),
+       url('../fonts/TestTiemposText/TestTiemposText-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+} 
