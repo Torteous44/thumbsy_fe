@@ -6,8 +6,8 @@ const LandingPage = () => {
     <div className="landing-page">
       {/* Hero Section */}
       <header className="hero-section">
-        <h1>Get recommendations and reviews tailored for you.</h1>
-        <p>A whole new way to shop. Based on your tastes.</p>
+        <h1 className="hero-title">Get recommendations and reviews tailored for you.</h1>
+        <p className="hero-subtitle">A whole new way to shop. Based on your tastes.</p>
         <div className="cta-buttons">
           <button className="btn btn-primary">Sign up</button>
           <button className="btn btn-secondary">Learn more</button>
