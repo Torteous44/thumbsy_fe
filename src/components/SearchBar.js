@@ -13,31 +13,43 @@ const SearchBar = () => {
     visible: {
       opacity: 1,
       height: 'auto',
-      transition: { duration: 0.3 }
+      transition: { duration: 0.3 },
     },
     exit: {
       opacity: 0,
       height: 0,
-      transition: { duration: 0.2 }
-    }
+      transition: { duration: 0.2 },
+    },
   };
 
   return (
-    <div className="search-wrapper">
-      <div className="search-bar-container">
+    <section className="search-wrapper" aria-label="Product search">
+      <div className="search-bar-container" role="search">
         {/* Top row: search + filter toggle button */}
         <div className="search-input-section">
-          <div className="search-icon">
-            <img src="/assets/images/SearchIcon.svg" alt="Search Icon" />
+          {/* Screen reader only label for the search input */}
+          <label htmlFor="search-input" className="sr-only">
+            Search for a product
+          </label>
+
+          <div className="search-icon" aria-hidden="true">
+            <img src="/assets/images/SearchIcon.svg" alt="" />
           </div>
+
           <input
+            id="search-input"
             type="text"
             placeholder="Search for a product"
             className="search-input"
+            aria-label="Search for a product"
           />
+
           <button
+            type="button"
             className="filter-button"
             onClick={() => setIsExpanded(!isExpanded)}
+            aria-expanded={isExpanded}
+            aria-label="Toggle filter panel"
           >
             <img
               src="/assets/images/SearchFilter.svg"
@@ -49,87 +61,104 @@ const SearchBar = () => {
         {/* Filter panel */}
         <AnimatePresence>
           {isExpanded && (
-            <motion.div
+            <motion.aside
               className="filter-panel"
               variants={filterPanelVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
+              aria-label="Filter panel"
             >
               {/* Price Section with RangeSlider */}
-              <div className="filter-section">
+              <section className="filter-section">
                 <h3>Price</h3>
                 <RangeSlider />
-              </div>
+              </section>
 
               {/* Characteristics Section */}
-              <div className="filter-section">
+              <section className="filter-section">
                 <h3>Characteristics</h3>
                 <div className="filter-tags">
-                  <button className="add-tag">+</button>
-                  <button className="filter-tag">
+                  <button className="add-tag" aria-label="Add characteristic">
+                    +
+                  </button>
+
+                  <button className="filter-tag" type="button">
                     <span>High quality</span>
-                    <span className="remove-tag">×</span>
+                    <span className="remove-tag" aria-hidden="true">×</span>
                   </button>
-                  <button className="filter-tag">
+
+                  <button className="filter-tag" type="button">
                     <span>Trendy</span>
-                    <span className="remove-tag">×</span>
+                    <span className="remove-tag" aria-hidden="true">×</span>
                   </button>
-                  <button className="filter-tag">
+
+                  <button className="filter-tag" type="button">
                     <span>Colorful</span>
-                    <span className="remove-tag">×</span>
+                    <span className="remove-tag" aria-hidden="true">×</span>
                   </button>
-                  <button className="filter-tag">
+
+                  <button className="filter-tag" type="button">
                     <span>Design focused</span>
-                    <span className="remove-tag">×</span>
+                    <span className="remove-tag" aria-hidden="true">×</span>
                   </button>
                 </div>
-              </div>
+              </section>
 
               {/* Brands Section */}
-              <div className="filter-section">
+              <section className="filter-section">
                 <h3>Brands</h3>
                 <div className="filter-tags">
-                  <button className="add-tag">+</button>
-                  <button className="filter-tag">
+                  <button className="add-tag" aria-label="Add brand">
+                    +
+                  </button>
+
+                  <button className="filter-tag" type="button">
                     <span>Small business</span>
-                    <span className="remove-tag">×</span>
+                    <span className="remove-tag" aria-hidden="true">×</span>
                   </button>
-                  <button className="filter-tag">
+
+                  <button className="filter-tag" type="button">
                     <span>Local</span>
-                    <span className="remove-tag">×</span>
+                    <span className="remove-tag" aria-hidden="true">×</span>
                   </button>
-                  <button className="filter-tag">
+
+                  <button className="filter-tag" type="button">
                     <span>Eco-friendly</span>
-                    <span className="remove-tag">×</span>
+                    <span className="remove-tag" aria-hidden="true">×</span>
                   </button>
                 </div>
-              </div>
+              </section>
 
               {/* Review Sources Section */}
-              <div className="filter-section">
+              <section className="filter-section">
                 <h3>Review sources</h3>
                 <div className="filter-tags">
-                  <button className="add-tag">+</button>
-                  <button className="filter-tag">
+                  <button className="add-tag" aria-label="Add review source">
+                    +
+                  </button>
+
+                  <button className="filter-tag" type="button">
                     <span>Tech reviews</span>
-                    <span className="remove-tag">×</span>
+                    <span className="remove-tag" aria-hidden="true">×</span>
                   </button>
-                  <button className="filter-tag">
+
+                  <button className="filter-tag" type="button">
                     <span>Online forums</span>
-                    <span className="remove-tag">×</span>
+                    <span className="remove-tag" aria-hidden="true">×</span>
                   </button>
-                  <button className="filter-tag">
+
+                  <button className="filter-tag" type="button">
                     <span>Newspapers</span>
-                    <span className="remove-tag">×</span>
+                    <span className="remove-tag" aria-hidden="true">×</span>
                   </button>
                 </div>
-              </div>
-            </motion.div>
+              </section>
+            </motion.aside>
           )}
         </AnimatePresence>
       </div>
-    </div>
+    </section>
   );
 };
 
