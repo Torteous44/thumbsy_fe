@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/components/LandingPage.css'; // Import the specific styles for the page
+import ScrollingProductGrid from '../components/ScrollingProductGrid';
 
 const LandingPage = () => {
   return (
@@ -13,21 +14,8 @@ const LandingPage = () => {
           <button className="btn btn-secondary">Learn more</button>
         </div>
       </header>
-
-      {/* Product Showcase Section */}
-      <section className="product-showcase">
-        <div className="product-grid">
-          {/* Placeholder images */}
-          <img src="/assets/images/product1.jpg" alt="Product 1" />
-          <img src="/assets/images/product2.jpg" alt="Product 2" />
-          <img src="/assets/images/product3.jpg" alt="Product 3" />
-          <img src="/assets/images/product4.jpg" alt="Product 4" />
-          <img src="/assets/images/product5.jpg" alt="Product 5" />
-          <img src="/assets/images/product6.jpg" alt="Product 6" />
-          <img src="/assets/images/product7.jpg" alt="Product 7" />
-          <img src="/assets/images/product8.jpg" alt="Product 8" />
-        </div>
-      </section>
+      {/* Replace the static product showcase with the scrolling grid */}
+      <ScrollingProductGrid />
     </div>
   );
 };

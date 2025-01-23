@@ -37,7 +37,7 @@ body {
 .btn {
   display: flex;
   width: 136px;
-  padding: 8px 24px;
+  padding: 12px 24px;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -99,7 +99,7 @@ body {
 .hero-subtitle {
   font-family: 'sohne-medium', sans-serif;
   font-size: 16px;
-  color: rgba(0, 0, 0, 0.40);
+  color: #999999;
   text-align: center;
 }
 
