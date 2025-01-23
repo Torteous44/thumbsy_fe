@@ -1,0 +1,60 @@
+/* Fullscreen and Centering */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  background: #f9f9f9; /* Background color for the page */
+}
+
+/* Scroll Container (Outer Frame) */
+.scroll-container {
+  width: 100vw; /* Full viewport width */
+  display: flex;
+  flex-direction: column; /* Stack the grids vertically */
+  gap: 16px; /* 16px spacing between rows */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  overflow: hidden; /* Hide overflow content */
+  position: relative; /* Positioning context for child elements */
+  padding-top: 4px; /* Add specific padding control */
+  padding-bottom: 0px; /* Add specific padding control */
+}
+
+/* Image Grid for Horizontal Scrolling */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(36, 150px); /* Increased to accommodate triple images */
+  grid-template-rows: 1fr;
+  gap: 48px;
+  animation: scrollLoop 60s linear infinite; /* Adjusted timing for smoother loop */
+}
+
+/* Position the rows with different starting points */
+.image-grid:nth-child(1) {
+  transform: translateX(0);
+}
+
+.image-grid:nth-child(2) {
+  transform: translateX(0);
+  animation-direction: reverse;
+}
+
+.image-grid:nth-child(3) {
+  transform: translateX(0);
+}
+
+/* Image Styling */
+.image-grid img {
+  width: 182px;
+  height: 151px;
+  object-fit: cover; /* This ensures images maintain aspect ratio and fill the space */
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px #D9D9D9; /* Stroke border with specified color and width */
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Infinite Scrolling Animation */
+@keyframes scrollLoop {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-100% / 3)); } /* Move by one-third to show next set */
+} 
