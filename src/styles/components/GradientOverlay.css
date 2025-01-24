@@ -1,0 +1,19 @@
+.gradient-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1000px; /* Adjust this value to control the height of the gradient */
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 1) 5%,    /* Fully opaque white at bottom */
+    rgba(255, 255, 255, 1) 25%,  /* Slightly transparent white */
+    rgba(255, 255, 255, 0.90) 40%,  /* More transparent white */
+    rgba(255, 255, 255, 0.65) 50%,  /* More transparent white */
+    rgba(255, 255, 255, 0.30) 80%,  /* Even more transparent white */
+    rgba(255, 255, 255, 0.20) 90%,  /* Even more transparent white */
+    rgba(255, 255, 255, 0) 100%   /* Fully transparent at top */
+  );
+  pointer-events: none; /* Allows clicking through the overlay */
+  z-index: 10; /* Ensures overlay appears above the images */
+}

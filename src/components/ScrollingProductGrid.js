@@ -1,4 +1,5 @@
 import React from 'react';
+import GradientOverlay from './GradientOverlay';
 import '../styles/components/ScrollingProductGrid.css';
 
 const ScrollingProductGrid = () => {
@@ -21,6 +22,10 @@ const ScrollingProductGrid = () => {
   // Create a triple-length array for seamless looping
   const tripleImages = [...images, ...images, ...images];
 
+  const imageHeight = 162; // Updated from 180 to 162 (180 * 0.9)
+  const numberOfRows = 3; // Number of rows in the grid
+  const gradientHeight = imageHeight * numberOfRows; // Total height for the gradient
+
   // Component to render a row of images
   const ImageRow = ({ rowIndex }) => (
     <div className="image-grid">
@@ -36,6 +41,7 @@ const ScrollingProductGrid = () => {
       <ImageRow rowIndex={1} />
       <ImageRow rowIndex={2} />
       <ImageRow rowIndex={3} />
+      <GradientOverlay height={`${gradientHeight}px`} />
     </div>
   );
 };

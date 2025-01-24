@@ -23,4 +23,35 @@
   font-weight: normal;
   font-style: normal;
   font-display: swap;
+}
+
+/* Font Size Variables */
+:root {
+  /* Heading Sizes */
+  --font-size-h1: 28.8px;     /* 32px * 0.9 */
+  --font-size-h2: 21.6px;     /* 24px * 0.9 */
+  --font-size-h3: 19.8px;     /* 22px * 0.9 */
+  
+  /* Body Text Sizes */
+  --font-size-large: 16.2px;  /* 18px * 0.9 */
+  --font-size-base: 14.4px;   /* 16px * 0.9 */
+  --font-size-small: 12.6px;  /* 14px * 0.9 */
+  
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-loose: 1.8;
+}
+
+/* Font Family Classes */
+.font-sohne-medium {
+  font-family: 'sohne-medium', sans-serif;
+}
+
+.font-sohne-semibold {
+  font-family: 'sohne-semibold', sans-serif;
+}
+
+.font-tiempos {
+  font-family: 'tiempos-regular', serif;
 } 

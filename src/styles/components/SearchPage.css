@@ -76,7 +76,7 @@
   /* Footer Note */
   .search-footer {
     position: fixed;
-    bottom: 20px;
+    bottom: 16px;
     left: 50%;
     transform: translateX(-50%);
     color: #666;
