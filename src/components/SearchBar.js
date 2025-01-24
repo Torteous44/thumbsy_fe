@@ -1,14 +1,14 @@
 // SearchBar.js
-import React, { useState } from 'react';
+import React, { useState, memo, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import RangeSlider from './RangeSlider';
 import '../styles/components/SearchBar.css'; 
 
-const SearchBar = () => {
+const SearchBar = memo(() => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   // Framer Motion variants for the filter panel
-  const filterPanelVariants = {
+  const filterPanelVariants = useMemo(() => ({
     hidden: { 
       opacity: 0, 
       height: 0,
@@ -63,20 +63,20 @@ const SearchBar = () => {
       transition: {
         height: { 
           type: "tween",
-          duration: 0.25,
+          duration: 0.1,
           ease: [0.4, 0, 0.8, 1] 
         },
         opacity: { 
-          duration: 0.15,
+          duration: 0.05,
           ease: "easeOut"
         },
         scale: {
-          duration: 0.2,
+          duration: 0.1,
           ease: "easeInOut"
         }
       }
     }
-  };
+  }), []);
 
   return (
     <section className="search-wrapper" aria-label="Product search">
@@ -89,7 +89,13 @@ const SearchBar = () => {
           </label>
 
           <div className="search-icon" aria-hidden="true">
-            <img src="/assets/icons/SearchIcon.svg" alt="" />
+            <img 
+              src="/assets/icons/SearchIcon.svg" 
+              alt="Search"
+              width="20"
+              height="20"
+              loading="lazy"
+            />
           </div>
 
           <input
@@ -216,6 +222,6 @@ const SearchBar = () => {
       </div>
     </section>
   );
-};
+});
 
 export default SearchBar;

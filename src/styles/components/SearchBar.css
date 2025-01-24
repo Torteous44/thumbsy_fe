@@ -239,6 +239,8 @@
 .range-slider input[type="range"]::-moz-range-thumb:hover {
   border-color: #666;
 }
+
+
 .sr-only {
   position: absolute !important; 
   width: 1px !important; 
