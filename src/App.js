@@ -5,17 +5,15 @@ import SearchPage from './pages/SearchPage'; // Import SearchPage
 import Navbar from './components/Navbar';
 
 
-
-
 const App = () => {
   return (
     <Router>
       <Navbar />
+
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/search" element={<SearchPage />} /> {/* Add SearchPage route */}
       </Routes>
-
     </Router>
   );
 };
