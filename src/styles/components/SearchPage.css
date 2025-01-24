@@ -9,11 +9,15 @@
   .search-header {
     margin-bottom: 2rem;
   }
+
   
   .search-header .header-icon img {
-    width: 50px;
+    width: 60px;
     height: auto;
     margin-bottom: 1rem;
+    border-radius: 50%;
+    border: 0.5px solid #EAEAEA;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   }
   
   .search-header h1 {
@@ -71,20 +75,31 @@
   
   /* Footer Note */
   .search-footer {
-    margin-top: 2rem;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     color: #666;
     font-size: 0.875rem;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    max-width: 600px;
+    z-index: -1;
   }
   
   .search-footer span {
     font-weight: bold;
     font-size: 1rem;
+    display: inline-block;
   }
-    /* Footer Icon Styling */
-    .search-footer .info-icon {
-        width: 16px; /* Adjust the size as needed */
-        height: 16px;
-        margin-right: 0.5rem; /* Add spacing between the icon and the text */
-        vertical-align: middle;
-    }
+  
+  /* Footer Icon Styling */
+  .search-footer .info-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    transform: translateY(-2px);
+  }
     

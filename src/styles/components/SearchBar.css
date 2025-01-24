@@ -7,16 +7,19 @@
   position: relative;
 }
 
-/* Main container with border & box-shadow */
+/* Main container with a subtle border & box-shadow */
 .search-bar-container {
   width: 100%;
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.03);
   border: 1px solid #EAEAEA;
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: border-color 0.2s ease;
 }
+
+/* Remove or greatly reduce the hover effect to match screenshot’s minimalism */
 .search-bar-container:hover {
+
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
 }
 
@@ -26,11 +29,11 @@
   align-items: center;
   padding: 0.75rem 1rem;
   min-height: 48px;
-  border-bottom: 1px solid transparent; /* Make border transparent by default */
-  transition: border-color 0.2s ease; /* Smooth transition for border color */
+  border-bottom: 1px solid transparent; /* Default: transparent */
+  transition: border-color 0.2s ease;
 }
 
-/* Only show border when panel is open */
+/* Only show bottom border when panel is open */
 .search-input-section.is-expanded {
   border-bottom: 1px solid #EAEAEA;
 }
@@ -47,13 +50,12 @@
   opacity: 0.5;
 }
 
-/* Make the input fill remaining space and remove focus styles */
+/* Make the input fill the remaining space and remove default focus outlines */
 .search-input {
   flex: 1;
   border: none;
   padding: 0.5rem 0;
   font-size: 0.95rem;
-  outline: none;
   color: #333;
   line-height: 1.2;
 }
@@ -62,10 +64,9 @@
   color: #999;
 }
 
-/* Remove the focus underline */
 .search-input:focus {
   outline: none;
-  box-shadow: none; /* Remove the box-shadow that was creating the underline */
+  box-shadow: none;
 }
 
 /* Button for opening filters */
@@ -94,19 +95,22 @@
 /* --- Filter Panel --- */
 .filter-panel {
   padding: 1.5rem;
+  z-index: 1000;
 }
 
 /* Filter section wrappers */
 .filter-section {
-  margin-bottom: 2rem;
+  margin-bottom: 1.2rem;
   padding: 0 0.5rem;
 }
-
 .filter-section h3 {
-  font-size: 1rem;
+  font-size: 1.01rem;
   color: #666;
   font-weight: 500;
-  margin-bottom: 1rem;
+
+
+  text-align: left;
+  margin-left: 0; 
 }
 
 /* --- Filter Tags --- */
@@ -119,11 +123,14 @@
 .filter-tag {
   display: flex;
   align-items: center;
+  /* Reverse row so “x” appears on the left if that’s how you place the <span> in HTML */
+  flex-direction: row-reverse; 
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   background: #F8F8F8;
   border: 1px solid #EAEAEA;
-  border-radius: 20px;
+  /* Slightly smaller radius than before to match the screenshot’s pill shapes */
+  border-radius: 16px;  
   color: #333;
   font-size: 0.9rem;
   cursor: pointer;
@@ -155,10 +162,11 @@
   border-color: #ddd;
 }
 
+/* “x” icon for removing a tag, with some spacing on whichever side you prefer */
 .remove-tag {
   font-size: 1.1rem;
   color: #666;
-  margin-left: 0.25rem;
+  margin: 0 0.25rem; /* Tweak margin so it looks balanced next to the text */
 }
 
 /* --- Range Slider --- */
@@ -174,7 +182,7 @@
   position: relative;
   flex: 1;
   height: 2px;
-  background: #EAEAEA; /* The inactive track color */
+  background: #EAEAEA; /* Inactive portion */
   border-radius: 1px;
 }
 
@@ -188,7 +196,7 @@
   z-index: 1;
 }
 
-/* Both range inputs should fully overlap the .range-slider */
+/* Range inputs overlap the .range-slider */
 .range-slider input[type="range"] {
   position: absolute;
   top: 0;
@@ -196,49 +204,51 @@
   width: 100%;
   height: 2px;
   background: none;
-  pointer-events: none; /* So you only grab the thumb */
+  pointer-events: none; /* Only the thumbs are clickable */
   -webkit-appearance: none;
   appearance: none;
   margin: 0;
   z-index: 2;
 }
 
-/* The second slider is above the first so its thumb is on top */
+/* Second slider is on top so its thumb is clickable above the first */
 .range-slider input[type="range"]:last-of-type {
   z-index: 3;
 }
 
-/* Style the thumbs */
+/* Style the thumbs as small black dots */
 .range-slider input[type="range"]::-webkit-slider-thumb {
   height: 16px;
   width: 16px;
   border-radius: 50%;
-  background: #fff;
-  border: 2px solid #333;
+  background: #333;  /* Solid black to match the screenshot */
+  border: none;      /* Remove border, or use border: 2px solid #fff if you want a white ring */
   cursor: pointer;
   pointer-events: auto;
   -webkit-appearance: none;
-  margin-top: -7px; /* centers the thumb over a 2px track */
-  transition: border-color 0.2s ease;
+
+  transition: background 0.2s ease;
 }
 .range-slider input[type="range"]::-webkit-slider-thumb:hover {
-  border-color: #666;
+  background: #000; /* Slightly darker on hover if desired */
 }
 
 .range-slider input[type="range"]::-moz-range-thumb {
   height: 16px;
   width: 16px;
   border-radius: 50%;
-  background: #fff;
-  border: 2px solid #333;
+  background: #333;
+  border: none;
   cursor: pointer;
   pointer-events: auto;
-  margin-top: -7px; 
-  transition: border-color 0.2s ease;
+  margin-top: -7px;
+  transition: background 0.2s ease;
 }
 .range-slider input[type="range"]::-moz-range-thumb:hover {
-  border-color: #666;
+  background: #000;
 }
+
+/* Visually hidden class for accessible labels, etc. */
 .sr-only {
   position: absolute !important; 
   width: 1px !important; 
