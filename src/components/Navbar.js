@@ -9,7 +9,7 @@ const Navbar = () => {
       {/* Logo */}
       <div className="navbar-logo">
         <Link to={routes.home}>
-          <img src="/assets/images/thumbsy-icon.svg" alt="Thumbsy Logo" />
+          <img src="/assets/icons/thumbsy-icon.svg" alt="Thumbsy Logo" />
         </Link>
       </div>
 

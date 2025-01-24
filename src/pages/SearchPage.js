@@ -8,7 +8,7 @@ const SearchPage = () => {
       {/* Header Section */}
       <header className="search-header">
         <div className="header-icon">
-          <img src="/assets/images/thumbsy-icon.svg" alt="Thumbsy Icon" />
+          <img src="/assets/icons/thumbsy-icon.svg" alt="Thumbsy Icon" />
         </div>
         <h1>Get a recommendation list tailored to you.</h1>
         <p>
@@ -52,7 +52,7 @@ const SearchPage = () => {
       <footer className="search-footer">
   <p>
     <img
-      src="/assets/images/Information.svg"
+      src="/assets/icons/Information.svg"
       alt="Information Icon"
       className="info-icon"
     />

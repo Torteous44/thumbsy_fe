@@ -9,31 +9,87 @@ const SearchBar = () => {
 
   // Framer Motion variants for the filter panel
   const filterPanelVariants = {
-    hidden: { opacity: 0, height: 0 },
+    hidden: { 
+      opacity: 0, 
+      height: 0,
+      scale: 0.97,
+      y: -10,
+      transition: {
+        height: { 
+          type: "spring", 
+          stiffness: 500, 
+          damping: 30, 
+          mass: 1 
+        },
+        opacity: { duration: 0.15 },
+        scale: { duration: 0.2 },
+        y: { duration: 0.2 }
+      }
+    },
     visible: {
       opacity: 1,
       height: 'auto',
-      transition: { duration: 0.3 },
+      scale: 1,
+      y: 0,
+      transition: {
+        height: { 
+          type: "spring", 
+          stiffness: 400, 
+          damping: 20, 
+          mass: 1,
+          bounce: 0.25
+        },
+        opacity: { 
+          duration: 0.2, 
+          ease: "easeOut" 
+        },
+        scale: {
+          type: "spring",
+          stiffness: 450,
+          damping: 15,
+          mass: 0.5
+        },
+        y: {
+          type: "spring",
+          stiffness: 400,
+          damping: 15
+        }
+      }
     },
     exit: {
       opacity: 0,
       height: 0,
-      transition: { duration: 0.2 },
-    },
+      scale: 0.98,
+      transition: {
+        height: { 
+          type: "tween",
+          duration: 0.25,
+          ease: [0.4, 0, 0.8, 1] 
+        },
+        opacity: { 
+          duration: 0.15,
+          ease: "easeOut"
+        },
+        scale: {
+          duration: 0.2,
+          ease: "easeInOut"
+        }
+      }
+    }
   };
 
   return (
     <section className="search-wrapper" aria-label="Product search">
       <div className="search-bar-container" role="search">
         {/* Top row: search + filter toggle button */}
-        <div className="search-input-section">
+        <div className={`search-input-section ${isExpanded ? 'is-expanded' : ''}`}>
           {/* Screen reader only label for the search input */}
           <label htmlFor="search-input" className="sr-only">
             Search for a product
           </label>
 
           <div className="search-icon" aria-hidden="true">
-            <img src="/assets/images/SearchIcon.svg" alt="" />
+            <img src="/assets/icons/SearchIcon.svg" alt="" />
           </div>
 
           <input
@@ -52,7 +108,7 @@ const SearchBar = () => {
             aria-label="Toggle filter panel"
           >
             <img
-              src="/assets/images/SearchFilter.svg"
+              src="/assets/icons/SearchFilter.svg"
               alt="Search Filter Icon"
             />
           </button>
