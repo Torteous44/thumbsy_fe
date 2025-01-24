@@ -35,9 +35,9 @@ const SearchBar = memo(() => {
         height: { 
           type: "spring", 
           stiffness: 400, 
-          damping: 20, 
+          damping: 25, 
           mass: 1,
-          bounce: 0.25
+          bounce: 0.1
         },
         opacity: { 
           duration: 0.2, 
