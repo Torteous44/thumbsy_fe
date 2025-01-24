@@ -62,12 +62,12 @@ const SearchBar = memo(() => {
       scale: 0.98,
       transition: {
         height: { 
-          type: "tween",
+          type: "linear",
           duration: 0.1,
-          ease: [0.4, 0, 0.8, 1] 
+          ease: "easeOut"
         },
         opacity: { 
-          duration: 0.05,
+          duration: 0.1,
           ease: "easeOut"
         },
         scale: {
