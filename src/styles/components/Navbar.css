@@ -30,8 +30,9 @@
   }
   
   .navbar-links li {
-    font-size: 1rem;
+    font-size: var(--font-size-base);
     font-weight: 200;
+    font-family: var(--font-family-sohne);
   }
   
   .navbar-links a {
