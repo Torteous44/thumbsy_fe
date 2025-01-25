@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import ProductDetail from '../components/ProductDetail';
 import '../styles/pages/Results.css';
 
@@ -104,7 +104,7 @@ const Results = () => {
           }
         }
 
-        console.log('Final results array:', results); // Log final results
+
 
       } catch (err) {
         console.error('Error details:', err);

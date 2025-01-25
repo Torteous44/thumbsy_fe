@@ -9,6 +9,7 @@ const LandingPage = () => {
   const [showAuth, setShowAuth] = useState(false);
   const [isSignUp, setIsSignUp] = useState(true);
   const navigate = useNavigate();
+  const isSignedIn = localStorage.getItem('access_token');
 
   const handleAuthClick = () => {
     setIsSignUp(true);
@@ -26,11 +27,11 @@ const LandingPage = () => {
         <h1 className="hero-title">Get recommendations and reviews tailored for you.</h1>
         <p className="hero-subtitle">A whole new way to shop. Based on your tastes.</p>
         <div className="cta-buttons">
-          <button 
-            className="btn btn-primary"
-            onClick={handleAuthClick}
+        <button 
+            className={`btn ${isSignedIn ? 'btn-profile' : 'btn-primary'}`}
+            onClick={() => isSignedIn ? navigate('/profile') : setShowAuth(true)}
           >
-            Sign up
+            {isSignedIn ? 'Profile' : 'Sign Up'}
           </button>
           <button 
             className="btn btn-secondary"

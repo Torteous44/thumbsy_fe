@@ -10,7 +10,7 @@ const SearchBar = memo(({ onSearch }) => {
   const [isTyping, setIsTyping] = useState(false);
   const [currentPlaceholder, setCurrentPlaceholder] = useState('');
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const [apiError, setApiError] = useState(null);
+  const [apiError] = useState(null);
 
   const [characteristics, setCharacteristics] = useState([
     { id: 1, value: "High quality" },
@@ -121,8 +121,8 @@ const SearchBar = memo(({ onSearch }) => {
     }
   };
 
-  const [isSearching, setIsSearching] = useState(false);
-  const abortControllerRef = useRef(null);
+  const [isSearching] = useState(false);
+
 
   const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
 
