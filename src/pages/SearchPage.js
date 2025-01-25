@@ -7,9 +7,11 @@ const SearchPage = () => {
     <div className="search-page">
       {/* Header Section */}
       <header className="search-header">
-        <div className="header-icon">
-          <img src="/assets/icons/thumbsy-icon.svg" alt="Thumbsy Icon" />
-        </div>
+        <img 
+          src="/assets/icons/thumbsy-icon.svg" 
+          alt="Thumbsy" 
+          className="header-icon"
+        />
         <h1>Get a recommendation list tailored to you.</h1>
         <p>
           Search for products and get tailored recommendations. Like products

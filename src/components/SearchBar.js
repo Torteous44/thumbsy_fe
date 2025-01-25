@@ -1,15 +1,31 @@
-// SearchBar.js
 import React, { useState, memo, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import RangeSlider from './RangeSlider';
-import '../styles/components/SearchBar.css'; 
+import '../styles/components/SearchBar.css';
 
 const SearchBar = memo(() => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [currentPlaceholder, setCurrentPlaceholder] = useState('');
-  
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  const [characteristics, setCharacteristics] = useState([
+    { id: 1, value: "High quality" },
+    { id: 2, value: "Trendy" },
+  ]);
+  const [brands, setBrands] = useState([
+    { id: 3, value: "Small business" },
+    { id: 4, value: "Local" },
+  ]);
+  const [reviewSources, setReviewSources] = useState([
+    { id: 5, value: "Tech reviews" },
+    { id: 6, value: "Online forums" },
+  ]);
+
+  const [activeInput, setActiveInput] = useState(null); // Tracks which section's `+` is active
+  const [newFilterValue, setNewFilterValue] = useState(''); // Holds the input value for the active filter
+
   const placeholders = useMemo(() => [
     "Search for the latest sneakers...",
     "Find the perfect laptop for work or gaming...",
@@ -30,7 +46,6 @@ const SearchBar = memo(() => {
   const typePlaceholder = useCallback(() => {
     const typeChar = () => {
       const currentText = placeholders[currentIndexRef.current];
-      
       if (currentPositionRef.current <= currentText.length) {
         setCurrentPlaceholder(currentText.slice(0, currentPositionRef.current));
         currentPositionRef.current++;
@@ -42,7 +57,6 @@ const SearchBar = memo(() => {
 
     const erasePlaceholder = () => {
       const currentText = placeholders[currentIndexRef.current];
-      
       if (currentPositionRef.current > 0) {
         currentPositionRef.current--;
         setCurrentPlaceholder(currentText.slice(0, currentPositionRef.current));
@@ -53,19 +67,24 @@ const SearchBar = memo(() => {
       }
     };
 
-    // Start typing
     currentPositionRef.current = 0;
     typeChar();
   }, [placeholders]);
 
   useEffect(() => {
-    if (!isTyping) {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (!isTyping && !isMobile) {
       typePlaceholder();
     }
     return () => {
       clearTimeout(typewriterRef.current);
     };
-  }, [isTyping, typePlaceholder]);
+  }, [isTyping, typePlaceholder, isMobile]);
 
   const handleInputFocus = () => {
     setIsTyping(true);
@@ -82,219 +101,132 @@ const SearchBar = memo(() => {
     }
   };
 
-  // Framer Motion variants for the filter panel
-  const filterPanelVariants = useMemo(() => ({
-    hidden: { 
-      opacity: 0, 
-      height: 0,
-      scale: 0.97,
-      y: -10,
-      transition: {
-        height: { 
-          type: "spring", 
-          stiffness: 500, 
-          damping: 30, 
-          mass: 1 
-        },
-        opacity: { duration: 0.15 },
-        scale: { duration: 0.2 },
-        y: { duration: 0.2 }
-      }
-    },
-    visible: {
-      opacity: 1,
-      height: 'auto',
-      scale: 1,
-      y: 0,
-      transition: {
-        height: { 
-          type: "spring", 
-          stiffness: 400, 
-          damping: 25, 
-          mass: 1,
-          bounce: 0.1
-        },
-        opacity: { 
-          duration: 0.2, 
-          ease: "easeOut" 
-        },
-        scale: {
-          type: "spring",
-          stiffness: 450,
-          damping: 15,
-          mass: 0.5
-        },
-        y: {
-          type: "spring",
-          stiffness: 400,
-          damping: 15
-        }
-      }
-    },
-    exit: {
-      opacity: 0,
-      height: 0,
-      scale: 0.98,
-      transition: {
-        height: { 
-          type: "linear",
-          duration: 0.1,
-          ease: "easeOut"
-        },
-        opacity: { 
-          duration: 0.1,
-          ease: "easeOut"
-        },
-        scale: {
-          duration: 0.1,
-          ease: "easeInOut"
-        }
-      }
+  const handleAddFilter = (setFilterState) => {
+    if (newFilterValue.trim()) {
+      setFilterState((prev) => [...prev, { id: Date.now(), value: newFilterValue.trim() }]);
+      setNewFilterValue('');
+      setActiveInput(null); // Close the input
     }
-  }), []);
+  };
+
+  const handleRemoveFilter = (id, setFilterState) => {
+    setFilterState((prev) => prev.filter((filter) => filter.id !== id));
+  };
+
+  const handleKeyPress = (event, setFilterState) => {
+    if (event.key === 'Enter') {
+      handleAddFilter(setFilterState);
+    }
+  };
+
+  const renderFilterSection = (title, filters, setFilters, sectionKey) => (
+    <section className="filter-section">
+      <h3>{title}</h3>
+      <div className="filter-tags">
+        {filters.map((filter) => (
+          <motion.button
+            key={filter.id}
+            className="filter-tag"
+            onClick={() => handleRemoveFilter(filter.id, setFilters)}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+          >
+            <span>{filter.value}</span>
+            <span className="remove-tag" aria-hidden="true">×</span>
+          </motion.button>
+        ))}
+<motion.div
+  className="add-tag-wrapper"
+  initial={{ width: "36px", padding: "0" }}
+  animate={{
+    width: activeInput === sectionKey ? "200px" : "36px",
+    padding: activeInput === sectionKey ? "0 8px" : "0",
+  }}
+  exit={{ width: "36px", padding: "0" }}
+  transition={{ duration: 0.3 }}
+>
+  {activeInput === sectionKey ? (
+    <div className="add-tag-expanded">
+      <input
+        type="text"
+        className="add-tag-input"
+        value={newFilterValue}
+        onChange={(e) => setNewFilterValue(e.target.value)}
+        onKeyDown={(e) => handleKeyPress(e, setFilters)}
+        placeholder="Add a filter..."
+      />
+      <button
+        className="add-tag-check"
+        onClick={() => handleAddFilter(setFilters)}
+      >
+        ✓
+      </button>
+    </div>
+  ) : (
+    <button
+      className="add-tag"
+      onClick={() => setActiveInput(sectionKey)}
+    >
+      +
+    </button>
+  )}
+</motion.div>
+
+      </div>
+    </section>
+  );
 
   return (
     <section className="search-wrapper" aria-label="Product search">
       <div className="search-bar-container" role="search">
-        {/* Top row: search + filter toggle button */}
         <div className={`search-input-section ${isExpanded ? 'is-expanded' : ''}`}>
-          {/* Screen reader only label for the search input */}
           <label htmlFor="search-input" className="sr-only">
             Search for a product
           </label>
-
           <div className="search-icon" aria-hidden="true">
-            <img 
-              src="/assets/icons/SearchIcon.svg" 
+            <img
+              src="/assets/icons/SearchIcon.svg"
               alt="Search"
               width="20"
               height="20"
               loading="lazy"
             />
           </div>
-
           <input
             id="search-input"
             type="text"
-            placeholder={isTyping ? '' : currentPlaceholder}
+            placeholder={isMobile ? "Search..." : currentPlaceholder}
             className="search-input"
-            aria-label="Search for a product"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
           />
-
           <button
             type="button"
             className="filter-button"
             onClick={() => setIsExpanded(!isExpanded)}
             aria-expanded={isExpanded}
-            aria-label="Toggle filter panel"
           >
-            <img
-              src="/assets/icons/SearchFilter.svg"
-              alt="Search Filter Icon"
-            />
+            <img src="/assets/icons/SearchFilter.svg" alt="Search Filter Icon" />
           </button>
         </div>
-
-        {/* Filter panel */}
         <AnimatePresence>
           {isExpanded && (
             <motion.aside
               className="filter-panel"
-              variants={filterPanelVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              aria-label="Filter panel"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
             >
-              {/* Price Section with RangeSlider */}
               <section className="filter-section">
                 <h3>Price</h3>
                 <RangeSlider />
               </section>
-
-              {/* Characteristics Section */}
-              <section className="filter-section">
-                <h3>Characteristics</h3>
-                <div className="filter-tags">
-                  <button className="add-tag" aria-label="Add characteristic">
-                    +
-                  </button>
-
-                  <button className="filter-tag" type="button">
-                    <span>High quality</span>
-                    <span className="remove-tag" aria-hidden="true">×</span>
-                  </button>
-
-                  <button className="filter-tag" type="button">
-                    <span>Trendy</span>
-                    <span className="remove-tag" aria-hidden="true">×</span>
-                  </button>
-
-                  <button className="filter-tag" type="button">
-                    <span>Colorful</span>
-                    <span className="remove-tag" aria-hidden="true">×</span>
-                  </button>
-
-                  <button className="filter-tag" type="button">
-                    <span>Design focused</span>
-                    <span className="remove-tag" aria-hidden="true">×</span>
-                  </button>
-                </div>
-              </section>
-
-              {/* Brands Section */}
-              <section className="filter-section">
-                <h3>Brands</h3>
-                <div className="filter-tags">
-                  <button className="add-tag" aria-label="Add brand">
-                    +
-                  </button>
-
-                  <button className="filter-tag" type="button">
-                    <span>Small business</span>
-                    <span className="remove-tag" aria-hidden="true">×</span>
-                  </button>
-
-                  <button className="filter-tag" type="button">
-                    <span>Local</span>
-                    <span className="remove-tag" aria-hidden="true">×</span>
-                  </button>
-
-                  <button className="filter-tag" type="button">
-                    <span>Eco-friendly</span>
-                    <span className="remove-tag" aria-hidden="true">×</span>
-                  </button>
-                </div>
-              </section>
-
-              {/* Review Sources Section */}
-              <section className="filter-section">
-                <h3>Review sources</h3>
-                <div className="filter-tags">
-                  <button className="add-tag" aria-label="Add review source">
-                    +
-                  </button>
-
-                  <button className="filter-tag" type="button">
-                    <span>Tech reviews</span>
-                    <span className="remove-tag" aria-hidden="true">×</span>
-                  </button>
-
-                  <button className="filter-tag" type="button">
-                    <span>Online forums</span>
-                    <span className="remove-tag" aria-hidden="true">×</span>
-                  </button>
-
-                  <button className="filter-tag" type="button">
-                    <span>Newspapers</span>
-                    <span className="remove-tag" aria-hidden="true">×</span>
-                  </button>
-                </div>
-              </section>
+              {renderFilterSection("Characteristics", characteristics, setCharacteristics, "characteristics")}
+              {renderFilterSection("Brands", brands, setBrands, "brands")}
+              {renderFilterSection("Review Sources", reviewSources, setReviewSources, "reviewSources")}
             </motion.aside>
           )}
         </AnimatePresence>

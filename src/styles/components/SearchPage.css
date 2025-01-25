@@ -1,20 +1,24 @@
 /* General Styles */
 .search-page {
+
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     font-family: 'Arial', sans-serif;
   }
   
   /* Header Section */
   .search-header {
+    text-align: center;
     margin-bottom: 2rem;
   }
 
-  
-  .search-header .header-icon img {
+  .header-icon {
     width: 60px;
-    height: auto;
-    margin-bottom: 1rem;
+    height: 60px;
+    margin-bottom: 1.5rem;
     border-radius: 50%;
     border: 0.5px solid #EAEAEA;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
@@ -102,4 +106,35 @@
     vertical-align: middle;
     transform: translateY(-2px);
   }
+  
+  /* Mobile styles */
+  @media screen and (max-width: 768px) {
+    /* Hide everything except search bar */
+    .search-header,
+    .search-footer,
+    .product-grid,
+    .additional-content,
+    .header-icon,
+    .search-header h1,
+    .search-header p {
+      display: none;
+    }
+
+    /* Adjust search bar positioning for mobile */
+    .search-wrapper {
+      margin-top: 5vh; /* Reduced top margin */
+      width: 90%;
+    }
+  }
+  
+  /* Small mobile styles */
+  @media screen and (max-width: 480px) {
+    .search-wrapper {
+      width: 95%;
+      margin-top: 3vh;
+    }
+  }
+  
+
+    
     
