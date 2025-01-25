@@ -1,31 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import routes from '../routes'; // Import centralized routes
+import AuthCard from './AuthCard';
 import '../styles/components/Navbar.css';
 
 const Navbar = () => {
-  return (
-    <nav className="navbar">
-      {/* Logo */}
-      <div className="navbar-logo">
-        <Link to={routes.home}>
-          <img src="/assets/icons/thumbsy-icon.svg" alt="Thumbsy Logo" />
-        </Link>
-      </div>
+  const [showAuth, setShowAuth] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(true);
 
-      {/* Navigation Links */}
-      <ul className="navbar-links">
-        <li>
-          <Link to={routes.home}>Home</Link>
-        </li>
-        <li>
-          <Link to={routes.search}>Thumbsy</Link>
-        </li>
-        <li>
-          <Link to={routes.about}>About us</Link>
-        </li>
-      </ul>
-    </nav>
+  const handleAuthClick = (isSignUpMode) => {
+    setIsSignUp(isSignUpMode);
+    setShowAuth(true);
+  };
+
+  return (
+    <>
+      <nav className="navbar">
+        {/* Logo */}
+        <div className="navbar-logo">
+          <Link to={routes.home}>
+            <img src="/assets/icons/thumbsy-icon.svg" alt="Thumbsy Logo" />
+          </Link>
+        </div>
+
+        {/* Navigation Links */}
+        <ul className="navbar-links">
+          <li>
+            <Link to={routes.home}>Home</Link>
+          </li>
+          <li>
+            <Link to={routes.search}>Thumbsy</Link>
+          </li>
+          <li>
+            <Link to={routes.about}>About us</Link>
+          </li>
+        </ul>
+
+        {/* Auth Buttons */}
+        <div className="navbar-auth">
+          <button 
+            className="auth-button login"
+            onClick={() => handleAuthClick(false)}
+          >
+            Log in
+          </button>
+          <button 
+            className="auth-button signup"
+            onClick={() => handleAuthClick(true)}
+          >
+            Sign up
+          </button>
+        </div>
+      </nav>
+
+      <AuthCard 
+        isVisible={showAuth}
+        onClose={() => setShowAuth(false)}
+        defaultIsSignUp={isSignUp}
+      />
+    </>
   );
 };
 

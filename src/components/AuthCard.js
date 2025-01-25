@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import '../styles/components/AuthCard.css';
 
-const AuthCard = ({ isVisible, onClose }) => {
-  const [isLogin, setIsLogin] = useState(false);
+const AuthCard = ({ isVisible, onClose, defaultIsSignUp = true }) => {
+  const [isLogin, setIsLogin] = useState(!defaultIsSignUp);
+  
+  // Reset the form state when the visibility or default mode changes
+  useEffect(() => {
+    if (isVisible) {
+      setIsLogin(!defaultIsSignUp);
+    }
+  }, [isVisible, defaultIsSignUp]);
 
   return (
     <AnimatePresence>

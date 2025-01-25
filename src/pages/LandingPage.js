@@ -1,10 +1,23 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/components/LandingPage.css'; // Import the specific styles for the page
 import ScrollingProductGrid from '../components/ScrollingProductGrid';
 import AuthCard from '../components/AuthCard';
+import routes from '../routes';
 
 const LandingPage = () => {
   const [showAuth, setShowAuth] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(true);
+  const navigate = useNavigate();
+
+  const handleAuthClick = () => {
+    setIsSignUp(true);
+    setShowAuth(true);
+  };
+
+  const handleLearnMore = () => {
+    navigate(routes.about);
+  };
 
   return (
     <div className="landing-page">
@@ -15,11 +28,16 @@ const LandingPage = () => {
         <div className="cta-buttons">
           <button 
             className="btn btn-primary"
-            onClick={() => setShowAuth(true)}
+            onClick={handleAuthClick}
           >
             Sign up
           </button>
-          <button className="btn btn-secondary">Learn more</button>
+          <button 
+            className="btn btn-secondary"
+            onClick={handleLearnMore}
+          >
+            Learn more
+          </button>
         </div>
       </header>
       {/* Replace the static product showcase with the scrolling grid */}
@@ -28,6 +46,7 @@ const LandingPage = () => {
       <AuthCard 
         isVisible={showAuth}
         onClose={() => setShowAuth(false)}
+        defaultIsSignUp={isSignUp}
       />
     </div>
   );
