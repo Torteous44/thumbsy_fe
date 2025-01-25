@@ -1,7 +1,7 @@
 /* Wrapper for the search bar (centered container) */
 .search-wrapper {
   width: 70%;
-  max-width: 800px;
+  max-width: 700px;
   min-width: 320px;
   margin: 0 auto;
   position: relative;
@@ -35,7 +35,17 @@
 
 /* Only show bottom border when panel is open */
 .search-input-section.is-expanded {
-  border-bottom: 1px solid #EAEAEA;
+  position: relative;
+}
+
+.search-input-section.is-expanded::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 24px;
+  right: 24px;
+  height: 1px;
+  background-color: #EAEAEA;
 }
 
 .search-icon {
@@ -101,7 +111,7 @@
 
 /* Filter section wrappers */
 .filter-section {
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
   padding: 0 0.5rem;
 }
 .filter-section h3 {
@@ -245,7 +255,9 @@
   transition: background 0.2s ease;
 }
 .range-slider input[type="range"]::-moz-range-thumb:hover {
-  background: #000;
+  background: #000; 
+  scale: 1.1;
+  transition: scale 0.1s ease;
 }
 
 /* Visually hidden class for accessible labels, etc. */

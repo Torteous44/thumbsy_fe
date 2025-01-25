@@ -1,11 +1,86 @@
 // SearchBar.js
-import React, { useState, memo, useMemo } from 'react';
+import React, { useState, memo, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import RangeSlider from './RangeSlider';
 import '../styles/components/SearchBar.css'; 
 
 const SearchBar = memo(() => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const [currentPlaceholder, setCurrentPlaceholder] = useState('');
+  
+  const placeholders = useMemo(() => [
+    "Search for the latest sneakers...",
+    "Find the perfect laptop for work or gaming...",
+    "Discover stylish backpacks for travel...",
+    "Browse headphones with amazing sound quality...",
+    "Search for budget-friendly smartphones...",
+    "Explore trendy watches for every occasion...",
+    "Find eco-friendly home products...",
+    "Discover unique gifts for your loved ones...",
+    "Browse the latest fashion accessories...",
+    "Search for high-performance sports gear..."
+  ], []);
+
+  const typewriterRef = useRef(null);
+  const currentIndexRef = useRef(0);
+  const currentPositionRef = useRef(0);
+
+  const typePlaceholder = useCallback(() => {
+    const typeChar = () => {
+      const currentText = placeholders[currentIndexRef.current];
+      
+      if (currentPositionRef.current <= currentText.length) {
+        setCurrentPlaceholder(currentText.slice(0, currentPositionRef.current));
+        currentPositionRef.current++;
+        typewriterRef.current = setTimeout(typeChar, 75);
+      } else {
+        typewriterRef.current = setTimeout(erasePlaceholder, 2000);
+      }
+    };
+
+    const erasePlaceholder = () => {
+      const currentText = placeholders[currentIndexRef.current];
+      
+      if (currentPositionRef.current > 0) {
+        currentPositionRef.current--;
+        setCurrentPlaceholder(currentText.slice(0, currentPositionRef.current));
+        typewriterRef.current = setTimeout(erasePlaceholder, 50);
+      } else {
+        currentIndexRef.current = (currentIndexRef.current + 1) % placeholders.length;
+        typewriterRef.current = setTimeout(typeChar, 500);
+      }
+    };
+
+    // Start typing
+    currentPositionRef.current = 0;
+    typeChar();
+  }, [placeholders]);
+
+  useEffect(() => {
+    if (!isTyping) {
+      typePlaceholder();
+    }
+    return () => {
+      clearTimeout(typewriterRef.current);
+    };
+  }, [isTyping, typePlaceholder]);
+
+  const handleInputFocus = () => {
+    setIsTyping(true);
+    setCurrentPlaceholder('');
+    clearTimeout(typewriterRef.current);
+  };
+
+  const handleInputBlur = () => {
+    if (!inputValue) {
+      setIsTyping(false);
+      currentPositionRef.current = 0;
+      currentIndexRef.current = 0;
+      typePlaceholder();
+    }
+  };
 
   // Framer Motion variants for the filter panel
   const filterPanelVariants = useMemo(() => ({
@@ -101,9 +176,13 @@ const SearchBar = memo(() => {
           <input
             id="search-input"
             type="text"
-            placeholder="Search for a product"
+            placeholder={isTyping ? '' : currentPlaceholder}
             className="search-input"
             aria-label="Search for a product"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
           />
 
           <button
