@@ -170,7 +170,7 @@
   border-color: #ddd;
 }
 
-/* “x” icon for removing a tag, with some spacing on whichever side you prefer */
+/* "x" icon for removing a tag, with some spacing on whichever side you prefer */
 .remove-tag {
   font-size: 1.1rem;
   color: #666;
@@ -497,4 +497,14 @@
   .price-value {
     font-size: 13px;
   }
+}
+
+.api-error-message {
+  background-color: #fff3f3;
+  color: #ff4444;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ffcdd2;
+  text-align: center;
 }

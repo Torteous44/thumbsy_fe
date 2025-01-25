@@ -1,66 +1,49 @@
 // RangeSlider.js
-import React, { useState } from 'react';
-import '../styles/components/SearchBar.css'; // Assuming your CSS is here
+import React from 'react';
+import '../styles/components/RangeSlider.css';
 
-const RangeSlider = () => {
-  const min = 0;
-  const max = 1000;
-
-  // You can customize the initial values
-  const [priceRange, setPriceRange] = useState([200, 620]);
-
-  // Calculate the percentage positions of the two thumbs
-  const minPercent = (priceRange[0] / max) * 100;
-  const maxPercent = (priceRange[1] / max) * 100;
-
-  // Event handler for the lower thumb
+const RangeSlider = ({ min, max, value, onChange, formatLabel }) => {
   const handleMinChange = (e) => {
-    const value = parseInt(e.target.value);
-    if (value <= priceRange[1]) {
-      setPriceRange([value, priceRange[1]]);
-    }
+    const newMin = Math.min(Number(e.target.value), value.max);
+    onChange({ ...value, min: newMin });
   };
 
-  // Event handler for the upper thumb
   const handleMaxChange = (e) => {
-    const value = parseInt(e.target.value);
-    if (value >= priceRange[0]) {
-      setPriceRange([priceRange[0], value]);
-    }
+    const newMax = Math.max(Number(e.target.value), value.min);
+    onChange({ ...value, max: newMax });
+  };
+
+  // Calculate the position of the track highlight
+  const getTrackStyle = () => {
+    const percent1 = ((value.min - min) / (max - min)) * 100;
+    const percent2 = ((value.max - min) / (max - min)) * 100;
+    return {
+      left: `${percent1}%`,
+      width: `${percent2 - percent1}%`
+    };
   };
 
   return (
     <div className="price-range">
-      <span className="price-value">${priceRange[0]}</span>
-
+      <span>{formatLabel(value.min)}</span>
       <div className="range-slider">
-        {/* Highlighted track between the two thumbs */}
-        <div
-          className="slider-track"
-          style={{
-            left: `${minPercent}%`,
-            width: `${maxPercent - minPercent}%`
-          }}
-        />
-        {/* Lower thumb */}
+        <div className="slider-track" style={getTrackStyle()}></div>
         <input
           type="range"
           min={min}
           max={max}
-          value={priceRange[0]}
+          value={value.min}
           onChange={handleMinChange}
         />
-        {/* Upper thumb */}
         <input
           type="range"
           min={min}
           max={max}
-          value={priceRange[1]}
+          value={value.max}
           onChange={handleMaxChange}
         />
       </div>
-
-      <span className="price-value">${priceRange[1]}</span>
+      <span>{formatLabel(value.max)}</span>
     </div>
   );
 };

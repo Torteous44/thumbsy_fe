@@ -43,7 +43,7 @@
   }
   
   .navbar-links a:hover {
-    color: #007bff; /* Light blue on hover */
+    color: #000000; 
   }
   
   .navbar-auth {
@@ -86,4 +86,36 @@
     .navbar-auth {
       display: none; /* Hide auth buttons on mobile */
     }
+  }
+
+  .profile-section {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .profile-link {
+    text-decoration: none;
+    color: #9B9B9B;
+    font-family: 'sohneLeicht', sans-serif;
+    font-size: 14px;
+  }
+
+  .profile-link:hover {
+    color: #666;
+  }
+
+  .logout {
+    background: transparent;
+    border: none;
+    color: #9B9B9B;
+    font-family: 'sohneLeicht', sans-serif;
+    font-size: 14px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .logout:hover {
+    color: #666;
   }

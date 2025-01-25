@@ -2,13 +2,15 @@ import React, { useState, memo, useMemo, useEffect, useRef, useCallback } from '
 import { motion, AnimatePresence } from 'framer-motion';
 import RangeSlider from './RangeSlider';
 import '../styles/components/SearchBar.css';
+import { useNavigate } from 'react-router-dom';
 
-const SearchBar = memo(() => {
+const SearchBar = memo(({ onSearch }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [currentPlaceholder, setCurrentPlaceholder] = useState('');
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [apiError, setApiError] = useState(null);
 
   const [characteristics, setCharacteristics] = useState([
     { id: 1, value: "High quality" },
@@ -113,10 +115,40 @@ const SearchBar = memo(() => {
     setFilterState((prev) => prev.filter((filter) => filter.id !== id));
   };
 
-  const handleKeyPress = (event, setFilterState) => {
-    if (event.key === 'Enter') {
-      handleAddFilter(setFilterState);
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter' && inputValue.trim()) {
+      handleSearch();
     }
+  };
+
+  const [isSearching, setIsSearching] = useState(false);
+  const abortControllerRef = useRef(null);
+
+  const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
+
+  const handlePriceRangeChange = (newRange) => {
+    setPriceRange(newRange);
+  };
+
+  const navigate = useNavigate();
+
+  const handleSearch = async () => {
+    if (!inputValue.trim()) return;
+
+    // Format the query data - remove the nested 'query' object
+    const searchData = {
+      query: inputValue.trim(),
+      min_price: parseInt(priceRange.min),
+      max_price: parseInt(priceRange.max),
+      characteristics: characteristics.map(c => c.value.toLowerCase()),
+      brands: brands.map(b => b.value.toLowerCase()),
+      review_sources: reviewSources.map(rs => rs.value.toLowerCase().replace(' ', '_'))
+    };
+
+    console.log('Sending search data:', searchData);
+
+    // Navigate to results with the search data
+    navigate('/results', { state: { query: searchData } });  // Wrap in query object to match Results.js
   };
 
   const renderFilterSection = (title, filters, setFilters, sectionKey) => (
@@ -153,7 +185,7 @@ const SearchBar = memo(() => {
         className="add-tag-input"
         value={newFilterValue}
         onChange={(e) => setNewFilterValue(e.target.value)}
-        onKeyDown={(e) => handleKeyPress(e, setFilters)}
+        onKeyDown={(e) => handleKeyPress(e)}
         placeholder="Add a filter..."
       />
       <button
@@ -180,18 +212,27 @@ const SearchBar = memo(() => {
   return (
     <section className="search-wrapper" aria-label="Product search">
       <div className="search-bar-container" role="search">
+        {apiError && (
+          <div className="error-message" role="alert">
+            {apiError}
+          </div>
+        )}
         <div className={`search-input-section ${isExpanded ? 'is-expanded' : ''}`}>
           <label htmlFor="search-input" className="sr-only">
             Search for a product
           </label>
           <div className="search-icon" aria-hidden="true">
-            <img
-              src="/assets/icons/SearchIcon.svg"
-              alt="Search"
-              width="20"
-              height="20"
-              loading="lazy"
-            />
+            {isSearching ? (
+              <span className="loading-spinner" />
+            ) : (
+              <img
+                src="/assets/icons/SearchIcon.svg"
+                alt="Search"
+                width="20"
+                height="20"
+                loading="lazy"
+              />
+            )}
           </div>
           <input
             id="search-input"
@@ -202,6 +243,8 @@ const SearchBar = memo(() => {
             onChange={(e) => setInputValue(e.target.value)}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
+            onKeyDown={handleKeyPress}
+            disabled={isSearching}
           />
           <button
             type="button"
@@ -222,7 +265,13 @@ const SearchBar = memo(() => {
             >
               <section className="filter-section">
                 <h3>Price</h3>
-                <RangeSlider />
+                <RangeSlider
+                  min={0}
+                  max={1000}
+                  value={priceRange}
+                  onChange={handlePriceRangeChange}
+                  formatLabel={(value) => `$${value}`}
+                />
               </section>
               {renderFilterSection("Characteristics", characteristics, setCharacteristics, "characteristics")}
               {renderFilterSection("Brands", brands, setBrands, "brands")}
