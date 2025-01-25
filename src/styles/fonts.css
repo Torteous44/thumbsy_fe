@@ -1,31 +1,173 @@
+/* Söhne Font Family */
 @font-face {
-  font-family: 'sohne-medium';
-  src: url('../fonts/TestSöhne/TestSöhne-Buch.woff2') format('woff2'),
-       url('../fonts/TestSöhne/TestSöhne-Buch.woff') format('woff');
-  font-weight: normal;
+  font-family: 'sohneBuch';
+  src: url('/public/fonts/TestSöhne/TestSöhne-Buch.otf') format('opentype');
+  font-weight: 400;
   font-style: normal;
-  font-display: swap;
 }
 
 @font-face {
-  font-family: 'sohne-semibold';
-  src: url('../fonts/TestSöhne/TestSöhne-Kräftig.woff2') format('woff2'),
-       url('../fonts/TestSöhne/TestSöhne-Kräftig.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+  font-family: 'sohneBuchKursiv';
+  src: url('/public/fonts/TestSöhne/TestSöhne-BuchKursiv.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
 }
 
 @font-face {
-  font-family: 'tiempos-regular';
-  src: url('../fonts/TestTiemposText/TestTiemposText-Regular.woff2') format('woff2'),
-       url('../fonts/TestTiemposText/TestTiemposText-Regular.woff') format('woff');
-  font-weight: normal;
+  font-family: 'sohneDreiviertelfett';
+  src: url('/public/fonts/TestSöhne/TestSöhne-Dreiviertelfett.otf') format('opentype');
+  font-weight: 600;
   font-style: normal;
-  font-display: swap;
 }
 
-/* Font Size Variables */
+@font-face {
+  font-family: 'sohneDreiviertelfettKursiv';
+  src: url('/public/fonts/TestSöhne/TestSöhne-DreiviertelfettKursiv.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'sohneExtrafett';
+  src: url('/public/fonts/TestSöhne/TestSöhne-Extrafett.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'sohneExtrafettKursiv';
+  src: url('/public/fonts/TestSöhne/TestSöhne-ExtrafettKursiv.otf') format('opentype');
+  font-weight: 800;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'sohneExtraleicht';
+  src: url('/public/fonts/TestSöhne/TestSöhne-Extraleicht.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'sohneExtraleichtKursiv';
+  src: url('/public/fonts/TestSöhne/TestSöhne-ExtraleichtKursiv.otf') format('opentype');
+  font-weight: 200;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'sohneFett';
+  src: url('/public/fonts/TestSöhne/TestSöhne-Fett.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'sohneFettKursiv';
+  src: url('/public/fonts/TestSöhne/TestSöhne-FettKursiv.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'sohneHalbfett';
+  src: url('/public/fonts/TestSöhne/TestSöhne-Halbfett.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'sohneHalbfettKursiv';
+  src: url('/public/fonts/TestSöhne/TestSöhne-HalbfettKursiv.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'sohneKräftig';
+  src: url('/public/fonts/TestSöhne/TestSöhne-Kräftig.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'sohneKräftigKursiv';
+  src: url('/public/fonts/TestSöhne/TestSöhne-KräftigKursiv.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'sohneLeicht';
+  src: url('/public/fonts/TestSöhne/TestSöhne-Leicht.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'sohneLeichtKursiv';
+  src: url('/public/fonts/TestSöhne/TestSöhne-LeichtKursiv.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* Tiempos Text Font Family */
+@font-face {
+  font-family: 'tiemposTextRegular';
+  src: url('/public/fonts/TestTiemposText/TestTiemposText-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'tiemposTextRegularItalic';
+  src: url('/public/fonts/TestTiemposText/TestTiemposText-RegularItalic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'tiemposTextMedium';
+  src: url('/public/fonts/TestTiemposText/TestTiemposText-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'tiemposTextMediumItalic';
+  src: url('/public/fonts/TestTiemposText/TestTiemposText-MediumItalic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'tiemposTextSemibold';
+  src: url('/public/fonts/TestTiemposText/TestTiemposText-Semibold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'tiemposTextSemiboldItalic';
+  src: url('/public/fonts/TestTiemposText/TestTiemposText-SemiboldItalic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'tiemposTextBold';
+  src: url('/public/fonts/TestTiemposText/TestTiemposText-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'tiemposTextBoldItalic';
+  src: url('/public/fonts/TestTiemposText/TestTiemposText-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+}
+/* --- Root Variables --- */
 :root {
   /* Heading Sizes */
   --font-size-h1: 28.8px;     /* 32px * 0.9 */
@@ -43,15 +185,3 @@
   --line-height-loose: 1.8;
 }
 
-/* Font Family Classes */
-.font-sohne-medium {
-  font-family: 'sohne-medium', sans-serif;
-}
-
-.font-sohne-semibold {
-  font-family: 'sohne-semibold', sans-serif;
-}
-
-.font-tiempos {
-  font-family: 'tiempos-regular', serif;
-} 

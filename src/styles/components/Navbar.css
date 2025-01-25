@@ -1,4 +1,4 @@
-/* Navbar Container */
+@import '../fonts.css';
 .navbar {
     display: flex;
     align-items: center;
@@ -32,7 +32,7 @@
   .navbar-links li {
     font-size: var(--font-size-base);
     font-weight: 200;
-    font-family: var(--font-family-sohne);
+    font-family: 'sohneLeicht', sans-serif;
   }
   
   .navbar-links a {
@@ -43,12 +43,5 @@
   
   .navbar-links a:hover {
     color: #007bff; /* Light blue on hover */
-  }
-  
-  /* Mobile Responsive */
-  @media (max-width: 768px) {
-    .navbar-links {
-      display: none; /* Hide links on small screens */
-    }
   }
   

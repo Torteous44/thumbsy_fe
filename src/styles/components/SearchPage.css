@@ -6,7 +6,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    font-family: 'Arial', sans-serif;
+    font-family: 'sohneLeicht', sans-serif;
   }
   
   /* Header Section */
@@ -16,9 +16,9 @@
   }
 
   .header-icon {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 1.5rem;
+    width: 55px;
+    height: 55px;
+
     border-radius: 50%;
     border: 0.5px solid #EAEAEA;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
@@ -26,8 +26,9 @@
   
   .search-header h1 {
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 400;
     margin-bottom: 1rem;
+    font-family: 'sohneKräftig', sans-serif;
   }
   
   .search-header p {

@@ -1,63 +1,145 @@
+
+@import '../fonts.css';
+
 /* General Page Styling */
+
 body {
   margin: 0;
-  font-family: 'Arial', sans-serif;
+
   background-color: #ffffff;
 }
 
 .landing-page {
-  text-align: center;
+  min-height: 100vh;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 /* Hero Section */
 .hero-section {
-  margin-bottom: 0.75rem;
-  padding: 2.5rem;
-}
-
-.hero-section h1 {
-  font-size: 2.3rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
-.hero-section p {
-  font-size: 1.1rem;
-  color: #555;
+  text-align: center;
   margin-bottom: 2rem;
+  width: 100%;
+  max-width: 800px;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+  line-height: 1.2;
+  font-family: 'tiemposTextRegular', sans-serif;
+
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: #666;
+  margin-bottom: 2rem;
+  font-family: 'sohneLeicht', sans-serif;
 }
 
 .cta-buttons {
   display: flex;
+  gap: 1rem;
   justify-content: center;
-  gap: 0.4rem;
+  margin-bottom: 3rem;
 }
 
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+  .landing-page {
+    padding: 1.5rem 1rem;
+    justify-content: center;
+  }
+
+  .hero-section {
+    margin-bottom: 1.5rem;
+    max-width: 100%;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+    padding: 0 1rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
+}
+
+/* Small mobile styles */
+@media screen and (max-width: 480px) {
+  .landing-page {
+    padding: 1rem 0.75rem;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+    padding: 0 0.75rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.875rem;
+    padding: 0 0.75rem;
+  }
+
+  .cta-buttons {
+    padding: 0 1.5rem;
+  }
+
+  .btn {
+    padding: 0.625rem;
+  }
+}
+
+/* Button styles */
 .btn {
-  display: flex;
-  width: 136px;
-  padding: 12px 24px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  align-self: stretch;
+  padding: 0.7rem 2rem;
   border-radius: 24px;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
-  font-family: 'sohne-medium', sans-serif;
+  transition: all 0.2s ease;
+  border: none;
+  font-family: 'sohneLeicht', sans-serif;
 }
 
 .btn-primary {
-  background-color: #000;
-  color: #fff;
-  border: none;
+  background: #333;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #444;
 }
 
 .btn-secondary {
-  background-color: #fff;
-  color: #000;
-  border: none;
+  background: #ffffff;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background: #f7f7f7;
 }
 
 /* Product Showcase Section */
@@ -84,26 +166,3 @@ body {
   transform: scale(1.05);
 }
 
-.hero-title {
-  color: #000;
-  text-align: center;
-  font-family: var(--font-family-sohne);
-  font-size: var(--font-size-h1);
-  font-style: normal;
-  font-weight: 400;
-  line-height: var(--line-height-tight);
-  width: 600px;
-  margin: 0 auto;
-}
-
-.hero-subtitle {
-  font-family: var(--font-family-sohne);
-  font-size: var(--font-size-base);
-  color: #999999;
-  text-align: center;
-}
-
-.btn,
-.landing-page {
-  font-family: var(--font-family-sohne);
-}
