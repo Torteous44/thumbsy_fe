@@ -154,11 +154,11 @@ const SearchBar = memo(({ onSearch }) => {
   const renderFilterSection = (title, filters, setFilters, sectionKey) => (
     <section className="filter-section">
       <h3>{title}</h3>
-      <div className="filter-tags">
+      <div className="filter-tags-search">
         {filters.map((filter) => (
           <motion.button
             key={filter.id}
-            className="filter-tag"
+            className="filter-tag-search"
             onClick={() => handleRemoveFilter(filter.id, setFilters)}
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}

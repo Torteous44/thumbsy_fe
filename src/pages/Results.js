@@ -10,27 +10,40 @@ const Results = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [error, setError] = useState(null);
+  const [metadata, setMetadata] = useState(null);
 
   const formatHeader = (query) => {
     if (!query) return null;
 
-    const title = `The best ${query.query} in ${new Date().getFullYear()}`;
-    
+    if (metadata) {
+      console.log('Metadata received:', metadata);
+      
+      // Include characteristics from the original query since they might not be in metadata
+      const allFilters = [
+        metadata.price_range || '',
+        ...(query.characteristics || []),  // Add characteristics from query
+        ...(metadata.filters || []),
+        ...(metadata.sources || []).map(s => s.replace('_', ' '))
+      ].filter(Boolean);
+
+      console.log('Processed filters:', allFilters);
+
+      return {
+        title: metadata.title,
+        filters: allFilters
+      };
+    }
+
     const filterCriteria = [
+      query.max_price === 0 ? 'Any price' : `$${query.min_price || 0} - $${query.max_price || 0}`,
       ...(query.characteristics || []),
       ...(query.brands || []),
       ...((query.review_sources || []).map(source => source.replace('_', ' ')))
-    ];
-
-    const priceRange = query.max_price === 0 ? 
-      'Any price' : 
-      `$${query.min_price || 0} - $${query.max_price || 0}`;
+    ].filter(Boolean);
 
     return {
-      title,
-      subtitle: `We chose the best ${query.query} based on ${filterCriteria.join(', ')}.`,
-      filters: filterCriteria,
-      price_range: priceRange
+      title: `The best ${query.query} in ${new Date().getFullYear()}`,
+      filters: filterCriteria
     };
   };
 
@@ -94,7 +107,9 @@ const Results = () => {
             try {
               const data = JSON.parse(line);
               console.log('Parsed data:', data); // Log parsed data
-              if (data.type === 'product') {
+              if (data.type === 'metadata') {
+                setMetadata(data);
+              } else if (data.type === 'product') {
                 console.log('Adding product to results:', data.data); // Log product data
                 setResults(prev => [...prev, data.data]);
               }
@@ -103,8 +118,6 @@ const Results = () => {
             }
           }
         }
-
-
 
       } catch (err) {
         console.error('Error details:', err);
@@ -128,12 +141,10 @@ const Results = () => {
       {headerData && (
         <header className="grid-page-header">
           <h1 className="grid-page-title">{headerData.title}</h1>
-          <p className="grid-page-subtitle">{headerData.subtitle}</p>
           <div className="grid-page-filters">
-            <span className="grid-page-filter-tag">{headerData.price_range}</span>
             {headerData.filters.map((filter, index) => (
               <span key={index} className="grid-page-filter-tag">
-                {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                {filter}
               </span>
             ))}
           </div>
@@ -175,12 +186,45 @@ const Results = () => {
 
       {isLoading && (
         <div className="grid-loading">
-          <motion.div
-            className="grid-loading-spinner"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          />
-          <p>Finding the best products for you...</p>
+          <div className="loading-dots">
+            <motion.span
+              animate={{
+                y: ["0%", "-100%", "0%"],
+                scale: [1, 1.2, 1]
+              }}
+              transition={{
+                duration: 1,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0
+              }}
+            />
+            <motion.span
+              animate={{
+                y: ["0%", "-100%", "0%"],
+                scale: [1, 1.2, 1]
+              }}
+              transition={{
+                duration: 1,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.2
+              }}
+            />
+            <motion.span
+              animate={{
+                y: ["0%", "-100%", "0%"],
+                scale: [1, 1.2, 1]
+              }}
+              transition={{
+                duration: 1,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.4
+              }}
+            />
+          </div>
+
         </div>
       )}
 
