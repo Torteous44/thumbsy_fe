@@ -21,10 +21,12 @@ const SearchPage = () => {
           className="header-icon"
         />
         <h1>Get a recommendation list tailored to you.</h1>
-        <p>
-          Search for products and get tailored recommendations. Like products
-          and get recommendations based on your taste profile.
-        </p>
+        <div className="header-description">
+          <p className="header-description">
+            Search for products and get tailored recommendations.<br />
+            Like products and get recommendations based on your taste profile.
+          </p>
+        </div>
       </header>
 
       <SearchBar onResultsReceived={handleResultsReceived} />

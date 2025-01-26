@@ -12,13 +12,13 @@
   /* Header Section */
   .search-header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
   }
 
   .header-icon {
     width: 55px;
     height: 55px;
-
+    margin-top: 8rem;
     border-radius: 50%;
     border: 0.5px solid #EAEAEA;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
@@ -27,13 +27,20 @@
   .search-header h1 {
     font-size: 1.5rem;
     font-weight: 400;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
     font-family: 'sohneKräftig', sans-serif;
   }
   
   .search-header p {
     color: #666;
     font-size: 1rem;
+  }
+  
+  .header-description {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
   }
   
 

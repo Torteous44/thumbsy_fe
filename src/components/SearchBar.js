@@ -151,6 +151,23 @@ const SearchBar = memo(({ onSearch }) => {
     navigate('/results', { state: { query: searchData } });  // Wrap in query object to match Results.js
   };
 
+  const filterInputRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (activeInput && filterInputRef.current && !filterInputRef.current.contains(event.target)) {
+        const addButton = document.querySelector('.add-tag');
+        if (!addButton || !addButton.contains(event.target)) {
+          setActiveInput(null);
+          setNewFilterValue('');
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [activeInput]);
+
   const renderFilterSection = (title, filters, setFilters, sectionKey) => (
     <section className="filter-section">
       <h3>{title}</h3>
@@ -168,50 +185,95 @@ const SearchBar = memo(({ onSearch }) => {
             <span className="remove-tag" aria-hidden="true">×</span>
           </motion.button>
         ))}
-<motion.div
-  className="add-tag-wrapper"
-  initial={{ width: "36px", padding: "0" }}
-  animate={{
-    width: activeInput === sectionKey ? "200px" : "36px",
-    padding: activeInput === sectionKey ? "0 8px" : "0",
-  }}
-  exit={{ width: "36px", padding: "0" }}
-  transition={{ duration: 0.3 }}
->
-  {activeInput === sectionKey ? (
-    <div className="add-tag-expanded">
-      <input
-        type="text"
-        className="add-tag-input"
-        value={newFilterValue}
-        onChange={(e) => setNewFilterValue(e.target.value)}
-        onKeyDown={(e) => handleKeyPress(e)}
-        placeholder="Add a filter..."
-      />
-      <button
-        className="add-tag-check"
-        onClick={() => handleAddFilter(setFilters)}
-      >
-        ✓
-      </button>
-    </div>
-  ) : (
-    <button
-      className="add-tag"
-      onClick={() => setActiveInput(sectionKey)}
-    >
-      +
-    </button>
-  )}
-</motion.div>
-
+        <motion.div
+          className="add-tag-wrapper"
+          initial={{ width: "36px", padding: "0" }}
+          animate={{
+            width: activeInput === sectionKey ? "200px" : "36px",
+            padding: activeInput === sectionKey ? "0 8px" : "0",
+          }}
+          exit={{ width: "36px", padding: "0" }}
+          transition={{ duration: 0.3 }}
+        >
+          {activeInput === sectionKey ? (
+            <div className="add-tag-expanded" ref={filterInputRef}>
+              <input
+                type="text"
+                className="add-tag-input"
+                value={newFilterValue}
+                onChange={(e) => setNewFilterValue(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Escape') {
+                    setActiveInput(null);
+                    setNewFilterValue('');
+                  } else if (e.key === 'Enter') {
+                    handleAddFilter(setFilters);
+                  }
+                }}
+                placeholder="Add a filter..."
+                autoFocus
+              />
+              <button
+                className="add-tag-check"
+                onClick={() => handleAddFilter(setFilters)}
+              >
+                ✓
+              </button>
+            </div>
+          ) : (
+            <button
+              className="add-tag"
+              onClick={() => setActiveInput(sectionKey)}
+            >
+              +
+            </button>
+          )}
+        </motion.div>
       </div>
     </section>
   );
 
+  const handleMinChange = (e) => {
+    const newMin = Number(e.target.value);
+    // Ensure min is at least 1 less than max
+    setPriceRange(prev => ({ 
+      ...prev, 
+      min: Math.min(newMin, prev.max - 10)
+    }));
+  };
+
+  const handleMaxChange = (e) => {
+    const newMax = Number(e.target.value);
+    // Ensure max is at least 1 more than min
+    setPriceRange(prev => ({ 
+      ...prev, 
+      max: Math.max(newMax, prev.min + 10)
+    }));
+  };
+
+  // Add ref for the search container
+  const searchContainerRef = useRef(null);
+
+  // Add click outside handler
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
+        setIsExpanded(false);
+      }
+    };
+
+    if (isExpanded) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isExpanded]);
+
   return (
     <section className="search-wrapper" aria-label="Product search">
-      <div className="search-bar-container" role="search">
+      <div className="search-bar-container" ref={searchContainerRef} role="search">
         {apiError && (
           <div className="error-message" role="alert">
             {apiError}
@@ -268,6 +330,7 @@ const SearchBar = memo(({ onSearch }) => {
                 <RangeSlider
                   min={0}
                   max={1000}
+                  step={5}
                   value={priceRange}
                   onChange={handlePriceRangeChange}
                   formatLabel={(value) => `$${value}`}
@@ -276,6 +339,23 @@ const SearchBar = memo(({ onSearch }) => {
               {renderFilterSection("Characteristics", characteristics, setCharacteristics, "characteristics")}
               {renderFilterSection("Brands", brands, setBrands, "brands")}
               {renderFilterSection("Review Sources", reviewSources, setReviewSources, "reviewSources")}
+              
+              <motion.button
+                className="search-submit-button"
+                onClick={handleSearch}
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                whileHover={{ scale: 1.05 }}
+                aria-label="Search with filters"
+              >
+                <img 
+                  src="/assets/icons/ArrowRight.svg" 
+                  alt="Search" 
+                  width="24" 
+                  height="24"
+                />
+              </motion.button>
             </motion.aside>
           )}
         </AnimatePresence>
