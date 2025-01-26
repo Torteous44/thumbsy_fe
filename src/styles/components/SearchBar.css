@@ -1,8 +1,8 @@
 /* Wrapper for the search bar (centered container) */
 .search-wrapper {
   width: 70%;
-  max-width: 800px;
-  min-width: 320px;
+  max-width: 700px;
+  min-width: 240px;
   margin: 2vh auto 0;
   position: relative;
   z-index: 1000;
@@ -11,7 +11,7 @@
 /* Main container with a subtle border & box-shadow */
 .search-bar-container {
   width: 100%;
-  border-radius: 16px;
+  border-radius: 36px;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.03);
   border: 1px solid #EAEAEA;
   transition: border-color 0.2s ease;
@@ -51,7 +51,7 @@
 .search-icon {
   display: flex;
   align-items: center;
-  margin-right: 0.75rem;
+  margin-right: 1rem;
 }
 
 .search-icon img {
@@ -64,10 +64,10 @@
 .search-input {
   flex: 1;
   border: none;
-  padding: 0.5rem 0;
+  padding: 0.7rem 0;
   font-size: var(--font-size-base);
   font-family: var(--font-family-sohne);
-  color: #333;
+  color: #000000;
   line-height: var(--line-height-normal);
 }
 
@@ -216,7 +216,7 @@
   width: 100%;
   height: 2px;
   background: none;
-  pointer-events: none; /* Only the thumbs are clickable */
+  pointer-events: none;
   -webkit-appearance: none;
   appearance: none;
   margin: 0;
@@ -283,8 +283,8 @@
 .add-tag-expanded {
   display: flex;
   align-items: center;
-  gap: 8px;
-  width: 100%;
+  gap: 4px;
+  width: 60%;
 }
 
 /* The '+' button */
@@ -321,7 +321,7 @@
   padding: 0 0.5rem;
   font-size: 0.9rem;
   font-family: var(--font-family-sohne);
-  color: #333;
+  color: #000000;
   transition: all 0.1s ease;
 }
 
@@ -352,7 +352,7 @@
 }
 
 .add-tag-check:hover {
-  color: #333; /* Darker grey for hover state */
+  color: #000000; /* Darker grey for hover state */
 
   transform: scale(1.05); /* Subtle hover scale for feedback */
 }
@@ -511,4 +511,33 @@
   border-radius: 4px;
   border: 1px solid #ffcdd2;
   text-align: center;
+}
+
+/* Green Search Button */
+.search-submit-button {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #16c04e;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 166, 126, 0.2);
+}
+
+.search-submit-button:hover {
+  background-color: #008F6B;
+  transform: scale(1.05);
+}
+
+.search-submit-button img {
+  width: 16px;
+  height: 16px;
+  filter: brightness(0) invert(1); /* Makes the arrow white */
 }

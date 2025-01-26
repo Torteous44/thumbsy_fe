@@ -2,14 +2,14 @@
 import React from 'react';
 import '../styles/components/RangeSlider.css';
 
-const RangeSlider = ({ min, max, value, onChange, formatLabel }) => {
+const RangeSlider = ({ min, max, value, onChange, formatLabel, step }) => {
   const handleMinChange = (e) => {
-    const newMin = Math.min(Number(e.target.value), value.max);
+    const newMin = Math.min(Number(e.target.value), value.max - step * 2);
     onChange({ ...value, min: newMin });
   };
 
   const handleMaxChange = (e) => {
-    const newMax = Math.max(Number(e.target.value), value.min);
+    const newMax = Math.max(Number(e.target.value), value.min + step * 2);
     onChange({ ...value, max: newMax });
   };
 
@@ -32,6 +32,7 @@ const RangeSlider = ({ min, max, value, onChange, formatLabel }) => {
           type="range"
           min={min}
           max={max}
+          step={step}
           value={value.min}
           onChange={handleMinChange}
         />
@@ -39,6 +40,7 @@ const RangeSlider = ({ min, max, value, onChange, formatLabel }) => {
           type="range"
           min={min}
           max={max}
+          step={step}
           value={value.max}
           onChange={handleMaxChange}
         />
