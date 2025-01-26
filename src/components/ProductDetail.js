@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import '../styles/components/ProductDetail.css';
+import LikeButton from './LikeButton';
 
 const ProductDetail = ({ product, onClose }) => {
   return (
@@ -23,7 +24,10 @@ const ProductDetail = ({ product, onClose }) => {
             {product.product_name}
             <span className="price-tag">{product.price}</span>
           </div>
-          <button className="close-button" onClick={onClose}>×</button>
+          <div className="header-actions">
+            <LikeButton productId={product.id} />
+            <button className="close-button" onClick={onClose}>×</button>
+          </div>
         </div>
 
         <div className="product-content">

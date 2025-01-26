@@ -1,0 +1,55 @@
+.like-button-container {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  z-index: 10;
+}
+
+.like-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #6b7280;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.like-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: #f9fafb;
+}
+
+.like-button.liked {
+  color: #2563eb;
+  background-color: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.thumb-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.likes-count {
+  font-weight: 500;
+  min-width: 16px;
+  text-align: left;
+}
+
+/* Animation for the like action */
+.like-button:active {
+  transform: scale(0.95);
+}
+
+/* Ensure proper positioning within ProductDetail */
+.product-detail-content {
+  position: relative; /* If not already set */
+} 

@@ -106,60 +106,91 @@ const ProfilePage = () => {
         </button>
       </div>
 
-      {/* Only render stats if they exist */}
-      {profileData.stats && (
-        <div className="profile-stats">
-          <div className="stat-card">
-            <h3>Activity Stats</h3>
-            <div className="stat-grid">
-              <div className="stat-item">
-                <span className="stat-value">{profileData.stats.total_likes}</span>
-                <span className="stat-label">Total Likes</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-value">{profileData.stats.days_member}</span>
-                <span className="stat-label">Days as Member</span>
+      <div className="profile-content">
+        {/* Stats Section */}
+        {profileData.stats && (
+          <div className="profile-stats">
+            <div className="stat-card">
+              <h3>Activity Stats</h3>
+              <div className="stat-grid">
+                <div className="stat-item">
+                  <span className="stat-value">{profileData.stats.total_likes}</span>
+                  <span className="stat-label">Total Likes</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-value">{profileData.stats.days_member}</span>
+                  <span className="stat-label">Days as Member</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Only render recent likes if they exist */}
-      {profileData.recent_likes?.length > 0 && (
-        <div className="stat-card">
-          <h3>Recent Likes</h3>
-          <div className="likes-grid">
-            {profileData.recent_likes.map((item) => (
-              <div key={item.id} className="like-card">
-                {item.image_url && (
-                  <img src={item.image_url} alt={item.name} className="like-image" />
-                )}
-                <div className="like-info">
-                  <h4>{item.name}</h4>
-                  {item.brand && <p className="brand">{item.brand}</p>}
-                  {item.price && <p className="price">${item.price.toFixed(2)}</p>}
+        {/* Price Range Distribution */}
+        {profileData.price_ranges && Object.keys(profileData.price_ranges).length > 0 && (
+          <div className="stat-card">
+            <h3>Price Range Distribution</h3>
+            <div className="price-ranges-grid">
+              {profileData.price_ranges.under_100 > 0 && (
+                <div className="price-range-item">
+                  <span className="range-value">{profileData.price_ranges.under_100}</span>
+                  <span className="range-label">Under $100</span>
                 </div>
-              </div>
-            ))}
+              )}
+              {profileData.price_ranges['100_to_300'] > 0 && (
+                <div className="price-range-item">
+                  <span className="range-value">{profileData.price_ranges['100_to_300']}</span>
+                  <span className="range-label">$100 - $300</span>
+                </div>
+              )}
+              {profileData.price_ranges.over_300 > 0 && (
+                <div className="price-range-item">
+                  <span className="range-value">{profileData.price_ranges.over_300}</span>
+                  <span className="range-label">Over $300</span>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Only render top brands if they exist */}
-      {profileData.top_brands?.length > 0 && (
-        <div className="stat-card">
-          <h3>Top Brands</h3>
-          <div className="brands-list">
-            {profileData.top_brands.map((brand, index) => (
-              <div key={index} className="brand-item">
-                <span className="brand-name">{brand.brand}</span>
-                <span className="brand-count">{brand.count}</span>
-              </div>
-            ))}
+        {/* Recent Likes Section */}
+        {profileData.recent_likes?.length > 0 && (
+          <div className="stat-card">
+            <h3>Recent Likes</h3>
+            <div className="likes-grid">
+              {profileData.recent_likes.map((item) => (
+                <div key={item.id} className="like-card">
+                  {item.image_url && (
+                    <div className="like-image-container">
+                      <img src={item.image_url} alt={item.name} className="like-image" />
+                    </div>
+                  )}
+                  <div className="like-info">
+                    <h4>{item.name}</h4>
+                    {item.brand && <p className="brand">{item.brand}</p>}
+                    <p className="price">${item.price.toFixed(2)}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+
+        {/* Top Brands Section */}
+        {profileData.top_brands?.length > 0 && (
+          <div className="stat-card">
+            <h3>Top Brands</h3>
+            <div className="brands-list">
+              {profileData.top_brands.map((brand, index) => (
+                <div key={index} className="brand-item">
+                  <span className="brand-name">{brand.brand}</span>
+                  <span className="brand-count">{brand.count}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
