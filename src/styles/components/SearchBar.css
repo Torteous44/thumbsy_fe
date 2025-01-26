@@ -366,13 +366,13 @@
 
 /* Animation for the width expansion of the wrapper */
 .add-tag-wrapper.expanding {
-  width: 200px; /* Expanded width when active */
+  width: 30px; /* Expanded width when active */
   padding: 0 8px;
 }
 
 /* Transition for shrinking back */
 .add-tag-wrapper.shrinking {
-  width: 38px;
+  width: 20px;
   padding: 0 0;
 }
 
@@ -449,7 +449,7 @@
   }
 
   .add-tag-wrapper {
-      padding: 5px 10px;
+      padding: 5px 5px;
       font-size: 13px;
       height: 28px;
     }
