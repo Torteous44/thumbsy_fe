@@ -1,259 +1,172 @@
 .profile-container {
-  max-width: 1200px;
+  max-width: 800px;  /* Reduced max-width for better readability */
   margin: 0 auto;
-  padding: 2rem;
-  background-color: #f8f9fa;
-  min-height: calc(100vh - 64px); /* Adjust based on your navbar height */
+  padding: 4rem 2rem;
+  min-height: calc(100vh - 64px);
 }
 
 .profile-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 3rem;
-  background: white;
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 4rem;
 }
 
 .profile-info h1 {
-  margin: 0;
-  font-size: 2.5rem;
+  font-size: 2rem;
+  font-weight: 500;  /* Lighter weight for elegance */
   color: #1a1a1a;
-  font-weight: 700;
-  letter-spacing: -0.5px;
+  margin-bottom: 0.5rem;
+  font-family: 'sohneBuch';
+  font-weight: 200;
 }
 
 .email {
   color: #666;
-  margin: 0.75rem 0;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  font-family: 'sohneExtraleicht';
+  font-weight: 500;
 }
 
 .joined {
   color: #888;
-  font-size: 0.95rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  font-family: 'sohneExtraleicht';
+  margin-bottom: 4rem;
 }
 
 .logout-button {
   padding: 0.75rem 1.5rem;
-  background-color: #ff4757;
-  color: white;
-  border: none;
-  border-radius: 8px;
+  background-color: transparent;
+  color: #666;
+  border: 1px solid #ddd;
+  border-radius: 6px;
   cursor: pointer;
-  font-weight: 600;
+  font-size: 0.875rem;
+  font-weight: 500;
   transition: all 0.2s ease;
+  margin-bottom: 0rem;
 }
 
 .logout-button:hover {
-  background-color: #ff6b81;
-  transform: translateY(-1px);
+  background-color: #f5f5f5;
+  color: #333;
 }
 
 .profile-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
-}
-
-.stat-card {
-  background: white;
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-2px);
-}
-
-.stat-card h3 {
-  color: #1a1a1a;
-  margin-bottom: 1.5rem;
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  margin-bottom: 4rem;
+  border-top: 1px solid #eee;
+  padding-top: 4rem;
 }
 
 .stat-item {
-  text-align: center;
-  padding: 1rem;
-  background: #f8f9fa;
-  border-radius: 12px;
+  margin-bottom: 2rem;
 }
 
 .stat-value {
-  display: block;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #2d3436;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #1a1a1a;
   margin-bottom: 0.5rem;
 }
 
 .stat-label {
   color: #666;
-  font-size: 0.95rem;
-  font-weight: 500;
-}
-
-.price-ranges {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.price-range-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-  border-radius: 8px;
-  background: #f8f9fa;
-  transition: background-color 0.2s ease;
-}
-
-.price-range-item:hover {
-  background: #f1f3f5;
+  font-size: 0.rem;
+  font-weight: 400;
 }
 
 .profile-content {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2rem;
+  border-top: 1px solid #eee;
+  padding-top: 4rem;
 }
 
-.recent-likes h3,
-.top-brands h3 {
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 500;
   color: #1a1a1a;
-  margin-bottom: 1.5rem;
-  font-size: 1.25rem;
-  font-weight: 600;
+  margin-bottom: 2rem;
 }
 
 .likes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
 }
 
-.like-card {
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
+.like-item {
+  margin-bottom: 1.5rem;
 }
 
-.like-card:hover {
-  transform: translateY(-4px);
-}
-
-.like-image {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-}
-
-.like-info {
-  padding: 1.25rem;
-}
-
-.like-info h4 {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 600;
+.like-title {
+  font-size: 1rem;
+  font-weight: 500;
   color: #1a1a1a;
+  margin-bottom: 0.5rem;
 }
 
-.brand {
+.like-brand {
   color: #666;
-  margin: 0.5rem 0;
-  font-size: 0.95rem;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
 }
 
-.price {
-  color: #2d3436;
-  font-weight: 700;
-  margin: 0.5rem 0;
-  font-size: 1.1rem;
+.like-price {
+  color: #1a1a1a;
+  font-weight: 500;
+  font-size: 0.875rem;
 }
 
 .brands-list {
-  margin-top: 1.5rem;
-  background: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-top: 4rem;
 }
 
 .brand-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  border-radius: 8px;
-  transition: background-color 0.2s ease;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
 }
 
-.brand-item:hover {
-  background: #f8f9fa;
+.brand-item:last-child {
+  border-bottom: none;
+}
+
+.brand-name {
+  color: #1a1a1a;
+  font-size: 1rem;
+  font-weight: 400;
 }
 
 .brand-count {
-  background: #e9ecef;
-  padding: 0.35rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #495057;
+  color: #666;
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
-@media (max-width: 968px) {
-  .profile-content {
-    grid-template-columns: 1fr;
-  }
-  
-  .profile-header {
-    flex-direction: column;
-    text-align: center;
-    gap: 1.5rem;
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 3rem 1.5rem;
   }
 
-  .stat-card {
-    padding: 1.5rem;
+  .profile-info h1 {
+    font-size: 1.75rem;
   }
 
   .likes-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
   .profile-container {
-    padding: 1rem;
-  }
-
-  .profile-header {
-    padding: 1.5rem;
+    padding: 2rem 1rem;
   }
 
   .profile-info h1 {
-    font-size: 2rem;
-  }
-
-  .stat-grid {
-    grid-template-columns: 1fr;
+    font-size: 1.5rem;
   }
 } 
