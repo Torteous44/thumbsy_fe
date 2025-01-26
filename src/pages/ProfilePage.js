@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/components/ProfilePage.css';
+import '../styles/pages/ProfilePage.css';
 
 const ProfilePage = () => {
   const [profileData, setProfileData] = useState(null);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/components/LandingPage.css'; // Import the specific styles for the page
+import '../styles/pages/LandingPage.css'; // Import the specific styles for the page
 import ScrollingProductGrid from '../components/ScrollingProductGrid';
 import AuthCard from '../components/AuthCard';
 import routes from '../routes';
