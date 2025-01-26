@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import routes from '../routes/index'; // Import centralized routes
 import AuthCard from './AuthCard';
 import '../styles/components/Navbar.css';
+import { useAuth } from '../contexts/AuthContext';
 
 const Navbar = () => {
   const [showAuth, setShowAuth] = useState(false);
   const [isSignUp, setIsSignUp] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    // Check if user is logged in by looking for access token
-    const token = localStorage.getItem('access_token');
-    setIsLoggedIn(!!token);
-  }, [showAuth]); // Re-check when auth modal closes
+  const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
 
   const handleAuthClick = (isSignUpMode) => {
     setIsSignUp(isSignUpMode);
@@ -21,12 +17,8 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    // Clear all auth tokens
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('token_type');
-    localStorage.removeItem('expires_in');
-    setIsLoggedIn(false);
+    logout();
+    navigate('/');
   };
 
   return (
@@ -54,7 +46,7 @@ const Navbar = () => {
 
         {/* Conditional Auth Buttons or Profile Link */}
         <div className="navbar-auth">
-          {isLoggedIn ? (
+          {isAuthenticated ? (
             <div className="profile-section">
               <Link to={routes.profile} className="profile-link">Profile</Link>
               <button 

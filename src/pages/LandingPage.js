@@ -4,12 +4,13 @@ import '../styles/pages/LandingPage.css'; // Import the specific styles for the 
 import ScrollingProductGrid from '../components/ScrollingProductGrid';
 import AuthCard from '../components/AuthCard';
 import routes from '../routes';
+import { useAuth } from '../contexts/AuthContext';
 
 const LandingPage = () => {
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const [showAuth, setShowAuth] = useState(false);
   const [isSignUp, setIsSignUp] = useState(true);
-  const navigate = useNavigate();
-  const isSignedIn = localStorage.getItem('access_token');
 
   const handleAuthClick = () => {
     setIsSignUp(true);
@@ -27,11 +28,11 @@ const LandingPage = () => {
         <h1 className="hero-title">Get recommendations and reviews tailored for you.</h1>
         <p className="hero-subtitle">A whole new way to shop. Based on your tastes.</p>
         <div className="cta-buttons">
-        <button 
-            className={`btn ${isSignedIn ? 'btn-profile' : 'btn-primary'}`}
-            onClick={() => isSignedIn ? navigate('/profile') : setShowAuth(true)}
+          <button 
+            className={`btn ${isAuthenticated ? 'btn-profile' : 'btn-primary'}`}
+            onClick={() => isAuthenticated ? navigate('/profile') : setShowAuth(true)}
           >
-            {isSignedIn ? 'Profile' : 'Sign Up'}
+            {isAuthenticated ? 'Profile' : 'Sign Up'}
           </button>
           <button 
             className="btn btn-secondary"
@@ -44,11 +45,13 @@ const LandingPage = () => {
       {/* Replace the static product showcase with the scrolling grid */}
       <ScrollingProductGrid />
       
-      <AuthCard 
-        isVisible={showAuth}
-        onClose={() => setShowAuth(false)}
-        defaultIsSignUp={isSignUp}
-      />
+      {showAuth && (
+        <AuthCard 
+          isVisible={showAuth}
+          onClose={() => setShowAuth(false)}
+          defaultIsSignUp={true}
+        />
+      )}
     </div>
   );
 };

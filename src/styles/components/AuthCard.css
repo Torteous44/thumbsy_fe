@@ -83,7 +83,13 @@
     padding: 14px;
     font-size: 16px;
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    position: relative;
+    overflow: hidden;
   }
   
   .auth-submit:hover {
@@ -105,5 +111,35 @@
     font-size: 14px;
     padding: 0 4px;
     cursor: pointer;
+  }
+  
+  .loading-spinner {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 1.2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    border-top-color: rgba(255, 255, 255, 0.95);
+    border-left-color: rgba(255, 255, 255, 0.95);
+    transform-origin: center;
+    animation: spinner-rotate 0.8s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+    will-change: transform;
+  }
+  
+  @keyframes spinner-rotate {
+    from {
+      transform: rotate(0turn);
+    }
+    to {
+      transform: rotate(1turn);
+    }
+  }
+  
+  .auth-submit:disabled,
+  .auth-switch button:disabled {
+    opacity: 0.85;
+    cursor: not-allowed;
+    background-color: rgba(0, 0, 0, 0.08);
+    transform: scale(0.98);
   }
   

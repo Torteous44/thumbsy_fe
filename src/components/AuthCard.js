@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import '../styles/components/AuthCard.css';
+import { useAuth } from '../contexts/AuthContext';
 
 const AuthCard = ({ isVisible, onClose, defaultIsSignUp = true }) => {
+  const { login, signup } = useAuth();
   const [isLogin, setIsLogin] = useState(!defaultIsSignUp);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -31,48 +34,37 @@ const AuthCard = ({ isVisible, onClose, defaultIsSignUp = true }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true);
+    
+    // Validate password for signup
+    if (!isLogin) {
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+      if (!passwordRegex.test(formData.password)) {
+        setError('Password must be at least 8 characters and include uppercase, lowercase, and numbers');
+        return;
+      }
+      if (formData.username.length < 3) {
+        setError('Username must be at least 3 characters');
+        return;
+      }
+    }
     
     try {
-      const endpoint = isLogin ? 
-        'https://qrbackend-ghtk.onrender.com/auth/login' : 
-        'https://qrbackend-ghtk.onrender.com/auth/signup';
-      
-      const body = isLogin ? 
-        `username=${formData.email}&password=${formData.password}` :
-        JSON.stringify({
-          email: formData.email,
-          username: formData.username,
-          password: formData.password
-        });
-
-      const headers = {
-        'Content-Type': isLogin ? 
-          'application/x-www-form-urlencoded' : 
-          'application/json'
-      };
-
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers,
-        body
-      });
-
-      if (!response.ok) {
-        throw new Error('Authentication failed');
+      if (isLogin) {
+        await login(formData.email, formData.password);
+        onClose();
+      } else {
+        const result = await signup(formData.username, formData.password);
+        setError(result.message); // Show success message
+        setTimeout(() => {
+          setIsLogin(true);
+        }, 2000);
       }
-
-      const data = await response.json();
-      
-      // Store tokens in localStorage
-      localStorage.setItem('access_token', data.access_token);
-      localStorage.setItem('refresh_token', data.refresh_token);
-      localStorage.setItem('token_type', data.token_type);
-      localStorage.setItem('expires_in', data.expires_in.toString());
-      
-      // Close the modal
-      onClose();
     } catch (err) {
       setError(err.message);
+      console.error('Auth error:', err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -108,6 +100,7 @@ const AuthCard = ({ isVisible, onClose, defaultIsSignUp = true }) => {
                     placeholder="Email" 
                     value={formData.email}
                     onChange={handleInputChange}
+                    required
                   />
                   <input 
                     type="password" 
@@ -115,11 +108,28 @@ const AuthCard = ({ isVisible, onClose, defaultIsSignUp = true }) => {
                     placeholder="Password" 
                     value={formData.password}
                     onChange={handleInputChange}
+                    required
                   />
-                  <button type="submit" className="auth-submit">Log in</button>
+                  <button 
+                    type="submit" 
+                    className="auth-submit" 
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <div className="loading-spinner" />
+                    ) : (
+                      'Log in'
+                    )}
+                  </button>
                   <p className="auth-switch">
                     Don't have an account? 
-                    <button type="button" onClick={() => setIsLogin(false)}>Sign up</button>
+                    <button 
+                      type="button" 
+                      onClick={() => setIsLogin(false)}
+                      disabled={isLoading}
+                    >
+                      Sign up
+                    </button>
                   </p>
                 </>
               ) : (
@@ -127,28 +137,41 @@ const AuthCard = ({ isVisible, onClose, defaultIsSignUp = true }) => {
                   <input 
                     type="text" 
                     name="username"
-                    placeholder="Username" 
+                    placeholder="Username (min 3 characters)" 
                     value={formData.username}
                     onChange={handleInputChange}
-                  />
-                  <input 
-                    type="email" 
-                    name="email"
-                    placeholder="Email" 
-                    value={formData.email}
-                    onChange={handleInputChange}
+                    minLength={3}
+                    required
                   />
                   <input 
                     type="password" 
                     name="password"
-                    placeholder="Password" 
+                    placeholder="Password (min 8 chars, upper, lower, number)" 
                     value={formData.password}
                     onChange={handleInputChange}
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    required
                   />
-                  <button type="submit" className="auth-submit">Create account</button>
+                  <button 
+                    type="submit" 
+                    className="auth-submit" 
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <div className="loading-spinner" />
+                    ) : (
+                      'Create account'
+                    )}
+                  </button>
                   <p className="auth-switch">
                     Already have an account? 
-                    <button type="button" onClick={() => setIsLogin(true)}>Log in</button>
+                    <button 
+                      type="button" 
+                      onClick={() => setIsLogin(true)}
+                      disabled={isLoading}
+                    >
+                      Log in
+                    </button>
                   </p>
                 </>
               )}
