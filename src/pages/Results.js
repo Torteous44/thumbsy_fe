@@ -13,6 +13,7 @@ const Results = () => {
   const [metadata, setMetadata] = useState(null);
   const [sortBy, setSortBy] = useState('');
   const [sortDirection, setSortDirection] = useState('asc');
+  const [productLikes, setProductLikes] = useState({});
 
   const formatHeader = useCallback((query) => {
     if (!query) return null;
@@ -74,6 +75,41 @@ const Results = () => {
       setSortDirection('asc');
     }
   };
+
+  const handleLikeToggle = useCallback(async (productId, isLiked, event) => {
+    event.stopPropagation(); // Prevent card click event
+    
+    try {
+      const token = localStorage.getItem('access_token');
+      const tokenType = localStorage.getItem('token_type');
+      
+      if (!token) throw new Error('Authentication required');
+
+      const response = await fetch(
+        `https://qrbackend-ghtk.onrender.com/search/products/${productId}/like`,
+        {
+          method: isLiked ? 'DELETE' : 'POST',
+          headers: {
+            'Authorization': `${tokenType} ${token}`,
+          }
+        }
+      );
+
+      if (!response.ok) throw new Error('Failed to update like status');
+
+      // Update local state
+      setProductLikes(prev => ({
+        ...prev,
+        [productId]: {
+          ...prev[productId],
+          is_liked_by_user: !isLiked
+        }
+      }));
+
+    } catch (error) {
+      console.error('Error toggling like:', error);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -158,36 +194,81 @@ const Results = () => {
     }
   }, [location.state]);
 
+  // Fetch initial like status for all products
+  useEffect(() => {
+    const fetchLikeStatus = async (productId) => {
+      try {
+        const token = localStorage.getItem('access_token');
+        const tokenType = localStorage.getItem('token_type');
+        
+        const response = await fetch(
+          `https://qrbackend-ghtk.onrender.com/search/products/${productId}/likes`,
+          {
+            headers: token ? {
+              'Authorization': `${tokenType} ${token}`
+            } : {}
+          }
+        );
+
+        if (!response.ok) throw new Error('Failed to fetch like status');
+        
+        const data = await response.json();
+        setProductLikes(prev => ({
+          ...prev,
+          [productId]: data
+        }));
+
+      } catch (error) {
+        console.error('Error fetching like status:', error);
+      }
+    };
+
+    results.forEach(product => {
+      if (product.id) {
+        fetchLikeStatus(product.id);
+      }
+    });
+  }, [results]);
+
   const productList = useMemo(() => (
     <div className="grid-products">
       {sortResults.map((product, index) => (
-        <div 
-          key={`${product.product_name}-${index}`}
-          className="result-card" 
-          onClick={() => setSelectedProduct(product)}
-        >
-          <div className="result-image">
-            <img src={product.image_url} alt={product.product_name} />
-          </div>
-          <div className="result-content">
-            <h2 className="result-name">{product.product_name}</h2>
-            <div className="result-description">{product.description}</div>
-            <div className="result-features">
-              {product.key_features?.map((feature, index) => (
-                <span key={index} className="result-feature">
-                  {feature.replace('.', '')}
-                </span>
-              ))}
+        <div className="result-card" key={`${product.product_name}-${index}`} onClick={() => setSelectedProduct(product)}>
+
+          <div className="result-main">
+            <div className="result-image">
+              <img src={product.image_url} alt={product.product_name} />
             </div>
-          </div>
-          <div className="result-price">
-            <img src="/assets/icons/PriceTag.svg" alt="Price" className="price-icon" />
-            <span>{product.price}</span>
+            <div className="result-content">
+              <div className="title-row">
+                <h2 className="result-title">{product.product_name}</h2>
+                <div 
+                  className="taste-profile-cell"
+                  onClick={(e) => handleLikeToggle(
+                    product.id, 
+                    productLikes[product.id]?.is_liked_by_user,
+                    e
+                  )}
+                >
+                  <img 
+                    src="/assets/icons/thumbsy-icon.svg" 
+                    alt="Add to taste profile" 
+                    className={`thumbsy-icon ${productLikes[product.id]?.is_liked_by_user ? 'liked' : ''}`}
+                  />
+                </div>
+              </div>
+              <div className="result-brand">{product.brand}</div>
+              <div className="result-description">{product.description}</div>
+              <div className="result-action">
+                <div className="result-price">{product.price}</div>
+                <button className="learn-more">Learn more ›</button>
+              </div>
+            </div>
           </div>
         </div>
       ))}
     </div>
-  ), [sortResults, setSelectedProduct]);
+  ), [sortResults, setSelectedProduct, productLikes, handleLikeToggle]);
 
   return (
     <div className="results-container">
