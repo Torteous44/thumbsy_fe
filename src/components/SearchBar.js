@@ -12,18 +12,9 @@ const SearchBar = memo(({ onSearch }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [apiError] = useState(null);
 
-  const [characteristics, setCharacteristics] = useState([
-    { id: 1, value: "High quality" },
-    { id: 2, value: "Trendy" },
-  ]);
-  const [brands, setBrands] = useState([
-    { id: 3, value: "Small business" },
-    { id: 4, value: "Local" },
-  ]);
-  const [reviewSources, setReviewSources] = useState([
-    { id: 5, value: "Tech reviews" },
-    { id: 6, value: "Online forums" },
-  ]);
+  const [characteristics, setCharacteristics] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [reviewSources, setReviewSources] = useState([]);
 
   const [activeInput, setActiveInput] = useState(null); // Tracks which section's `+` is active
   const [newFilterValue, setNewFilterValue] = useState(''); // Holds the input value for the active filter
@@ -216,8 +207,20 @@ const SearchBar = memo(({ onSearch }) => {
               <button
                 className="add-tag-check"
                 onClick={() => handleAddFilter(setFilters)}
+                style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
-                ✓
+                <svg 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2"
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
               </button>
             </div>
           ) : (
@@ -232,24 +235,6 @@ const SearchBar = memo(({ onSearch }) => {
       </div>
     </section>
   );
-
-  const handleMinChange = (e) => {
-    const newMin = Number(e.target.value);
-    // Ensure min is at least 1 less than max
-    setPriceRange(prev => ({ 
-      ...prev, 
-      min: Math.min(newMin, prev.max - 10)
-    }));
-  };
-
-  const handleMaxChange = (e) => {
-    const newMax = Number(e.target.value);
-    // Ensure max is at least 1 more than min
-    setPriceRange(prev => ({ 
-      ...prev, 
-      max: Math.max(newMax, prev.min + 10)
-    }));
-  };
 
   // Add ref for the search container
   const searchContainerRef = useRef(null);

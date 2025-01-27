@@ -175,11 +175,12 @@
   align-items: center;
   transition: all 0.2s ease;
   white-space: nowrap;
+  margin-top: 0.5rem;
 }
 
 .result-feature:hover {
   background: #e8eaed;
-  transform: translateX(4px);
+  transform: translateY(-2px);
 }
 
 .result-feature.users-liked::before {
