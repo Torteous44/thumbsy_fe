@@ -209,18 +209,12 @@ const SearchBar = memo(({ onSearch }) => {
                 onClick={() => handleAddFilter(setFilters)}
                 style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
-                <svg 
-                  width="20" 
-                  height="20" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2"
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                >
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
+                <img 
+                  src="/assets/icons/CheckMark.svg" 
+                  alt="Add"
+                  width="16"
+                  height="16"
+                />
               </button>
             </div>
           ) : (
