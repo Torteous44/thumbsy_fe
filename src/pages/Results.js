@@ -287,16 +287,14 @@ const Results = () => {
           <button 
             className={`sort-button ${sortBy === 'price' ? 'active' : ''}`}
             onClick={() => handleSort('price')}
-            data-direction={sortBy === 'price' ? sortDirection : ''}
           >
-            Price
+            Price {sortBy === 'price' && (sortDirection === 'asc' ? ' ↑' : ' ↓')}
           </button>
           <button 
             className={`sort-button ${sortBy === 'name' ? 'active' : ''}`}
             onClick={() => handleSort('name')}
-            data-direction={sortBy === 'name' ? sortDirection : ''}
           >
-            Name
+            Name {sortBy === 'name' && (sortDirection === 'asc' ? ' ↑' : ' ↓')}
           </button>
         </div>
       </div>
