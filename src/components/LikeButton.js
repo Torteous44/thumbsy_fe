@@ -57,20 +57,20 @@ const LikeButton = ({ productId }) => {
 
   return (
     <div className="like-button-container">
-      <button 
-        className={`like-button ${isLiked ? 'liked' : ''}`} 
+      <div 
+        className={`like-action ${isLiked ? 'liked' : ''}`} 
         onClick={handleLikeClick}
+        role="button"
+        tabIndex={0}
         aria-label={isLiked ? 'Unlike' : 'Like'}
       >
-        <div className="circle-button">
-          <img 
-            src="/assets/icons/thumbsy-icon.svg" 
-            alt="Thumbsy" 
-            className="thumbsy-icon"
-          />
-        </div>
+        <img 
+          src="/assets/icons/thumbsy-icon.svg" 
+          alt="Thumbsy" 
+          className="thumbsy-icon"
+        />
         <span className="likes-count">{likesCount}</span>
-      </button>
+      </div>
     </div>
   );
 };
