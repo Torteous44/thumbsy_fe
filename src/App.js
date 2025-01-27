@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import ProfilePage from './pages/ProfilePage';
 import Results from './pages/Results';
 import TestPage from './pages/TestPage';
+
 import { AuthProvider } from './contexts/AuthContext';
 
 const App = () => {
