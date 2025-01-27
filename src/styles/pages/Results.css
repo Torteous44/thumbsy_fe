@@ -75,21 +75,6 @@
   gap: 1.5rem;
 }
 
-.sort-controls {
-  display: flex;
-  justify-content: flex-start;
-  gap: 1rem;
-
-}
-
-.sort-button {
-  color: #666;
-  font-size: 0.875rem;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  cursor: pointer;
-}
 
 .grid-products {
   display: flex;
@@ -699,29 +684,23 @@
   background: none;
   border: none;
   padding: 0;
-  font-family: 'sohneBuch', sans-serif;
-  font-size: var(--font-size-base);
-  color: #111;
+  font-family: 'sohneDreiviertel', sans-serif;
+  font-size: 1rem;
+  color: #000000;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.5rem;
+  font-weight: 200;
 }
 
 .sort-button.active {
-  font-family: 'sohneDreiviertelfett', sans-serif;
+  font-family: 'sohneDreiviertel', sans-serif;
+  font-weight: 500;
 }
 
-.sort-button::after {
-  content: '↑';
-  display: inline-block;
-  margin-left: 4px;
-  transition: transform 0.2s ease;
-}
 
-.sort-button[data-direction='desc']::after {
-  content: '↕';
-}
+
 
 .sort-button:not(.active)::after {
   opacity: 0.5;
