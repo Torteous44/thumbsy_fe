@@ -17,19 +17,22 @@ const ProductCard = () => {
   return (
     <div className="product-card">
       <div className="top-actions">
-        <span 
-          className={`taste-profile-text ${isActive ? 'active' : ''}`}
-          onClick={() => setIsActive(!isActive)}
-          style={{ cursor: 'pointer' }}
-        >
-          {isActive ? 'Added to profile' : 'Add to taste profile'}
-        </span>
-        <button 
-          className={`thumbsy-button ${isActive ? 'active' : ''}`}
-          onClick={() => setIsActive(!isActive)}
-        >
-          <img src="/assets/icons/thumbsy-icon.svg" alt="Add to taste profile" />
-        </button>
+        <div className="taste-profile-row">
+          <span 
+            className={`taste-profile-text ${isActive ? 'active' : ''}`}
+            onClick={() => setIsActive(!isActive)}
+            style={{ cursor: 'pointer' }}
+          >
+            {isActive ? 'Added to profile' : 'Add to taste profile'}
+          </span>
+          <button 
+            className={`thumbsy-button ${isActive ? 'active' : ''}`}
+            onClick={() => setIsActive(!isActive)}
+          >
+            <img src="/assets/icons/thumbsy-icon.svg" alt="Add to taste profile" />
+          </button>
+        </div>
+        <span className="like-counter">32 likes by users</span>
       </div>
       <div className="tagline-section">
         <p className="tagline">{product.tagline}</p>
