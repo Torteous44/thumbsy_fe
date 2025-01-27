@@ -11,8 +11,8 @@
   gap: 8px;
   background: white;
   border: 1px solid #e5e7eb;
-  padding: 8px 16px;
-  border-radius: 9999px;
+  padding: 6px 14px;
+  border-radius: 50px;
   cursor: pointer;
   transition: all 0.2s ease;
   color: #6b7280;
@@ -27,9 +27,9 @@
 }
 
 .like-button.liked {
-  color: #2563eb;
-  background-color: #eff6ff;
-  border-color: #bfdbfe;
+  color: #000000;
+  background-color: #e7ffea;
+  border-color: #007d00;
 }
 
 .thumb-icon {
