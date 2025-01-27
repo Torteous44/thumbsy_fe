@@ -284,7 +284,8 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  width: 60%;
+  width: calc(100% - 8px); /* Subtract some padding to prevent overflow */
+  padding: 0 4px;
 }
 
 /* The '+' button */
@@ -322,6 +323,7 @@
   font-size: 0.9rem;
   font-family: var(--font-family-sohne);
   color: #000000;
+  width: calc(100% - 36px); /* Make room for the check button */
   transition: all 0.1s ease;
 }
 
@@ -340,15 +342,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  min-width: 28px;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0; /* Prevent the button from shrinking */
   background: none;
   color: #666; 
   font-size: 1rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: color 0.3s ease, border-color 0.3s ease, transform 0.1s ease;
+  padding: 0;
+  margin: 0;
+  position: relative;
 }
 
 .add-tag-check:hover {
@@ -362,7 +368,22 @@
   box-shadow: 0 0 4px rgba(51, 51, 51, 0.15); /* Minimal focus effect */
 }
 
+.add-tag-check img {
+  width: 16px;
+  height: 16px;
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  filter: invert(40%) sepia(0%) saturate(0%) hue-rotate(153deg) brightness(98%) contrast(91%);
+  transition: filter 0.2s ease;
+}
 
+.add-tag-check:hover img {
+  /* Darker color on hover */
+  filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(153deg) brightness(0%) contrast(100%);
+}
 
 /* Animation for the width expansion of the wrapper */
 .add-tag-wrapper.expanding {

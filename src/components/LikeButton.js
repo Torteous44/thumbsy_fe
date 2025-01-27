@@ -1,21 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/components/LikeButton.css';
 
-const ThumbUpIcon = ({ filled }) => (
-  <svg 
-    width="24" 
-    height="24" 
-    viewBox="0 0 24 24" 
-    fill={filled ? "currentColor" : "none"}
-    stroke="currentColor" 
-    strokeWidth="1.5" 
-    strokeLinecap="round" 
-    strokeLinejoin="round"
-  >
-    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" />
-  </svg>
-);
-
 const LikeButton = ({ productId }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
@@ -72,16 +57,20 @@ const LikeButton = ({ productId }) => {
 
   return (
     <div className="like-button-container">
-      <button 
-        className={`like-button ${isLiked ? 'liked' : ''}`} 
+      <div 
+        className={`like-action ${isLiked ? 'liked' : ''}`} 
         onClick={handleLikeClick}
+        role="button"
+        tabIndex={0}
         aria-label={isLiked ? 'Unlike' : 'Like'}
       >
-        <span className="thumb-icon">
-          <ThumbUpIcon filled={isLiked} />
-        </span>
+        <img 
+          src="/assets/icons/thumbsy-icon.svg" 
+          alt="Thumbsy" 
+          className="thumbsy-icon"
+        />
         <span className="likes-count">{likesCount}</span>
-      </button>
+      </div>
     </div>
   );
 };

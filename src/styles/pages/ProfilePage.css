@@ -1,185 +1,130 @@
 .profile-container {
-  max-width: 800px;  /* Reduced max-width for better readability */
+  max-width: 680px;  /* Narrower width for better readability */
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: 6rem 2rem;
   min-height: calc(100vh - 64px);
+  font-family: 'sohneBuch', sans-serif;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
 }
 
 .profile-header {
-  margin-bottom: 4rem;
+  margin-bottom: 6rem;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .profile-info h1 {
-  font-size: 2rem;
-  font-weight: 500;  /* Lighter weight for elegance */
+  font-family: 'sohneExtraleicht', sans-serif;
+  font-size: 3.5rem;
   color: #1a1a1a;
-  margin-bottom: 0.5rem;
-  font-family: 'sohneBuch';
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
   font-weight: 200;
 }
 
+.profile-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .email {
+  font-family: 'sohneExtraleicht', sans-serif;
   color: #666;
-  font-size: 1rem;
-  font-weight: 400;
-  margin-bottom: 1rem;
-  font-family: 'sohneExtraleicht';
-  font-weight: 500;
+  font-size: var(--font-size-large);
+  letter-spacing: -0.01em;
+  font-weight: 200;
+  line-height: 1.2;
 }
 
 .joined {
+  font-family: 'sohneExtraleicht', sans-serif;
   color: #888;
-  font-size: 0.875rem;
-  font-weight: 400;
-  font-family: 'sohneExtraleicht';
-  margin-bottom: 4rem;
+  font-size: var(--font-size-small);
 }
 
 .logout-button {
+  font-family: 'sohneBuch', sans-serif;
   padding: 0.75rem 1.5rem;
   background-color: transparent;
   color: #666;
   border: 1px solid #ddd;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: var(--font-size-small);
   transition: all 0.2s ease;
-  margin-bottom: 0rem;
+  height: fit-content;
 }
 
 .logout-button:hover {
-  background-color: #f5f5f5;
+  background-color: #fafafa;
   color: #333;
 }
 
 .profile-stats {
-  margin-bottom: 4rem;
+  margin: 0 0 3rem 0;
+  padding-top: 3rem;
   border-top: 1px solid #eee;
-  padding-top: 4rem;
 }
 
 .stat-item {
-  margin-bottom: 2rem;
+  margin-bottom: 0.75rem;
 }
 
-.stat-value {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #1a1a1a;
-  margin-bottom: 0.5rem;
+.stat-item:last-child {
+  margin-bottom: 0;
 }
 
-.stat-label {
+.stat-text {
+  font-family: 'sohneExtraleicht', sans-serif;
+  font-size: 1rem;
   color: #666;
-  font-size: 0.rem;
-  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
-.profile-content {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+.stat-text span {
+  display: inline;
 }
 
 .section-title {
-  font-size: 1.125rem;
-  font-weight: 500;
+  font-family: 'sohneLeicht', sans-serif;
+  font-size: var(--font-size-h2);
   color: #1a1a1a;
-  margin-bottom: 2rem;
+  margin: 0 0 2rem 0;
+  letter-spacing: -0.02em;
 }
 
 .likes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 2rem;
-  margin-bottom: 4rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4rem;
+  margin-bottom: 3rem;
 }
 
 .like-item {
-  margin-bottom: 1.5rem;
-}
-
-.like-title {
-  font-size: 1rem;
-  font-weight: 500;
-  color: #1a1a1a;
-  margin-bottom: 0.5rem;
-}
-
-.like-brand {
-  color: #666;
-  font-size: 0.875rem;
-  margin-bottom: 0.5rem;
-}
-
-.like-price {
-  color: #1a1a1a;
-  font-weight: 500;
-  font-size: 0.875rem;
-}
-
-.brands-list {
-  margin-top: 4rem;
-}
-
-.brand-item {
   display: flex;
-  justify-content: space-between;
+  gap: 1.5rem;
   align-items: center;
-  padding: 1rem 0;
-  border-bottom: 1px solid #eee;
-}
-
-.brand-item:last-child {
-  border-bottom: none;
-}
-
-.brand-name {
-  color: #1a1a1a;
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-.brand-count {
-  color: #666;
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.price-ranges-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.price-range-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-}
-
-.range-value {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-.range-label {
-  font-size: 0.9rem;
-  color: #666;
-  margin-top: 0.5rem;
 }
 
 .like-image-container {
-  width: 100%;
-  height: 200px;
+  width: 80px;
+  height: 80px;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 4px;
+  opacity: 0.9;
 }
 
 .like-image {
@@ -188,27 +133,113 @@
   object-fit: cover;
 }
 
+.like-info {
+  flex: 1;
+}
+
+.like-title {
+  font-family: 'sohneBuch', sans-serif;
+  font-size: var(--font-size-base);
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.like-brand {
+  font-family: 'sohneExtraleicht', sans-serif;
+  color: #666;
+  font-size: var(--font-size-small);
+  margin-bottom: 0.25rem;
+}
+
+.like-price {
+  font-family: 'sohneBuch', sans-serif;
+  color: #1a1a1a;
+  font-size: var(--font-size-small);
+}
+
+.brands-list {
+  margin: 6rem 0;
+}
+
+.brand-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.brand-item:last-child {
+  border-bottom: none;
+}
+
+.brand-name {
+  font-family: 'sohneBuch', sans-serif;
+  color: #1a1a1a;
+  font-size: var(--font-size-base);
+  letter-spacing: -0.01em;
+}
+
+.brand-count {
+  font-family: 'sohneExtraleicht', sans-serif;
+  color: #666;
+  font-size: var(--font-size-small);
+}
+
+.price-ranges-section {
+  margin: 6rem 0;
+  padding-top: 2rem;
+}
+
 @media (max-width: 768px) {
   .profile-container {
-    padding: 3rem 1.5rem;
-  }
-
-  .profile-info h1 {
-    font-size: 1.75rem;
+    padding: 4rem 1.5rem;
   }
 
   .likes-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
 }
 
 @media (max-width: 480px) {
   .profile-container {
-    padding: 2rem 1rem;
+    padding: 3rem 1rem;
   }
 
   .profile-info h1 {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
   }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 200px);
+  margin-top: -64px;
+}
+
+.loading-spinner {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #e6f0eb;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.email-text {
+  font-family: 'sohneExtraleicht', sans-serif;
+  font-feature-settings: "kern" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 600;
 } 

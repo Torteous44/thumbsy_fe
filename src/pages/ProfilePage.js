@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PriceRangeChart from '../components/PriceRangeChart';
+import LoadingSpinner from '../components/LoadingSpinner';
 import '../styles/pages/ProfilePage.css';
 
 const ProfilePage = () => {
@@ -69,12 +71,9 @@ const ProfilePage = () => {
   }
 
   if (isLoading || !profileData) {
-    console.log('Rendering loading state'); // Debug log
     return (
       <div className="profile-container">
-        <div className="profile-loading">
-          <h2>Loading profile...</h2>
-        </div>
+        <LoadingSpinner />
       </div>
     );
   }
@@ -92,83 +91,70 @@ const ProfilePage = () => {
       <div className="profile-header">
         <div className="profile-info">
           <h1>{profileData.name || 'User'}</h1>
-          <p className="email">{profileData.email}</p>
-          <p className="joined">Member since {formatDate(profileData.joined_date)}</p>
+          <div className="profile-meta">
+            <div className="profile-details">
+              <p className="email">
+                <span className="email-text">{profileData.email}</span>
+              </p>
+              <p className="joined">Member since {formatDate(profileData.joined_date)}</p>
+            </div>
+            <button 
+              className="logout-button" 
+              onClick={() => {
+                localStorage.clear();
+                navigate('/');
+              }}
+            >
+              Log Out
+            </button>
+          </div>
         </div>
-        <button 
-          className="logout-button" 
-          onClick={() => {
-            localStorage.clear();
-            navigate('/');
-          }}
-        >
-          Log Out
-        </button>
       </div>
 
       <div className="profile-content">
         {/* Stats Section */}
         {profileData.stats && (
           <div className="profile-stats">
-            <div className="stat-card">
-              <h3>Activity Stats</h3>
-              <div className="stat-grid">
-                <div className="stat-item">
-                  <span className="stat-value">{profileData.stats.total_likes}</span>
-                  <span className="stat-label">Total Likes</span>
-                </div>
-                <div className="stat-item">
-                  <span className="stat-value">{profileData.stats.days_member}</span>
-                  <span className="stat-label">Days as Member</span>
-                </div>
+            <h2 className="section-title">Stats</h2>
+            <div className="stat-item">
+              <div className="stat-text">
+                <span>{profileData.stats.total_likes}</span>
+                <span> total likes</span>
+              </div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-text">
+                <span>{profileData.stats.days_member}</span>
+                <span> days as member</span>
               </div>
             </div>
           </div>
         )}
 
-        {/* Price Range Distribution */}
+        {/* Price Range Chart */}
         {profileData.price_ranges && Object.keys(profileData.price_ranges).length > 0 && (
-          <div className="stat-card">
-            <h3>Price Range Distribution</h3>
-            <div className="price-ranges-grid">
-              {profileData.price_ranges.under_100 > 0 && (
-                <div className="price-range-item">
-                  <span className="range-value">{profileData.price_ranges.under_100}</span>
-                  <span className="range-label">Under $100</span>
-                </div>
-              )}
-              {profileData.price_ranges['100_to_300'] > 0 && (
-                <div className="price-range-item">
-                  <span className="range-value">{profileData.price_ranges['100_to_300']}</span>
-                  <span className="range-label">$100 - $300</span>
-                </div>
-              )}
-              {profileData.price_ranges.over_300 > 0 && (
-                <div className="price-range-item">
-                  <span className="range-value">{profileData.price_ranges.over_300}</span>
-                  <span className="range-label">Over $300</span>
-                </div>
-              )}
-            </div>
+          <div className="price-ranges-section">
+            <h2 className="section-title">Price Range Distribution</h2>
+            <PriceRangeChart data={profileData.price_ranges} />
           </div>
         )}
 
         {/* Recent Likes Section */}
         {profileData.recent_likes?.length > 0 && (
-          <div className="stat-card">
-            <h3>Recent Likes</h3>
+          <div className="likes-section">
+            <h2 className="section-title">Recent Likes</h2>
             <div className="likes-grid">
               {profileData.recent_likes.map((item) => (
-                <div key={item.id} className="like-card">
+                <div key={item.id} className="like-item">
                   {item.image_url && (
                     <div className="like-image-container">
                       <img src={item.image_url} alt={item.name} className="like-image" />
                     </div>
                   )}
                   <div className="like-info">
-                    <h4>{item.name}</h4>
-                    {item.brand && <p className="brand">{item.brand}</p>}
-                    <p className="price">${item.price.toFixed(2)}</p>
+                    <h4 className="like-title">{item.name}</h4>
+                    {item.brand && <p className="like-brand">{item.brand}</p>}
+                    <p className="like-price">${item.price.toFixed(2)}</p>
                   </div>
                 </div>
               ))}
@@ -178,8 +164,8 @@ const ProfilePage = () => {
 
         {/* Top Brands Section */}
         {profileData.top_brands?.length > 0 && (
-          <div className="stat-card">
-            <h3>Top Brands</h3>
+          <div className="brands-section">
+            <h2 className="section-title">Top Brands</h2>
             <div className="brands-list">
               {profileData.top_brands.map((brand, index) => (
                 <div key={index} className="brand-item">

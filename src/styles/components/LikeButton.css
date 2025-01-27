@@ -1,3 +1,4 @@
+@import '../fonts.css';
 .like-button-container {
   position: absolute;
   bottom: 24px;
@@ -5,47 +6,36 @@
   z-index: 10;
 }
 
-.like-button {
+.like-action {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: white;
-  border: 1px solid #e5e7eb;
-  padding: 8px 16px;
-  border-radius: 9999px;
+  gap: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
   color: #6b7280;
-  font-size: 14px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-size: 18px;
 }
 
-.like-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background: #f9fafb;
+.thumbsy-icon {
+  width: 32px;
+  height: 32px;
+  transition: all 0.3s ease;
 }
 
-.like-button.liked {
-  color: #2563eb;
-  background-color: #eff6ff;
-  border-color: #bfdbfe;
-}
-
-.thumb-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.liked .thumbsy-icon {
+  filter: drop-shadow(0 0 4px rgba(0, 155, 0, 0.508)) 
+         drop-shadow(0 0 8px rgba(0, 200, 0, 0.609));
+  transform: scale(1.03);
 }
 
 .likes-count {
-  font-weight: 500;
-  min-width: 16px;
+  font-family: 'sohneLeicht', sans-serif;
+  font-weight: 300;
+  min-width: 20px;
   text-align: left;
 }
 
-/* Animation for the like action */
-.like-button:active {
+.like-action:active {
   transform: scale(0.95);
 }
 

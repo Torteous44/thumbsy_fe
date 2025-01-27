@@ -10,12 +10,8 @@ const LandingPage = () => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [showAuth, setShowAuth] = useState(false);
-  const [isSignUp, setIsSignUp] = useState(true);
 
-  const handleAuthClick = () => {
-    setIsSignUp(true);
-    setShowAuth(true);
-  };
+
 
   const handleLearnMore = () => {
     navigate(routes.about);
