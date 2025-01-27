@@ -210,7 +210,7 @@ const SearchBar = memo(({ onSearch }) => {
                 style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
                 <img 
-                  src="/assets/icons/CheckMark.svg" 
+                  src="/assets/icons/check.svg" 
                   alt="Add"
                   width="16"
                   height="16"
