@@ -1,7 +1,7 @@
 .profile-container {
   max-width: 680px;  /* Narrower width for better readability */
   margin: 0 auto;
-  padding: 6rem 2rem;
+  padding: 4rem 2rem;
   min-height: calc(100vh - 64px);
   font-family: 'sohneBuch', sans-serif;
   font-size: var(--font-size-base);
@@ -9,35 +9,36 @@
 }
 
 .profile-header {
-  margin-bottom: 6rem;
+  margin-bottom: 1rem;
 }
 
 .profile-info {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.5rem;  /* Reduced gap between elements */
 }
 
 .profile-info h1 {
-  font-family: 'sohneExtraleicht', sans-serif;
-  font-size: 3.5rem;
+  font-family: 'sohneBuch', sans-serif;
+  font-size: 2.8rem;
   color: #1a1a1a;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.01rem;  /* CHANGE: Reduced from 1.5rem to bring email closer to name */
   letter-spacing: -0.03em;
-  line-height: 1.1;
+  line-height: 1.0;
   font-weight: 200;
 }
 
 .profile-meta {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;  /* CHANGE: Aligns logout button with name */
+  margin-top: -0.8rem;     /* CHANGE: Pulls the meta section up closer to name */
 }
 
 .profile-details {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.0001rem;  /* CHANGE: Reduced from 0.25rem to bring member-since closer to email */
 }
 
 .email {
@@ -47,40 +48,42 @@
   letter-spacing: -0.01em;
   font-weight: 200;
   line-height: 1.2;
+  margin-bottom: 0.005rem;  /* CHANGE: Added small margin to control spacing with member-since */
 }
 
 .joined {
-  font-family: 'sohneExtraleicht', sans-serif;
-  color: #888;
+  font-family: 'sohneBuch', sans-serif;
+  color: #1DC56B;
   font-size: var(--font-size-small);
 }
 
 .logout-button {
   font-family: 'sohneBuch', sans-serif;
   padding: 0.75rem 1.5rem;
-  background-color: transparent;
-  color: #666;
-  border: 1px solid #ddd;
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: var(--font-size-small);
   transition: all 0.2s ease;
   height: fit-content;
+  margin-top: -1.5rem;  /* CHANGE: Pulls button up to align with name */
 }
 
 .logout-button:hover {
-  background-color: #fafafa;
-  color: #333;
+  background-color: #3d3d3d;
+  color: #ffffff;
 }
 
 .profile-stats {
   margin: 0 0 3rem 0;
-  padding-top: 3rem;
+  padding-top: 1.5rem;
   border-top: 1px solid #eee;
 }
 
 .stat-item {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.25rem;  /* CHANGE: Reduced from 0.75rem to bring stats closer to title */
 }
 
 .stat-item:last-child {
@@ -88,21 +91,26 @@
 }
 
 .stat-text {
-  font-family: 'sohneExtraleicht', sans-serif;
+  font-family: 'sohneBuch', sans-serif;
   font-size: 1rem;
   color: #666;
   letter-spacing: -0.01em;
 }
 
-.stat-text span {
-  display: inline;
+.stats-description {
+  font-family: 'sohneBuch', sans-serif;
+  font-size: var(--font-size-base);
+  color: #000000;
+  margin-top: 0.8rem;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
 }
 
 .section-title {
   font-family: 'sohneLeicht', sans-serif;
   font-size: var(--font-size-h2);
   color: #1a1a1a;
-  margin: 0 0 2rem 0;
+  margin: 0 0 0.0rem 0;
   letter-spacing: -0.02em;
 }
 

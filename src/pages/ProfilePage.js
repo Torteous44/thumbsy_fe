@@ -115,19 +115,16 @@ const ProfilePage = () => {
         {/* Stats Section */}
         {profileData.stats && (
           <div className="profile-stats">
-            <h2 className="section-title">Stats</h2>
+            <h2 className="section-title">Your Taste Profile</h2>
             <div className="stat-item">
               <div className="stat-text">
                 <span>{profileData.stats.total_likes}</span>
                 <span> total likes</span>
               </div>
             </div>
-            <div className="stat-item">
-              <div className="stat-text">
-                <span>{profileData.stats.days_member}</span>
-                <span> days as member</span>
-              </div>
-            </div>
+            <p className="stats-description">
+              Thumbsy figures out your taste as you use it. The more products you like, the better the products recommended will be.
+            </p>
           </div>
         )}
 
