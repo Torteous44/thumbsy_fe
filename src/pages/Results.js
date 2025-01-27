@@ -281,21 +281,24 @@ const Results = () => {
         </div>
       </div>
       
-      <div className="results-sort">
-        <button 
-          className={`sort-button ${sortBy === 'price' ? 'active' : ''}`}
-          onClick={() => handleSort('price')}
-          data-direction={sortBy === 'price' ? sortDirection : ''}
-        >
-          Price
-        </button>
-        <button 
-          className={`sort-button ${sortBy === 'name' ? 'active' : ''}`}
-          onClick={() => handleSort('name')}
-          data-direction={sortBy === 'name' ? sortDirection : ''}
-        >
-          Name
-        </button>
+      <div className="results-controls">
+        <h2>Our recommended products:</h2>
+        <div className="results-sort">
+          <button 
+            className={`sort-button ${sortBy === 'price' ? 'active' : ''}`}
+            onClick={() => handleSort('price')}
+            data-direction={sortBy === 'price' ? sortDirection : ''}
+          >
+            Price
+          </button>
+          <button 
+            className={`sort-button ${sortBy === 'name' ? 'active' : ''}`}
+            onClick={() => handleSort('name')}
+            data-direction={sortBy === 'name' ? sortDirection : ''}
+          >
+            Name
+          </button>
+        </div>
       </div>
       
       {productList}
