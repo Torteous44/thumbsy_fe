@@ -8,11 +8,6 @@ const ProductCard = () => {
     title: "JJJound x Adidas Samba",
     subtitle: "JJJound x Adidas",
     description: "Speaking of Wales Bonner's Sambas: the British label's beloved partnership with Adidas is still going strong. But if we had to choose the single best iteration on the Samba this year, that title would have to go to the deceptively luxe spin from JJJJound.",
-    awards: [
-      { icon: "👍", text: "Users liked" },
-      { icon: "🏅", text: "Best shoe of the year" },
-      { icon: "🏅", text: "Best shoe of the year" }
-    ],
     price: "$299",
     source: "StockX"
   };
@@ -36,14 +31,6 @@ const ProductCard = () => {
               <h3 className="product-subtitle">{product.subtitle}</h3>
             </div>
             <p className="product-description">{product.description}</p>
-          </div>
-          <div className="tags-list">
-            {product.awards.map((award, index) => (
-              <span key={index} className="award-tag">
-                <span>{award.icon}</span>
-                {award.text}
-              </span>
-            ))}
           </div>
           <button className="price-button">
             {product.price} from {product.source}
