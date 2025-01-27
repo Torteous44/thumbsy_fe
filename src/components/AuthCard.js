@@ -54,11 +54,10 @@ const AuthCard = ({ isVisible, onClose, defaultIsSignUp = true }) => {
         await login(formData.email, formData.password);
         onClose();
       } else {
-        const result = await signup(formData.username, formData.password);
-        setError(result.message); // Show success message
-        setTimeout(() => {
-          setIsLogin(true);
-        }, 2000);
+        await signup(formData.username, formData.email, formData.password);
+        // Automatically log in after successful signup
+        await login(formData.email, formData.password);
+        onClose();
       }
     } catch (err) {
       setError(err.message);
@@ -141,6 +140,14 @@ const AuthCard = ({ isVisible, onClose, defaultIsSignUp = true }) => {
                     value={formData.username}
                     onChange={handleInputChange}
                     minLength={3}
+                    required
+                  />
+                  <input 
+                    type="email" 
+                    name="email"
+                    placeholder="Email" 
+                    value={formData.email}
+                    onChange={handleInputChange}
                     required
                   />
                   <input 

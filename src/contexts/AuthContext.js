@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const signup = useCallback(async (username, password) => {
+  const signup = useCallback(async (username, email, password) => {
     try {
       const response = await fetch('https://qrbackend-ghtk.onrender.com/auth/signup', {
         method: 'POST',
@@ -82,6 +82,7 @@ export const AuthProvider = ({ children }) => {
         },
         body: JSON.stringify({
           username,
+          email,
           password
         })
       });
