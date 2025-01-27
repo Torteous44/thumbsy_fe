@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/components/ProductCard.css';
 
 const ProductCard = () => {
@@ -12,8 +12,25 @@ const ProductCard = () => {
     source: "StockX"
   };
 
+  const [isActive, setIsActive] = useState(false);
+
   return (
     <div className="product-card">
+      <div className="top-actions">
+        <span 
+          className={`taste-profile-text ${isActive ? 'active' : ''}`}
+          onClick={() => setIsActive(!isActive)}
+          style={{ cursor: 'pointer' }}
+        >
+          {isActive ? 'Added to profile' : 'Add to taste profile'}
+        </span>
+        <button 
+          className={`thumbsy-button ${isActive ? 'active' : ''}`}
+          onClick={() => setIsActive(!isActive)}
+        >
+          <img src="/assets/icons/thumbsy-icon.svg" alt="Add to taste profile" />
+        </button>
+      </div>
       <div className="tagline-section">
         <p className="tagline">{product.tagline}</p>
         <hr className="divider" />
@@ -37,6 +54,10 @@ const ProductCard = () => {
           </button>
         </div>
       </div>
+      <button className="learn-more-button">
+        <span className="learn-more-text">Learn more</span>
+        <img src="/assets/icons/ChevronRight.svg" alt="Learn more" />
+      </button>
     </div>
   );
 };
