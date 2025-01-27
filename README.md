@@ -125,3 +125,20 @@
 
 
 
+
+
+```bash
+# For new features, create feature branch from main
+git checkout main
+git checkout -b feature/new-feature
+
+# Do your work, then merge to main first
+git checkout main
+git merge feature/new-feature
+git push
+
+# When ready for production, merge main into production
+git checkout production
+git merge main
+git push
+```
