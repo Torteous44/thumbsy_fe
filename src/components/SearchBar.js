@@ -138,7 +138,7 @@ const SearchBar = memo(({ onSearch }) => {
 
     console.log('Sending search data:', searchData);
 
-    // Navigate to results with the search data
+
     navigate('/results', { state: { query: searchData } });  // Wrap in query object to match Results.js
   };
 
