@@ -7,12 +7,15 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Check if user is authenticated on mount
-  useEffect(() => {
-    checkAuth();
+  const logout = useCallback(() => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('token_type');
+    localStorage.removeItem('expires_in');
+    setIsAuthenticated(false);
+    setUser(null);
   }, []);
 
-  // Verify token and user session
   const checkAuth = useCallback(async () => {
     try {
       const token = localStorage.getItem('access_token');
@@ -21,15 +24,6 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         return false;
       }
-
-      // Optional: Verify token with backend
-      // const response = await fetch('https://qrbackend-ghtk.onrender.com/auth/verify', {
-      //   headers: {
-      //     'Authorization': `Bearer ${token}`
-      //   }
-      // });
-      // if (!response.ok) throw new Error('Invalid token');
-
       setIsAuthenticated(true);
       return true;
     } catch (error) {
@@ -39,7 +33,12 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [logout]);
+
+  // Check if user is authenticated on mount
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
 
   const login = useCallback(async (email, password) => {
     try {
@@ -98,15 +97,6 @@ export const AuthProvider = ({ children }) => {
       console.error('Signup failed:', error);
       throw error;
     }
-  }, []);
-
-  const logout = useCallback(() => {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('token_type');
-    localStorage.removeItem('expires_in');
-    setIsAuthenticated(false);
-    setUser(null);
   }, []);
 
   const refreshToken = useCallback(async () => {
