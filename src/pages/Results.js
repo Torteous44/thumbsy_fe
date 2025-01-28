@@ -234,7 +234,6 @@ const Results = () => {
     <div className="grid-products">
       {sortResults.map((product, index) => (
         <div className="result-card" key={`${product.product_name}-${index}`} onClick={() => setSelectedProduct(product)}>
-
           <div className="result-main">
             <div className="result-image">
               <img src={product.image_url} alt={product.product_name} />
@@ -242,26 +241,45 @@ const Results = () => {
             <div className="result-content">
               <div className="title-row">
                 <h2 className="result-title">{product.product_name}</h2>
-                <div 
-                  className="taste-profile-cell"
-                  onClick={(e) => handleLikeToggle(
-                    product.id, 
-                    productLikes[product.id]?.is_liked_by_user,
-                    e
+                <div className="taste-profile-cell">
+                  <span 
+                    className={`taste-profile-text ${productLikes[product.id]?.is_liked_by_user ? 'active' : ''}`}
+                    onClick={(e) => handleLikeToggle(
+                      product.id, 
+                      productLikes[product.id]?.is_liked_by_user,
+                      e
+                    )}
+                  >
+                    {productLikes[product.id]?.is_liked_by_user ? 'Added to profile' : 'Add to taste profile'}
+                  </span>
+                  <button 
+                    className={`thumbsy-button ${productLikes[product.id]?.is_liked_by_user ? 'active' : ''}`}
+                    onClick={(e) => handleLikeToggle(
+                      product.id, 
+                      productLikes[product.id]?.is_liked_by_user,
+                      e
+                    )}
+                  >
+                    <img 
+                      src="/assets/icons/thumbsy-icon.svg" 
+                      alt="Add to taste profile"
+                    />
+                  </button>
+                  {productLikes[product.id]?.total_likes > 0 && (
+                    <span className="like-counter">
+                      {productLikes[product.id]?.total_likes} likes by users
+                    </span>
                   )}
-                >
-                  <img 
-                    src="/assets/icons/thumbsy-icon.svg" 
-                    alt="Add to taste profile" 
-                    className={`thumbsy-icon ${productLikes[product.id]?.is_liked_by_user ? 'liked' : ''}`}
-                  />
                 </div>
               </div>
               <div className="result-brand">{product.brand}</div>
               <div className="result-description">{product.description}</div>
               <div className="result-action">
                 <div className="result-price">{product.price}</div>
-                <button className="learn-more">Learn more ›</button>
+                <button className="learn-more">
+                  <span className="learn-more-text">Learn more</span>
+                  <img src="/assets/icons/ChevronRight.svg" alt="Learn more" />
+                </button>
               </div>
             </div>
           </div>
