@@ -1,6 +1,6 @@
 // RangeSlider.js
 import React from 'react';
-import '../styles/components/RangeSlider.css';
+import '../../styles/components/RangeSlider.css';
 
 const RangeSlider = ({ min, max, value, onChange, formatLabel, step }) => {
   const handleMinChange = (e) => {

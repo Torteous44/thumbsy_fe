@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/components/GradientOverlay.css';
+import '../../styles/components/GradientOverlay.css';
 
 const GradientOverlay = ({ height = '540px' }) => {
   return (

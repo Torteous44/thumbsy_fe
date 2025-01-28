@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import '../styles/components/ProductDetail.css';
+import '../../styles/components/ProductDetail.css';
 import LikeButton from './LikeButton';
 
 const ProductDetail = ({ product, onClose }) => {

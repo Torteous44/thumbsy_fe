@@ -1,6 +1,6 @@
 import React from 'react';
 import GradientOverlay from './GradientOverlay';
-import '../styles/components/ScrollingProductGrid.css';
+import '../../styles/components/ScrollingProductGrid.css';
 
 const ScrollingProductGrid = () => {
   // Array of image objects with updated paths

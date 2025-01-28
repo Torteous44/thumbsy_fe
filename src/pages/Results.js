@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import ProductDetail from '../components/ProductDetail';
-import SearchBar from '../components/SearchBar';
+import ProductDetail from '../components/results page/ProductDetail';
+import SearchBar from '../components/search page/SearchBar';
 import '../styles/pages/Results.css';
 
 const Results = () => {
