@@ -25,7 +25,9 @@ const ProductDetail = ({ product, onClose }) => {
             <span className="price-tag">{product.price}</span>
           </div>
           <div className="header-actions">
-            <LikeButton productId={product.id} />
+            <div className="like-button-cell">
+              <LikeButton productId={product.id} />
+            </div>
             <button className="close-button" onClick={onClose}>×</button>
           </div>
         </div>
