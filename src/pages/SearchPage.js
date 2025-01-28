@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/pages/SearchPage.css';
-import SearchBar from '../components/SearchBar';
+import SearchBar from '../components/search page/SearchBar';
 
 const SearchPage = () => {
   const [searchResults, setSearchResults] = useState(null);
