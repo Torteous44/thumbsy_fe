@@ -131,11 +131,11 @@
   background: #fff;
   border-radius: 20px;
   padding: 0.5rem;
-  border: 1px solid #E5E7EB;
   cursor: pointer;
   transition: all 0.2s ease;
   z-index: 1;
   flex-shrink: 0;
+  border: 1px solid #E5E7EB;
 }
 
 .taste-profile-cell:hover {
@@ -143,20 +143,17 @@
 }
 
 .thumbsy-icon {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   object-fit: contain;
   filter: grayscale(100%);
   opacity: 0.6;
   transition: all 0.2s ease;
-  padding: 2px;
-  border-radius: 4px;
 }
 
 .thumbsy-icon.liked {
   filter: none;
   opacity: 1;
-
 }
 
 .add-taste-profile {
@@ -341,7 +338,7 @@
   }
 
   .result-content {
-    padding-right: 5rem;
+    padding-right: 2rem;
   }
 
   .result-name {
@@ -695,30 +692,25 @@
   align-items: center;
   gap: 0.5rem;
   font-weight: 200;
+  position: relative;
 }
-
-.sort-button.active {
-  font-family: 'sohneDreiviertel', sans-serif;
-  font-weight: 500;
-}
-
 
 .sort-button:not(.active)::after {
   content: "↑↓";
   opacity: 0.5;
-  margin-left: 4px;
 }
+
+
 
 .search-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 0rem;
+  margin-bottom: 2rem;
   width: 100%;
   max-width: 700px;
-  margin-top: 8rem;
-  margin: 2rem auto 1rem;
+  margin: 0 auto 2rem;
 }
 
 .product-category {
