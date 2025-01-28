@@ -22,8 +22,8 @@ const PriceRangeChart = ({ data }) => {
             data['100_to_300'] || 0,
             data.over_300 || 0
           ],
-          backgroundColor: '#e6f0eb',
-          hoverBackgroundColor: '#d7e6de',
+          backgroundColor: '#000000',
+          hoverBackgroundColor: '#1a1a1a',
           borderRadius: 6,
           maxBarThickness: 40,
           borderSkipped: false
@@ -76,8 +76,8 @@ const PriceRangeChart = ({ data }) => {
             },
             ticks: {
               font: {
-                family: 'sohneExtraleicht',
-                size: 13
+                family: 'sohneBuch',
+                size: 15
               },
               color: '#666',
               padding: 8

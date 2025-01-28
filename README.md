@@ -128,9 +128,7 @@
 
 
 ```bash
-# For new features, create feature branch from main
-git checkout main
-git checkout -b feature/new-feature
+
 
 # Do your work, then merge to main first
 git checkout main

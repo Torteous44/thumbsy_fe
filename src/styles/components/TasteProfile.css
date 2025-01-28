@@ -1,0 +1,160 @@
+
+.taste-profile {
+  padding: 0rem 0rem;
+  max-width: 600px;
+
+}
+
+.taste-profile h2 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.taste-profile > p:first-of-type {
+  color: #666;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.taste-description {
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+.taste-categories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 1.5rem;
+  row-gap: 1rem;
+}
+
+.taste-category {
+  margin-bottom: 2rem;
+}
+
+.taste-category h3 {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+}
+
+.preference-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+}
+
+.preference-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 24px;
+}
+
+.preference-value {
+  color: #666;
+  font-size: 0.9rem;
+
+  padding-right: 0rem;
+  width: 45px;
+  flex-shrink: 0;
+}
+
+.preference-bar-container {
+  position: relative;
+  height: 100%;
+  flex-grow: 1;
+}
+
+.preference-bar {
+  height: 100%;
+  background: #000;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 0.25rem;
+}
+
+.preference-label {
+  font-size: 0.75rem;
+  white-space: nowrap;
+  padding-left: 0.75rem;
+  color: #333;
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.taste-profile-skeleton {
+  width: 100%;
+}
+
+.skeleton-block {
+  background: #e5e7eb;
+  border-radius: 4px;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  animation: subtleWarp 2s ease-in-out infinite;
+}
+
+.skeleton-title {
+  height: 24px;
+  width: 180px;
+  margin-bottom: 1rem;
+}
+
+.skeleton-subtitle {
+  height: 16px;
+  width: 120px;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-description {
+  height: 16px;
+  width: 80%;
+  margin-bottom: 2rem;
+}
+
+.skeleton-categories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.skeleton-category-title {
+  height: 20px;
+  width: 70%;
+  margin-bottom: 1.5rem;
+}
+
+.skeleton-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skeleton-bar {
+  height: 24px;
+  width: 100%;
+}
+
+@keyframes subtleWarp {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  25% {
+    transform: rotateX(1deg) rotateY(-1deg);
+  }
+  50% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  75% {
+    transform: rotateX(-1deg) rotateY(1deg);
+  }
+  100% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+}

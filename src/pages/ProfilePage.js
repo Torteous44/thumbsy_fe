@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PriceRangeChart from '../components/PriceRangeChart';
 import LoadingSpinner from '../components/LoadingSpinner';
+import TasteProfile from '../components/TasteProfile';
 import '../styles/pages/ProfilePage.css';
 
 const ProfilePage = () => {
@@ -112,22 +113,10 @@ const ProfilePage = () => {
       </div>
 
       <div className="profile-content">
-        {/* Stats Section */}
-        {profileData.stats && (
-          <div className="profile-stats">
-            <h2 className="section-title">Stats</h2>
-            <div className="stat-item">
-              <div className="stat-text">
-                <span>{profileData.stats.total_likes}</span>
-                <span> total likes</span>
-              </div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-text">
-                <span>{profileData.stats.days_member}</span>
-                <span> days as member</span>
-              </div>
-            </div>
+        {/* Taste Profile Section */}
+        {profileData && profileData.id && (
+          <div className="taste-profile-section">
+            <TasteProfile userId={profileData.id} />
           </div>
         )}
 
@@ -156,21 +145,6 @@ const ProfilePage = () => {
                     {item.brand && <p className="like-brand">{item.brand}</p>}
                     <p className="like-price">${item.price.toFixed(2)}</p>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Top Brands Section */}
-        {profileData.top_brands?.length > 0 && (
-          <div className="brands-section">
-            <h2 className="section-title">Top Brands</h2>
-            <div className="brands-list">
-              {profileData.top_brands.map((brand, index) => (
-                <div key={index} className="brand-item">
-                  <span className="brand-name">{brand.brand}</span>
-                  <span className="brand-count">{brand.count}</span>
                 </div>
               ))}
             </div>

@@ -1,42 +1,47 @@
 @import '../fonts.css';
 .like-button-container {
-  position: absolute;
-  bottom: 24px;
-  left: 24px;
-  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .like-action {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  color: #6b7280;
-  font-size: 18px;
 }
 
 .thumbsy-icon {
-  width: 32px;
-  height: 32px;
-  transition: all 0.3s ease;
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease;
+  padding: 2px;
 }
 
-.liked .thumbsy-icon {
-  filter: drop-shadow(0 0 4px rgba(0, 155, 0, 0.508)) 
-         drop-shadow(0 0 8px rgba(0, 200, 0, 0.609));
-  transform: scale(1.03);
+.like-action:hover .thumbsy-icon {
+  transform: scale(1.1);
 }
 
 .likes-count {
-  font-family: 'sohneLeicht', sans-serif;
-  font-weight: 300;
-  min-width: 20px;
-  text-align: left;
+  font-size: 14px;
+  color: #666;
 }
 
-.like-action:active {
-  transform: scale(0.95);
+.like-action.liked {
+
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+.like-action.liked .thumbsy-icon {
+  filter: drop-shadow(0 0 1.1px #6eff73);
+  transform: scale(1.2);
+}
+
+.like-action.liked .likes-count {
+  color: #333;
+  font-weight: 500;
 }
 
 /* Ensure proper positioning within ProductDetail */
