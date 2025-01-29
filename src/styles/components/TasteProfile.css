@@ -6,12 +6,14 @@
 }
 
 .taste-profile h2 {
+
   font-size: 1.1rem;
   font-weight: 400;
   margin-bottom: 1rem;
 }
 
 .taste-profile > p:first-of-type {
+
   color: #666;
   font-size: 0.8rem;
   margin-bottom: 1rem;
