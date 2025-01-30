@@ -4,23 +4,23 @@ import '../../styles/components/LikeButton.css';
 const LikeButton = ({ productId }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
-  const BASE_URL = 'https://qrbackend-ghtk.onrender.com';
+  const BASE_URL = 'https://thumbsybackend.onrender.com/api';
 
   const fetchLikesData = useCallback(async () => {
     try {
-      const response = await fetch(`${BASE_URL}/search/products/${productId}/likes`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-        }
+      const token = localStorage.getItem('access_token');
+      
+      const response = await fetch(`${BASE_URL}/products/${productId}/likes`, {
+        headers: token ? {
+          'Authorization': `Bearer ${token}`
+        } : {}
       });
       
       if (!response.ok) throw new Error('Failed to fetch likes');
       
       const data = await response.json();
-      if (data.product_id === productId) {
-        setIsLiked(data.is_liked_by_user === true);
-        setLikesCount(data.likes_count);
-      }
+      setIsLiked(data.is_liked_by_user === true);
+      setLikesCount(data.likes_count);
     } catch (error) {
       console.error('Error fetching likes:', error);
     }
@@ -34,22 +34,26 @@ const LikeButton = ({ productId }) => {
 
   const handleLikeClick = async () => {
     try {
+      const token = localStorage.getItem('access_token');
+      if (!token) throw new Error('Authentication required');
+
       const method = isLiked ? 'DELETE' : 'POST';
-      const response = await fetch(`${BASE_URL}/search/products/${productId}/like`, {
+      const response = await fetch(`${BASE_URL}/products/${productId}/like`, {
         method,
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+          'Authorization': `Bearer ${token}`
         }
       });
 
       if (!response.ok) throw new Error('Failed to update like');
 
+      // Update local state
       setIsLiked(!isLiked);
       setLikesCount(prevCount => isLiked ? prevCount - 1 : prevCount + 1);
       
-      fetchLikesData();
     } catch (error) {
       console.error('Error updating like:', error);
+      // Revert state on error
       setIsLiked(isLiked);
       setLikesCount(likesCount);
     }

@@ -10,26 +10,12 @@ const Results = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [error, setError] = useState(null);
-  const [metadata, setMetadata] = useState(null);
   const [sortBy, setSortBy] = useState('');
   const [sortDirection, setSortDirection] = useState('asc');
   const [productLikes, setProductLikes] = useState({});
 
   const formatHeader = useCallback((query) => {
     if (!query) return null;
-
-    if (metadata) {
-      const allFilters = [
-        metadata.price_range || '',
-        ...(metadata.filters || []),
-        ...(metadata.sources || []).map(s => s.replace('_', ' '))
-      ].filter(Boolean);
-
-      return {
-        title: metadata.title,
-        filters: allFilters
-      };
-    }
 
     const filterCriteria = [
       query.max_price === 0 ? 'Any price' : `$${query.min_price || 0} - $${query.max_price || 0}`,
@@ -42,7 +28,7 @@ const Results = () => {
       title: `The best ${query.query} in ${new Date().getFullYear()}`,
       filters: filterCriteria
     };
-  }, [metadata]);
+  }, []);
 
   const headerData = useMemo(() => 
     formatHeader(location.state?.query), 
@@ -81,16 +67,15 @@ const Results = () => {
     
     try {
       const token = localStorage.getItem('access_token');
-      const tokenType = localStorage.getItem('token_type');
       
       if (!token) throw new Error('Authentication required');
 
       const response = await fetch(
-        `https://qrbackend-ghtk.onrender.com/search/products/${productId}/like`,
+        `https://thumbsybackend.onrender.com/api/products/${productId}/like`,
         {
           method: isLiked ? 'DELETE' : 'POST',
           headers: {
-            'Authorization': `${tokenType} ${token}`,
+            'Authorization': `Bearer ${token}`,
           }
         }
       );
@@ -102,7 +87,8 @@ const Results = () => {
         ...prev,
         [productId]: {
           ...prev[productId],
-          is_liked_by_user: !isLiked
+          is_liked_by_user: !isLiked,
+          likes_count: prev[productId].likes_count + (isLiked ? -1 : 1)
         }
       }));
 
@@ -115,67 +101,76 @@ const Results = () => {
     const fetchResults = async () => {
       try {
         const token = localStorage.getItem('access_token');
-        const tokenType = localStorage.getItem('token_type');
         
         if (!token) throw new Error('Authentication required');
         if (!location.state?.query) throw new Error('No search query provided');
 
         const payload = {
+          user_id: parseInt(localStorage.getItem('user_id')),
           query: location.state.query.query || "",
           min_price: parseInt(location.state.query.min_price) || 0,
           max_price: parseInt(location.state.query.max_price) || 1000,
           review_sources: location.state.query.review_sources || [],
           characteristics: location.state.query.characteristics || [],
-          brands: location.state.query.brands || []
+          brands: location.state.query.brands || [""]
         };
 
-        const response = await fetch('https://qrbackend-ghtk.onrender.com/recommendations/stream', {
+        const response = await fetch('https://thumbsybackend.onrender.com/api/recommend-products/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `${tokenType} ${token}`,
-            'Accept': 'application/x-ndjson'
+            'Authorization': `Bearer ${token}`,
           },
           body: JSON.stringify(payload)
         });
 
-        if (!response.ok) throw new Error(`Request failed with status ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
 
-        setResults([]);
-        
+        // Get the reader for streaming
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
-
         let buffer = '';
-        
+
         while (true) {
-          const { value, done } = await reader.read();
+          const { done, value } = await reader.read();
+          
           if (done) break;
           
+          // Decode the chunk and add it to our buffer
           buffer += decoder.decode(value, { stream: true });
           
+          // Split buffer by newlines to get complete JSON objects
           const lines = buffer.split('\n');
+          
+          // Keep the last (potentially incomplete) line in the buffer
           buffer = lines.pop() || '';
           
-          const newProducts = [];
-          
+          // Process complete JSON objects
           for (const line of lines) {
-            if (!line.trim()) continue;
-            
             try {
-              const data = JSON.parse(line);
-              if (data.type === 'metadata') {
-                setMetadata(data);
-              } else if (data.type === 'product') {
-                newProducts.push(data.data);
+              if (!line.trim()) continue;
+              
+              const product = JSON.parse(line);
+              if (product.type === 'product' && product.data) {
+                setResults(prev => [...prev, product.data]);
               }
-            } catch (e) {
-              console.error('Error parsing chunk:', e);
+            } catch (parseError) {
+              console.warn('Failed to parse product:', parseError);
             }
           }
-          
-          if (newProducts.length > 0) {
-            setResults(prev => [...prev, ...newProducts]);
+        }
+
+        // Process any remaining data in the buffer
+        if (buffer.trim()) {
+          try {
+            const product = JSON.parse(buffer);
+            if (product.type === 'product' && product.data) {
+              setResults(prev => [...prev, product.data]);
+            }
+          } catch (parseError) {
+            console.warn('Failed to parse final product:', parseError);
           }
         }
 
@@ -190,6 +185,7 @@ const Results = () => {
     if (location.state?.query) {
       setIsLoading(true);
       setError(null);
+      setResults([]); // Reset results before fetching
       fetchResults();
     }
   }, [location.state]);
@@ -199,13 +195,12 @@ const Results = () => {
     const fetchLikeStatus = async (productId) => {
       try {
         const token = localStorage.getItem('access_token');
-        const tokenType = localStorage.getItem('token_type');
         
         const response = await fetch(
-          `https://qrbackend-ghtk.onrender.com/search/products/${productId}/likes`,
+          `https://thumbsybackend.onrender.com/api/products/${productId}/likes`,
           {
             headers: token ? {
-              'Authorization': `${tokenType} ${token}`
+              'Authorization': `Bearer ${token}`
             } : {}
           }
         );
@@ -215,7 +210,11 @@ const Results = () => {
         const data = await response.json();
         setProductLikes(prev => ({
           ...prev,
-          [productId]: data
+          [productId]: {
+            product_id: data.product_id,
+            likes_count: data.likes_count,
+            is_liked_by_user: data.is_liked_by_user
+          }
         }));
 
       } catch (error) {
