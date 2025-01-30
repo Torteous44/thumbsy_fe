@@ -96,7 +96,7 @@
 
   .profile-link {
     text-decoration: none;
-    color: #9B9B9B;
+    color: #333;
     font-family: 'sohneLeicht', sans-serif;
     font-size: 14px;
   }
@@ -108,7 +108,7 @@
   .logout {
     background: transparent;
     border: none;
-    color: #9B9B9B;
+    color: #333;
     font-family: 'sohneLeicht', sans-serif;
     font-size: 14px;
     padding: 8px 16px;

@@ -12,7 +12,7 @@ const TasteProfile = ({ userId }) => {
         const token = localStorage.getItem('access_token');
         const tokenType = localStorage.getItem('token_type');
         
-        const response = await fetch(`https://qrbackend-ghtk.onrender.com/get-taste-profile/${userId}`, {
+        const response = await fetch(`https://thumbsybackend.onrender.com/api/taste-profile/${userId}`, {
           headers: {
             'Authorization': `${tokenType} ${token}`,
             'Accept': 'application/json',
@@ -24,8 +24,10 @@ const TasteProfile = ({ userId }) => {
         }
 
         const data = await response.json();
+        console.log('Taste Profile Data:', JSON.stringify(data, null, 2));
         setProfileData(data);
       } catch (err) {
+        console.error('Taste Profile Error:', err);
         setError(err.message);
       } finally {
         setIsLoading(false);
@@ -33,9 +35,23 @@ const TasteProfile = ({ userId }) => {
     };
 
     if (userId) {
+      console.log('Fetching taste profile for user:', userId);
       fetchTasteProfile();
     }
   }, [userId]);
+
+  // Add a function to format category names
+  const formatCategoryName = (category) => {
+    const categoryMap = {
+      'visual_style': 'Visual Style',
+      'color_palette': 'Color Palette',
+      'brands': 'Brands',
+      'price_sensitivity': 'Price Sensitivity',
+      'trend_engagement': 'Trend Engagement',
+      'sustainability': 'Sustainability'
+    };
+    return categoryMap[category] || category;
+  };
 
   if (isLoading) return (
     <div className="taste-profile-skeleton">
@@ -59,12 +75,13 @@ const TasteProfile = ({ userId }) => {
       </div>
     </div>
   );
+
   if (error) return <div>Error loading taste profile</div>;
   if (!profileData) return null;
 
   const renderCategory = (categoryName, data) => (
     <div className="taste-category">
-      <h3>{categoryName}</h3>
+      <h3>{formatCategoryName(categoryName)}</h3>
       <div className="preference-bars">
         {Object.entries(data).map(([label, value]) => (
           <div key={label} className="preference-item">
@@ -86,13 +103,13 @@ const TasteProfile = ({ userId }) => {
   return (
     <div className="taste-profile">
       <h2>Your Taste Profile</h2>
-      <p>{profileData.based_on_products} products liked</p>
+      <p>{profileData.product_count} products liked</p>
       <p className="taste-description">
         Thumbsy figures out your taste as you use it. The more products you like, the better the products recommended will be.
       </p>
 
       <div className="taste-categories">
-        {Object.entries(profileData.profile).map(([category, data]) => (
+        {Object.entries(profileData.profile_data).map(([category, data]) => (
           renderCategory(category, data)
         ))}
       </div>

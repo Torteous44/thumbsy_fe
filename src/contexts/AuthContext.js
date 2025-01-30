@@ -1,10 +1,36 @@
 import React, { createContext, useState, useContext, useCallback, useEffect } from 'react';
 
 const API_ENDPOINTS = {
-  LOGIN: 'https://qrbackend-ghtk.onrender.com/auth/login',
-  REFRESH: 'https://qrbackend-ghtk.onrender.com/auth/refresh',
-  PROFILE: 'https://qrbackend-ghtk.onrender.com/search/profile',
-  SIGNUP: 'https://qrbackend-ghtk.onrender.com/auth/signup'
+  LOGIN: 'https://thumbsybackend.onrender.com/api/auth/login',
+  REFRESH: 'https://thumbsybackend.onrender.com/api/auth/refresh',
+  PROFILE: 'https://thumbsybackend.onrender.com/api/profile',
+  SIGNUP: 'https://thumbsybackend.onrender.com/api/auth/signup'
+};
+
+const apiCall = async (endpoint, options = {}) => {
+  const defaultHeaders = {
+    'Content-Type': 'application/json',
+  };
+
+  const requestConfig = {
+    ...options,
+    headers: {
+      ...defaultHeaders,
+      ...options.headers,
+    },
+  };
+
+  const response = await fetch(endpoint, requestConfig);
+  const data = await response.json();
+  
+  if (!response.ok) {
+    const error = new Error(data.detail || 'API call failed');
+    error.response = response;
+    error.data = data;
+    throw error;
+  }
+
+  return data;
 };
 
 const AuthContext = createContext(null);
@@ -19,6 +45,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('token_type');
     localStorage.removeItem('expires_in');
+    localStorage.removeItem('user_id');
     setIsAuthenticated(false);
     setUser(null);
   }, []);
@@ -49,6 +76,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('refresh_token', data.refresh_token);
       localStorage.setItem('token_type', data.token_type);
       localStorage.setItem('expires_in', data.expires_in.toString());
+      localStorage.setItem('user_id', data.user_id.toString());
 
       return data;
     } catch (error) {
@@ -65,44 +93,39 @@ export const AuthProvider = ({ children }) => {
         throw new Error('No access token');
       }
 
-      const response = await fetch(API_ENDPOINTS.PROFILE, {
+      const data = await apiCall(API_ENDPOINTS.PROFILE, {
+        method: 'GET',
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/json'
+          'Authorization': `Bearer ${token}`
         }
       });
 
-      if (response.status === 401) {
-        // Try to refresh the token and retry
-        const refreshData = await refreshToken();
-        const retryResponse = await fetch(API_ENDPOINTS.PROFILE, {
-          headers: {
-            'Authorization': `Bearer ${refreshData.access_token}`,
-            'Accept': 'application/json'
-          }
-        });
-
-        if (!retryResponse.ok) {
-          throw new Error('Failed to fetch profile after token refresh');
-        }
-
-        const userData = await retryResponse.json();
-        setUser(userData);
-        return userData;
-      }
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch profile: ${response.status}`);
-      }
-
-      const userData = await response.json();
-      setUser(userData);
-      return userData;
+      setUser(data);
+      return data;
     } catch (error) {
+      if (error.response?.status === 401) {
+        // Try to refresh the token and retry
+        try {
+          await refreshToken();
+          const newToken = localStorage.getItem('access_token');
+          const data = await apiCall(API_ENDPOINTS.PROFILE, {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${newToken}`
+            }
+          });
+          setUser(data);
+          return data;
+        } catch (refreshError) {
+          console.error('Token refresh failed:', refreshError);
+          logout();
+          throw refreshError;
+        }
+      }
       console.error('Failed to fetch profile:', error);
       throw error;
     }
-  }, [refreshToken]);
+  }, [refreshToken, logout]);
 
   const checkAuth = useCallback(async () => {
     try {
@@ -127,29 +150,27 @@ export const AuthProvider = ({ children }) => {
 
   const login = useCallback(async (email, password) => {
     try {
-      const response = await fetch(API_ENDPOINTS.LOGIN, {
+      const formData = new URLSearchParams({
+        username: email,
+        password: password
+      });
+
+      const data = await apiCall(API_ENDPOINTS.LOGIN, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: new URLSearchParams({
-          username: email,
-          password: password
-        }).toString()
+        body: formData.toString()
       });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.detail || 'Login failed');
-      }
 
       localStorage.setItem('access_token', data.access_token);
       localStorage.setItem('refresh_token', data.refresh_token);
       localStorage.setItem('token_type', data.token_type);
       localStorage.setItem('expires_in', data.expires_in.toString());
+      localStorage.setItem('user_id', data.user_id.toString());
 
       setIsAuthenticated(true);
-      await fetchUserProfile(); // Add profile fetch after successful login
+      await fetchUserProfile();
       return true;
     } catch (error) {
       console.error('Login failed:', error);
@@ -159,29 +180,32 @@ export const AuthProvider = ({ children }) => {
 
   const signup = useCallback(async (username, email, password) => {
     try {
-      const response = await fetch(API_ENDPOINTS.SIGNUP, {
+      // Match the exact format from the curl command
+      const requestBody = {
+        email: email,
+        username: username,
+        password: password
+      };
+
+      const data = await apiCall(API_ENDPOINTS.SIGNUP, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username,
-          email,
-          password
-        })
+        body: JSON.stringify(requestBody)
       });
 
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.detail || 'Signup failed');
-      }
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('refresh_token', data.refresh_token);
+      localStorage.setItem('token_type', data.token_type);
+      localStorage.setItem('expires_in', data.expires_in.toString());
+      localStorage.setItem('user_id', data.user_id.toString());
 
+      setIsAuthenticated(true);
+      await fetchUserProfile();
       return data;
     } catch (error) {
-      console.error('Signup failed:', error);
+      console.error('Signup failed:', error.data || error);
       throw error;
     }
-  }, []);
+  }, [fetchUserProfile]);
 
   useEffect(() => {
     checkAuth();

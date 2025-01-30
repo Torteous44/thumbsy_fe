@@ -17,38 +17,29 @@ const ProfilePage = () => {
         const token = localStorage.getItem('access_token');
         const tokenType = localStorage.getItem('token_type');
 
-        console.log('Token:', token); // Debug log
-        console.log('Token Type:', tokenType); // Debug log
-
         if (!token) {
-          console.log('No token found, redirecting...'); // Debug log
+          console.log('No token found, redirecting...');
           navigate('/');
           return;
         }
 
-        console.log('Fetching profile...'); // Debug log
-        const response = await fetch('https://qrbackend-ghtk.onrender.com/search/profile', {
-          method: 'GET', // Explicitly specify method
+        const response = await fetch('https://thumbsybackend.onrender.com/api/profile', {
+          method: 'GET',
           headers: {
             'Authorization': `${tokenType} ${token}`,
             'Accept': 'application/json',
-            'Content-Type': 'application/json',
           }
         });
 
-        console.log('Response status:', response.status); // Debug log
-
         if (!response.ok) {
           const errorData = await response.text();
-          console.error('Error response:', errorData); // Debug log
           throw new Error(`Failed to fetch profile: ${response.status} ${errorData}`);
         }
 
         const data = await response.json();
-        console.log('Profile data:', data); // Debug log
         setProfileData(data);
       } catch (err) {
-        console.error('Fetch error:', err); // Debug log
+        console.error('Fetch error:', err);
         setError(err.message);
       } finally {
         setIsLoading(false);
@@ -59,7 +50,6 @@ const ProfilePage = () => {
   }, [navigate]);
 
   if (error) {
-    console.log('Rendering error state:', error); // Debug log
     return (
       <div className="profile-container">
         <div className="profile-error">
@@ -91,7 +81,7 @@ const ProfilePage = () => {
     <div className="profile-container">
       <div className="profile-header">
         <div className="profile-info">
-          <h1>{profileData.name || 'User'}</h1>
+          <h1>{profileData.username}</h1>
           <div className="profile-meta">
             <div className="profile-details">
               <p className="email">
@@ -114,14 +104,14 @@ const ProfilePage = () => {
 
       <div className="profile-content">
         {/* Taste Profile Section */}
-        {profileData && profileData.id && (
+        {profileData?.id && (
           <div className="taste-profile-section">
             <TasteProfile userId={profileData.id} />
           </div>
         )}
 
         {/* Price Range Chart */}
-        {profileData.price_ranges && Object.keys(profileData.price_ranges).length > 0 && (
+        {profileData?.price_ranges && Object.values(profileData.price_ranges).some(value => value > 0) && (
           <div className="price-ranges-section">
             <h2 className="section-title">Price Range Distribution</h2>
             <PriceRangeChart data={profileData.price_ranges} />
@@ -129,7 +119,7 @@ const ProfilePage = () => {
         )}
 
         {/* Recent Likes Section */}
-        {profileData.recent_likes?.length > 0 && (
+        {profileData?.recent_likes?.length > 0 && (
           <div className="likes-section">
             <h2 className="section-title">Recent Likes</h2>
             <div className="likes-grid">
