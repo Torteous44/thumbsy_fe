@@ -8,21 +8,24 @@ import Results from './pages/Results';
 import ContactPage from './pages/ContactPage'; // Add this import
 
 import { AuthProvider } from './contexts/AuthContext';
+import { ModalProvider } from './contexts/ModalContext';
 
 const App = () => {
   return (
     <AuthProvider>
-      <Router>
-        <Navbar />
+      <ModalProvider>
+        <Router>
+          <Navbar />
 
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/search" element={<SearchPage />} /> {/* Add SearchPage route */}
-          <Route path="/results" element={<Results />} /> {/* Add Results route */}
-          <Route path="/profile" element={<ProfilePage />} /> {/* Add ProfilePage route */}
-          <Route path="/contact" element={<ContactPage />} /> {/* Add ContactPage route */}
-        </Routes>
-      </Router>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/search" element={<SearchPage />} /> {/* Add SearchPage route */}
+            <Route path="/results" element={<Results />} /> {/* Add Results route */}
+            <Route path="/profile" element={<ProfilePage />} /> {/* Add ProfilePage route */}
+            <Route path="/contact" element={<ContactPage />} /> {/* Add ContactPage route */}
+          </Routes>
+        </Router>
+      </ModalProvider>
     </AuthProvider>
   );
 };

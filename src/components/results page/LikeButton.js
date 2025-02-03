@@ -3,7 +3,7 @@ import '../../styles/components/LikeButton.css';
 
 const LikeButton = ({ productId }) => {
   const [isLiked, setIsLiked] = useState(false);
-  const [likesCount, setLikesCount] = useState(0);
+  const [showTooltip, setShowTooltip] = useState(false);
   const BASE_URL = 'https://thumbsybackend.onrender.com/api';
 
   const fetchLikesData = useCallback(async () => {
@@ -20,7 +20,6 @@ const LikeButton = ({ productId }) => {
       
       const data = await response.json();
       setIsLiked(data.is_liked_by_user === true);
-      setLikesCount(data.likes_count);
     } catch (error) {
       console.error('Error fetching likes:', error);
     }
@@ -28,16 +27,19 @@ const LikeButton = ({ productId }) => {
 
   useEffect(() => {
     setIsLiked(false);
-    setLikesCount(0);
     fetchLikesData();
   }, [productId, fetchLikesData]);
 
   const handleLikeClick = async () => {
+    // Optimistically update UI
+    const previousLiked = isLiked;
+    setIsLiked(!isLiked);
+
     try {
       const token = localStorage.getItem('access_token');
       if (!token) throw new Error('Authentication required');
 
-      const method = isLiked ? 'DELETE' : 'POST';
+      const method = previousLiked ? 'DELETE' : 'POST';
       const response = await fetch(`${BASE_URL}/products/${productId}/like`, {
         method,
         headers: {
@@ -45,22 +47,29 @@ const LikeButton = ({ productId }) => {
         }
       });
 
-      if (!response.ok) throw new Error('Failed to update like');
-
-      // Update local state
-      setIsLiked(!isLiked);
-      setLikesCount(prevCount => isLiked ? prevCount - 1 : prevCount + 1);
-      
+      if (!response.ok) {
+        throw new Error('Failed to update like');
+      }
     } catch (error) {
       console.error('Error updating like:', error);
-      // Revert state on error
-      setIsLiked(isLiked);
-      setLikesCount(likesCount);
+      // Revert UI on error
+      setIsLiked(previousLiked);
     }
   };
 
+  const getTooltipText = () => {
+    if (isLiked) {
+      return "Remove from your taste profile";
+    }
+    return "Add to your taste profile";
+  };
+
   return (
-    <div className="like-button-container">
+    <div 
+      className="like-button-container"
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+    >
       <div 
         className={`like-action ${isLiked ? 'liked' : ''}`} 
         onClick={handleLikeClick}
@@ -73,8 +82,12 @@ const LikeButton = ({ productId }) => {
           alt="Thumbsy" 
           className="thumbsy-icon"
         />
-        <span className="likes-count">{likesCount}</span>
       </div>
+      {showTooltip && (
+        <div className="like-tooltip">
+          {getTooltipText()}
+        </div>
+      )}
     </div>
   );
 };

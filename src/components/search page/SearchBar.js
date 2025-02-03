@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import RangeSlider from './RangeSlider';
 import '../../styles/components/SearchBar.css';
 import { useNavigate } from 'react-router-dom';
-import AuthCard from '../AuthCard';
+import { useModal } from '../../contexts/ModalContext';
 
 const SearchBar = memo(({ onSearch }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -113,7 +113,7 @@ const SearchBar = memo(({ onSearch }) => {
       const token = localStorage.getItem('access_token');
       if (!token) {
         // Show auth card if not authenticated
-        setShowAuthCard(true);
+        openAuthCard(true);
         return;
       }
       handleSearch();
@@ -131,7 +131,7 @@ const SearchBar = memo(({ onSearch }) => {
 
   const navigate = useNavigate();
 
-  const [showAuthCard, setShowAuthCard] = useState(false);
+  const { openAuthCard } = useModal();
 
   const handleSearch = async () => {
     if (!inputValue.trim()) return;
@@ -140,7 +140,7 @@ const SearchBar = memo(({ onSearch }) => {
     const token = localStorage.getItem('access_token');
     if (!token) {
       // Show auth card if not authenticated
-      setShowAuthCard(true);
+      openAuthCard(true);
       return;
     }
 
@@ -355,12 +355,6 @@ const SearchBar = memo(({ onSearch }) => {
           )}
         </AnimatePresence>
       </div>
-      
-      <AuthCard 
-        isVisible={showAuthCard}
-        onClose={() => setShowAuthCard(false)}
-        defaultIsSignUp={true}
-      />
     </section>
   );
 });

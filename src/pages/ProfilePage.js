@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import PriceRangeChart from '../components/PriceRangeChart';
 import LoadingSpinner from '../components/LoadingSpinner';
 import TasteProfile from '../components/TasteProfile';
 import '../styles/pages/ProfilePage.css';
@@ -107,14 +106,6 @@ const ProfilePage = () => {
         {profileData?.id && (
           <div className="taste-profile-section">
             <TasteProfile userId={profileData.id} />
-          </div>
-        )}
-
-        {/* Price Range Chart */}
-        {profileData?.price_ranges && Object.values(profileData.price_ranges).some(value => value > 0) && (
-          <div className="price-ranges-section">
-            <h2 className="section-title">Price Range Distribution</h2>
-            <PriceRangeChart data={profileData.price_ranges} />
           </div>
         )}
 

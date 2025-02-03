@@ -76,6 +76,19 @@ const AuthCard = ({ isVisible, onClose, defaultIsSignUp = true }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 1999,
+            isolation: 'isolate'
+          }}
         >
           <motion.div 
             className="auth-card"

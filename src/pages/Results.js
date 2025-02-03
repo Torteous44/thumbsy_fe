@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductDetail from '../components/results page/ProductDetail';
 import SearchBar from '../components/search page/SearchBar';
+import LikeButton from '../components/results page/LikeButton';
 import '../styles/pages/Results.css';
 
 const Results = () => {
@@ -12,7 +13,6 @@ const Results = () => {
   const [error, setError] = useState(null);
   const [sortBy, setSortBy] = useState('');
   const [sortDirection, setSortDirection] = useState('asc');
-  const [productLikes, setProductLikes] = useState({});
 
   const formatHeader = useCallback((query) => {
     if (!query) return null;
@@ -61,41 +61,6 @@ const Results = () => {
       setSortDirection('asc');
     }
   };
-
-  const handleLikeToggle = useCallback(async (productId, isLiked, event) => {
-    event.stopPropagation(); // Prevent card click event
-    
-    try {
-      const token = localStorage.getItem('access_token');
-      
-      if (!token) throw new Error('Authentication required');
-
-      const response = await fetch(
-        `https://thumbsybackend.onrender.com/api/products/${productId}/like`,
-        {
-          method: isLiked ? 'DELETE' : 'POST',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          }
-        }
-      );
-
-      if (!response.ok) throw new Error('Failed to update like status');
-
-      // Update local state
-      setProductLikes(prev => ({
-        ...prev,
-        [productId]: {
-          ...prev[productId],
-          is_liked_by_user: !isLiked,
-          likes_count: prev[productId].likes_count + (isLiked ? -1 : 1)
-        }
-      }));
-
-    } catch (error) {
-      console.error('Error toggling like:', error);
-    }
-  }, []);
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -190,50 +155,10 @@ const Results = () => {
     }
   }, [location.state]);
 
-  // Fetch initial like status for all products
-  useEffect(() => {
-    const fetchLikeStatus = async (productId) => {
-      try {
-        const token = localStorage.getItem('access_token');
-        
-        const response = await fetch(
-          `https://thumbsybackend.onrender.com/api/products/${productId}/likes`,
-          {
-            headers: token ? {
-              'Authorization': `Bearer ${token}`
-            } : {}
-          }
-        );
-
-        if (!response.ok) throw new Error('Failed to fetch like status');
-        
-        const data = await response.json();
-        setProductLikes(prev => ({
-          ...prev,
-          [productId]: {
-            product_id: data.product_id,
-            likes_count: data.likes_count,
-            is_liked_by_user: data.is_liked_by_user
-          }
-        }));
-
-      } catch (error) {
-        console.error('Error fetching like status:', error);
-      }
-    };
-
-    results.forEach(product => {
-      if (product.id) {
-        fetchLikeStatus(product.id);
-      }
-    });
-  }, [results]);
-
   const productList = useMemo(() => (
     <div className="grid-products">
       {sortResults.map((product, index) => (
         <div className="result-card" key={`${product.product_name}-${index}`} onClick={() => setSelectedProduct(product)}>
-
           <div className="result-main">
             <div className="result-image">
               <img src={product.image_url} alt={product.product_name} />
@@ -241,19 +166,8 @@ const Results = () => {
             <div className="result-content">
               <div className="title-row">
                 <h2 className="result-title">{product.product_name}</h2>
-                <div 
-                  className="taste-profile-cell"
-                  onClick={(e) => handleLikeToggle(
-                    product.id, 
-                    productLikes[product.id]?.is_liked_by_user,
-                    e
-                  )}
-                >
-                  <img 
-                    src="/assets/icons/thumbsy-icon.svg" 
-                    alt="Add to taste profile" 
-                    className={`thumbsy-icon ${productLikes[product.id]?.is_liked_by_user ? 'liked' : ''}`}
-                  />
+                <div className="taste-profile-cell" onClick={(e) => e.stopPropagation()}>
+                  <LikeButton productId={product.id} />
                 </div>
               </div>
               <div className="result-brand">{product.brand}</div>
@@ -267,7 +181,7 @@ const Results = () => {
         </div>
       ))}
     </div>
-  ), [sortResults, setSelectedProduct, productLikes, handleLikeToggle]);
+  ), [sortResults, setSelectedProduct]);
 
   return (
     <div className="results-container">
