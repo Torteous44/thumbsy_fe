@@ -5,7 +5,7 @@ import '../../styles/components/SearchBar.css';
 import { useNavigate } from 'react-router-dom';
 import { useModal } from '../../contexts/ModalContext';
 
-const SearchBar = memo(({ onSearch }) => {
+const SearchBar = memo(({ onSearch, onExpandChange }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -30,7 +30,27 @@ const SearchBar = memo(({ onSearch }) => {
     "Find eco-friendly home products...",
     "Discover unique gifts for your loved ones...",
     "Browse the latest fashion accessories...",
-    "Search for high-performance sports gear..."
+    "Search for high-performance sports gear...",
+    "Find your next favorite coffee maker...",
+    "Discover premium wireless earbuds...",
+    "Explore ergonomic office chairs...",
+    "Find the best gaming monitors...",
+    "Search for professional camera equipment...",
+    "Browse sustainable fashion brands...",
+    "Find smart home security systems...",
+    "Discover luxury skincare products...",
+    "Explore outdoor camping gear...",
+    "Find premium kitchen appliances...",
+    "Search for vintage vinyl records...",
+    "Browse designer sunglasses...",
+    "Find mechanical keyboards...",
+    "Discover artisanal home decor...",
+    "Search for fitness tracking devices...",
+    "Explore premium audio systems...",
+    "Find electric scooters and bikes...",
+    "Browse minimalist watches...",
+    "Discover premium yoga equipment...",
+    "Find sustainable water bottles..."
   ], []);
 
   const typewriterRef = useRef(null);
@@ -199,8 +219,10 @@ const SearchBar = memo(({ onSearch }) => {
             width: activeInput === sectionKey ? "200px" : "36px",
             padding: activeInput === sectionKey ? "0 8px" : "0",
           }}
-          exit={{ width: "36px", padding: "0" }}
-          transition={{ duration: 0.3 }}
+          transition={{ 
+            duration: activeInput === sectionKey ? 0.3 : 0, // Immediate close, smooth open
+            ease: "easeOut"
+          }}
         >
           {activeInput === sectionKey ? (
             <div className="add-tag-expanded" ref={filterInputRef}>
@@ -266,6 +288,11 @@ const SearchBar = memo(({ onSearch }) => {
     };
   }, [isExpanded]);
 
+  // Add effect to notify parent of expansion state changes
+  useEffect(() => {
+    onExpandChange?.(isExpanded);
+  }, [isExpanded, onExpandChange]);
+
   return (
     <section className="search-wrapper" aria-label="Product search">
       <div className="search-bar-container" ref={searchContainerRef} role="search">
@@ -312,45 +339,57 @@ const SearchBar = memo(({ onSearch }) => {
             <img src="/assets/icons/SearchFilter.svg" alt="Search Filter Icon" />
           </button>
         </div>
-        <AnimatePresence>
+        <AnimatePresence mode="sync">
           {isExpanded && (
             <motion.aside
               className="filter-panel"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ 
+                opacity: 1, 
+                y: 0,
+                transition: {
+                  duration: 0.3,
+                  ease: "easeOut"
+                }
+              }}
+              exit={{ 
+                opacity: 0,
+                y: -10,
+                transition: {
+                  duration: 0
+                }
+              }}
             >
-              <section className="filter-section">
-                <h3>Price</h3>
-                <RangeSlider
-                  min={0}
-                  max={1000}
-                  step={5}
-                  value={priceRange}
-                  onChange={handlePriceRangeChange}
-                  formatLabel={(value) => `$${value}`}
-                />
-              </section>
-              {renderFilterSection("Characteristics", characteristics, setCharacteristics, "characteristics")}
-              {renderFilterSection("Brands", brands, setBrands, "brands")}
-              {renderFilterSection("Review Sources", reviewSources, setReviewSources, "reviewSources")}
-              
-              <motion.button
-                className="search-submit-button"
-                onClick={handleSearch}
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.8, opacity: 0 }}
-                whileHover={{ scale: 1.05 }}
-                aria-label="Search with filters"
-              >
-                <img 
-                  src="/assets/icons/ArrowRight.svg" 
-                  alt="Search" 
-                  width="24" 
-                  height="24"
-                />
-              </motion.button>
+              <div className="filter-panel-content">
+                <section className="filter-section">
+                  <h3>Price</h3>
+                  <RangeSlider
+                    min={0}
+                    max={1000}
+                    step={5}
+                    value={priceRange}
+                    onChange={handlePriceRangeChange}
+                    formatLabel={(value) => `$${value}`}
+                  />
+                </section>
+                {renderFilterSection("Characteristics", characteristics, setCharacteristics, "characteristics")}
+                {renderFilterSection("Brands", brands, setBrands, "brands")}
+                {renderFilterSection("Review Sources", reviewSources, setReviewSources, "reviewSources")}
+                
+                <motion.button
+                  className="search-submit-button"
+                  onClick={handleSearch}
+                  whileHover={{ scale: 1.05 }}
+                  aria-label="Search with filters"
+                >
+                  <img 
+                    src="/assets/icons/ArrowRight.svg" 
+                    alt="Search" 
+                    width="24" 
+                    height="24"
+                  />
+                </motion.button>
+              </div>
             </motion.aside>
           )}
         </AnimatePresence>

@@ -5,6 +5,7 @@ import SearchBar from '../components/search page/SearchBar';
 const SearchPage = () => {
   const [searchResults, setSearchResults] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isFilterExpanded, setIsFilterExpanded] = useState(false);
 
   // Preload the icon images and font
   useEffect(() => {
@@ -34,7 +35,7 @@ const SearchPage = () => {
   };
 
   return (
-    <div className={`search-page ${isLoaded ? 'content-loaded' : 'content-loading'}`}>
+    <div className={`search-page ${isLoaded ? 'content-loaded' : ''} ${isFilterExpanded ? 'filters-expanded' : ''}`}>
       {/* Header Section */}
       <header className="search-header">
         <div className="icon-wrapper">
@@ -55,11 +56,11 @@ const SearchPage = () => {
         </div>
       </header>
 
-      <SearchBar onResultsReceived={handleResultsReceived} />
+      <SearchBar onResultsReceived={handleResultsReceived} onExpandChange={setIsFilterExpanded} />
 
       {/* Show results or footer based on search state */}
       {!searchResults && (
-        <footer className="search-footer">
+        <div className="search-footer">
           <p>
             <span className="info-icon-wrapper">
               <img
@@ -72,7 +73,7 @@ const SearchPage = () => {
             </span>
             Thumbsy learns what you like as you use it. Like products to develop a taste profile.
           </p>
-        </footer>
+        </div>
       )}
     </div>
   );
