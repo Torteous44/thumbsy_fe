@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/pages/LandingPage.css'; // Import the specific styles for the page
 import ScrollingProductGrid from '../components/landing page/ScrollingProductGrid';
 import AuthCard from '../components/AuthCard';
+import Footer from '../components/Footer';
 import routes from '../routes';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -48,6 +49,8 @@ const LandingPage = () => {
           defaultIsSignUp={true}
         />
       )}
+
+      <Footer />
     </div>
   );
 };

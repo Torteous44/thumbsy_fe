@@ -136,7 +136,7 @@ const AuthCard = ({ isVisible, onClose, defaultIsSignUp = true }) => {
                   <input 
                     type="text" 
                     name="username"
-                    placeholder="Username (min 3 characters)" 
+                    placeholder="Username" 
                     value={formData.username}
                     onChange={handleInputChange}
                     minLength={3}
@@ -153,7 +153,7 @@ const AuthCard = ({ isVisible, onClose, defaultIsSignUp = true }) => {
                   <input 
                     type="password" 
                     name="password"
-                    placeholder="Password (min 8 chars, upper, lower, number)" 
+                    placeholder="Password" 
                     value={formData.password}
                     onChange={handleInputChange}
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"

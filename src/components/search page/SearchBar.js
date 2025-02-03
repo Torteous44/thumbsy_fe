@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import RangeSlider from './RangeSlider';
 import '../../styles/components/SearchBar.css';
 import { useNavigate } from 'react-router-dom';
+import AuthCard from '../AuthCard';
 
 const SearchBar = memo(({ onSearch }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -108,6 +109,13 @@ const SearchBar = memo(({ onSearch }) => {
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter' && inputValue.trim()) {
+      // Check if user is authenticated
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        // Show auth card if not authenticated
+        setShowAuthCard(true);
+        return;
+      }
       handleSearch();
     }
   };
@@ -123,10 +131,20 @@ const SearchBar = memo(({ onSearch }) => {
 
   const navigate = useNavigate();
 
+  const [showAuthCard, setShowAuthCard] = useState(false);
+
   const handleSearch = async () => {
     if (!inputValue.trim()) return;
 
-    // Format the query data - remove the nested 'query' object
+    // Check if user is authenticated
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      // Show auth card if not authenticated
+      setShowAuthCard(true);
+      return;
+    }
+
+    // Format the query data
     const searchData = {
       query: inputValue.trim(),
       min_price: parseInt(priceRange.min),
@@ -136,10 +154,8 @@ const SearchBar = memo(({ onSearch }) => {
       review_sources: reviewSources.map(rs => rs.value.toLowerCase().replace(' ', '_'))
     };
 
-    console.log('Sending search data:', searchData);
-
-
-    navigate('/results', { state: { query: searchData } });  // Wrap in query object to match Results.js
+    // Navigate to results page
+    navigate('/results', { state: { query: searchData } });
   };
 
   const filterInputRef = useRef(null);
@@ -339,6 +355,12 @@ const SearchBar = memo(({ onSearch }) => {
           )}
         </AnimatePresence>
       </div>
+      
+      <AuthCard 
+        isVisible={showAuthCard}
+        onClose={() => setShowAuthCard(false)}
+        defaultIsSignUp={true}
+      />
     </section>
   );
 });
