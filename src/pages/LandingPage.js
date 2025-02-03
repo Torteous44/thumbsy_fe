@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/pages/LandingPage.css'; // Import the specific styles for the page
 import ScrollingProductGrid from '../components/landing page/ScrollingProductGrid';
@@ -11,15 +11,32 @@ const LandingPage = () => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [showAuth, setShowAuth] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-
+  // Preload assets
+  useEffect(() => {
+    Promise.all([
+      // Preload any images used in the landing page
+      new Promise((resolve) => {
+        const thumbsyIcon = new Image();
+        thumbsyIcon.onload = resolve;
+        thumbsyIcon.src = '/assets/icons/thumbsy-icon.svg';
+      }),
+      // Wait for fonts to load
+      document.fonts.ready,
+      // Add a small delay to ensure smooth transition
+      new Promise(resolve => setTimeout(resolve, 100))
+    ]).then(() => {
+      setIsLoaded(true);
+    });
+  }, []);
 
   const handleLearnMore = () => {
     navigate(routes.about);
   };
 
   return (
-    <div className="landing-page">
+    <div className={`landing-page ${isLoaded ? 'content-loaded' : ''}`}>
       {/* Hero Section */}
       <header className="hero-section">
         <h1 className="hero-title">Get recommendations and reviews tailored for you.</h1>
