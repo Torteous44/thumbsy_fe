@@ -5,7 +5,8 @@ import SearchPage from './pages/SearchPage'; // Import SearchPage
 import Navbar from './components/Navbar';
 import ProfilePage from './pages/ProfilePage';
 import Results from './pages/Results';
-import ContactPage from './pages/ContactPage'; // Add this import
+
+import AboutPage from './pages/AboutPage'; // Add this import
 
 import { AuthProvider } from './contexts/AuthContext';
 import { ModalProvider } from './contexts/ModalContext';
@@ -22,7 +23,7 @@ const App = () => {
             <Route path="/search" element={<SearchPage />} /> {/* Add SearchPage route */}
             <Route path="/results" element={<Results />} /> {/* Add Results route */}
             <Route path="/profile" element={<ProfilePage />} /> {/* Add ProfilePage route */}
-            <Route path="/contact" element={<ContactPage />} /> {/* Add ContactPage route */}
+            <Route path="/about" element={<AboutPage />} /> {/* Add AboutPage route */}
           </Routes>
         </Router>
       </ModalProvider>

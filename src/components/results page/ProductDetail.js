@@ -34,7 +34,20 @@ const ProductDetail = ({ product, onClose }) => {
 
         <div className="product-content">
           <div className="product-image-container">
-            <img src={product.image_url} alt={product.product_name} />
+            {(!product.image_url || product.image_url === 'https://example.com/default-image.png') ? (
+              <div className="image-error-container">
+                <div className="image-error">
+                  <img 
+                    src="/assets/icons/thumbsy-icon.svg" 
+                    alt="Error loading content"
+                    className="error-icon"
+                  />
+                  <span>Oops.. something went wrong.</span>
+                </div>
+              </div>
+            ) : (
+              <img src={product.image_url} alt={product.product_name} />
+            )}
             <div className="key-features">
               {product.key_features?.map((feature, index) => (
                 <span key={index} className="feature-item">&nbsp;{feature}</span>

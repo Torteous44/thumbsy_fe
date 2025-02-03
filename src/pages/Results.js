@@ -161,7 +161,18 @@ const Results = () => {
         <div className="result-card" key={`${product.product_name}-${index}`} onClick={() => setSelectedProduct(product)}>
           <div className="result-main">
             <div className="result-image">
-              <img src={product.image_url} alt={product.product_name} />
+              {(!product.image_url || product.image_url === 'https://example.com/default-image.png') ? (
+                <div className="image-error">
+                  <img 
+                    src="/assets/icons/thumbsy-icon.svg" 
+                    alt="Error loading content"
+                    className="error-icon"
+                  />
+                  <span>Oops.. something went wrong.</span>
+                </div>
+              ) : (
+                <img src={product.image_url} alt={product.product_name} />
+              )}
             </div>
             <div className="result-content">
               <div className="title-row">

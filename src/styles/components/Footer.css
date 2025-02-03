@@ -1,34 +1,34 @@
 @import '../fonts.css';
 
-.footer {
+.site-footer {
   position: relative;
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 20px;
+  padding: 20px 0;
   color: #666;
   font-size: 14px;
   z-index: 10;
   margin-top: auto;
 }
 
-.footer-content {
+.site-footer-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  max-width: 1400px;
-  margin: 0 40px;
-  position: relative;
-  width: calc(100% - 80px);
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 32px;
+  width: 100%;
 }
 
-.footer-left {
+.site-footer-left {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-.copyright {
+.site-footer-copyright {
   color: #333;
   font-family: 'sohneLeicht', sans-serif;
   letter-spacing: 0.5px;
@@ -36,18 +36,20 @@
   font-weight: 400;
 }
 
-.separator {
+.site-footer-separator {
   color: #666;
   font-size: 13px;
   margin: 0 5px;
 }
 
-.footer-links {
+.site-footer-nav {
   display: flex;
   gap: 15px;
+  margin-left: 0;
+  align-items: center;
 }
 
-.footer-links a {
+.site-footer-nav a {
   color: #666;
   text-decoration: none;
   transition: color 0.2s ease;
@@ -55,26 +57,43 @@
   font-size: 13px;
 }
 
-.footer-links a:hover {
+.site-footer-nav a:hover {
+  color: #333;
+}
+
+.site-footer-contact {
+  background: none;
+  border: none;
+  color: #666;
+  font-family: 'sohneLeicht', sans-serif;
+  font-size: 13px;
+  padding: 0;
+  margin-left: 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  text-decoration: none;
+}
+
+.site-footer-contact:hover {
   color: #333;
 }
 
 @media screen and (max-width: 480px) {
-  .footer-content {
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-start;
-    margin: 0 20px;
-    width: calc(100% - 40px);
+  .site-footer-wrapper {
+    justify-content: center;
+    padding: 0 24px;
+    width: 100%;
   }
   
-  .footer-left {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+  .site-footer-left {
+    align-items: center;
   }
 
-  .separator {
+  .site-footer-separator {
     display: none;
+  }
+
+  .site-footer-contact {
+    padding: 0;
   }
 } 

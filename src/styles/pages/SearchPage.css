@@ -53,6 +53,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
     display: block;
     object-fit: contain;
+    margin-bottom: 12px;
 }
   
 .search-header h1 {
@@ -60,6 +61,7 @@
     font-weight: 400;
     width: 100%;
     font-family: 'sohneKräftig', sans-serif;
+    margin-bottom: 12px;
 }
   
 .search-header p {
