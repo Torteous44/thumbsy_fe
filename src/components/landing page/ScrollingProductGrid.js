@@ -19,54 +19,81 @@ const images = [
 ];
 
 const ScrollingProductGrid = () => {
-  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(0);
+  const [hasError, setHasError] = useState(false);
   
-  // Create triple-length array for seamless looping
   const tripleImages = [...images, ...images, ...images];
   const imageHeight = 162;
   const numberOfRows = 3;
   const gradientHeight = imageHeight * numberOfRows;
 
   useEffect(() => {
-    const preloadImages = async () => {
-      const loadImage = (src) => {
-        return new Promise((resolve, reject) => {
-          const img = new Image();
-          img.src = src;
-          img.onload = resolve;
-          img.onerror = reject;
-        });
-      };
+    const preloadImages = () => {
+      images.forEach((img, index) => {
+        const image = new Image();
+        
+        // Add loading priority to first visible images
+        if (index < numberOfRows * 4) {
+          image.loading = 'eager';
+        } else {
+          image.loading = 'lazy';
+        }
 
-      try {
-        await Promise.all(images.map(img => loadImage(img.src)));
-        setImagesLoaded(true);
-      } catch (error) {
-        console.error('Error preloading images:', error);
-        setImagesLoaded(true);
-      }
+        image.onload = () => {
+          setImagesLoaded(prev => prev + 1);
+        };
+
+        image.onerror = () => {
+          console.error(`Failed to load image: ${img.src}`);
+          setHasError(true);
+        };
+
+        image.src = img.src;
+      });
     };
 
     preloadImages();
-  }, []); // Now empty dependency array is fine since images is constant
+  }, []);
 
-  // Component to render a row of images
+  // Component to render a row of images with optimizations
   const ImageRow = ({ rowIndex }) => (
     <div className="image-grid">
       {tripleImages.map((img, index) => (
-        <img key={`row${rowIndex}-${index}`} src={img.src} alt={img.alt} />
+        <img 
+          key={`row${rowIndex}-${index}`} 
+          src={img.src}
+          alt={img.alt}
+          loading={index < 4 ? 'eager' : 'lazy'}
+          aria-hidden="true" // Hide from screen readers since we're not showing alt text
+        />
       ))}
     </div>
   );
 
-  // Don't render anything until images are loaded
-  if (!imagesLoaded) {
-    return <div className="image-grid-placeholder" style={{ height: `${gradientHeight}px` }} />;
+  // Show loading state until at least the first viewport of images is loaded
+  if (imagesLoaded < numberOfRows * 4) {
+    return (
+      <div 
+        className="image-grid-placeholder" 
+        style={{ height: `${gradientHeight}px` }}
+        aria-label="Loading images..." 
+      />
+    );
+  }
+
+  // Show error state if images failed to load
+  if (hasError) {
+    return (
+      <div 
+        className="image-grid-error" 
+        style={{ height: `${gradientHeight}px` }}
+        aria-label="Error loading images" 
+      />
+    );
   }
 
   return (
     <div className="scroll-container">
-      {/* Render three rows of images */}
       <ImageRow rowIndex={1} />
       <ImageRow rowIndex={2} />
       <ImageRow rowIndex={3} />
