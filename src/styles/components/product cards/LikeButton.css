@@ -1,4 +1,4 @@
-@import '../fonts.css';
+@import '../../fonts.css';
 .like-button-container {
   display: flex;
   align-items: center;

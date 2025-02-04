@@ -1,9 +1,12 @@
 /* Global Styles */
-.container {
+.about-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 64px 32px;
+  padding: 32px;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .about-page {
@@ -18,7 +21,7 @@
 }
 
 /* Grid Layout */
-.content-grid {
+.about-content-grid {
   display: grid;
   grid-template-columns: minmax(400px, 480px) 1fr;
   gap: 120px;
@@ -28,7 +31,7 @@
 }
 
 /* Left Content */
-.content-left {
+.about-content-left {
   position: sticky;
   top: 64px;
 }
@@ -42,11 +45,11 @@ h1 {
   letter-spacing: -0.01em;
 }
 
-.mission {
+.about-mission {
   margin-bottom: 32px;
 }
 
-.mission p {
+.about-mission p {
   font-family: 'sohneBuch', sans-serif;
   font-size: 16px;
   line-height: 1.5;
@@ -54,7 +57,7 @@ h1 {
   letter-spacing: 0;
 }
 
-.description p {
+.about-description p {
   font-family: 'sohneBuch', sans-serif;
   font-size: 14px;
   line-height: 1.6;
@@ -62,17 +65,17 @@ h1 {
   margin-bottom: 24px;
 }
 
-.description p:last-child {
+.about-description p:last-child {
   margin-bottom: 0;
 }
 
 /* Right Content */
-.content-right {
+.about-content-right {
   padding-top: 4px;
   margin-left: auto;
 }
 
-.features {
+.about-features {
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -80,19 +83,19 @@ h1 {
   margin-left: auto;
 }
 
-.feature-card {
+.about-feature-card {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.feature-header {
+.about-feature-header {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.feature-icon {
+.about-feature-icon {
   font-size: 12px;
   color: #000000;
   flex-shrink: 0;
@@ -103,14 +106,14 @@ h1 {
   justify-content: center;
 }
 
-.feature-content h3 {
+.about-feature-content h3 {
   font-family: 'sohneBuch', sans-serif;
   font-size: 12px;
   color: #000000;
   letter-spacing: 0;
 }
 
-.feature-content p {
+.about-feature-content p {
   font-family: 'sohneBuch', sans-serif;
   font-size: 13px;
   line-height: 1.5;
@@ -134,19 +137,19 @@ h1 {
 
 /* Media Queries */
 @media (max-width: 1024px) {
-  .content-grid {
+  .about-content-grid {
     max-width: 900px;
   }
 }
 
 @media (max-width: 900px) {
-  .content-grid {
+  .about-content-grid {
     grid-template-columns: 1fr;
     gap: 48px;
     max-width: 640px;
   }
 
-  .content-left {
+  .about-content-left {
     position: static;
     max-width: 640px;
   }
@@ -157,7 +160,7 @@ h1 {
     padding: 48px 0 32px;
   }
 
-  .container {
+  .about-container {
     padding: 48px 24px;
   }
 
@@ -165,7 +168,7 @@ h1 {
     font-size: 20px;
   }
 
-  .mission p {
+  .about-mission p {
     font-size: 15px;
   }
 }
@@ -175,15 +178,15 @@ h1 {
     padding: 40px 0 32px;
   }
 
-  .content-grid {
+  .about-content-grid {
     gap: 40px;
   }
 
-  .feature-card {
+  .about-feature-card {
     gap: 12px;
   }
 
-  .container {
+  .about-container {
     padding: 40px 24px;
   }
 }

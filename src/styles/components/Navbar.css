@@ -34,16 +34,19 @@
     font-weight: 200;
     font-family: 'sohneLeicht', sans-serif;
     color: #9B9B9B;
+    cursor: pointer;
   }
   
   .navbar-links a {
     text-decoration: none;
     color: #333; /* Dark gray text */
     transition: color 0.2s ease-in-out;
+    cursor: pointer;
   }
   
   .navbar-links a:hover {
     color: #000000; 
+    cursor: pointer;
   }
   
   .navbar-auth {

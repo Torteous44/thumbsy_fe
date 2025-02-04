@@ -1,7 +1,7 @@
 import React, { useState, memo, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import RangeSlider from './RangeSlider';
-import '../../styles/components/SearchBar.css';
+import '../../styles/components/search bar/SearchBar.css';
 import { useNavigate } from 'react-router-dom';
 import { useModal } from '../../contexts/ModalContext';
 
