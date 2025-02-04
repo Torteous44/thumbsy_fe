@@ -56,28 +56,21 @@ export const AuthProvider = ({ children }) => {
       if (!currentRefreshToken) {
         throw new Error('No refresh token available');
       }
-
-      const response = await fetch(API_ENDPOINTS.REFRESH, {
+  
+      const data = await apiCall(API_ENDPOINTS.REFRESH, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify({
           refresh_token: currentRefreshToken
         })
       });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.detail || 'Token refresh failed');
-      }
-
+  
+      // Store new tokens
       localStorage.setItem('access_token', data.access_token);
       localStorage.setItem('refresh_token', data.refresh_token);
       localStorage.setItem('token_type', data.token_type);
       localStorage.setItem('expires_in', data.expires_in.toString());
       localStorage.setItem('user_id', data.user_id.toString());
-
+  
       return data;
     } catch (error) {
       console.error('Token refresh failed:', error);
