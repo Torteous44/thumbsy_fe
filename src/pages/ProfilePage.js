@@ -29,7 +29,7 @@ const ProfilePage = () => {
             'Accept': 'application/json',
           }
         });
-
+        console.log(response);
         if (!response.ok) {
           const errorData = await response.text();
           throw new Error(`Failed to fetch profile: ${response.status} ${errorData}`);

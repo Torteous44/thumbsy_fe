@@ -39,9 +39,6 @@ const Navbar = () => {
           <li>
             <Link to={routes.search}>Thumbsy</Link>
           </li>
-          <li>
-            <Link to={routes.about}>About us</Link>
-          </li>
         </ul>
 
         {/* Conditional Auth Buttons or Profile Link */}
