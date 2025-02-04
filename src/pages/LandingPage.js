@@ -6,11 +6,12 @@ import AuthCard from '../components/AuthCard';
 import Footer from '../components/Footer';
 import routes from '../routes';
 import { useAuth } from '../contexts/AuthContext';
+import { useModal } from '../contexts/ModalContext';
 
 const LandingPage = () => {
   const { isAuthenticated } = useAuth();
+  const { openAuthCard } = useModal();
   const navigate = useNavigate();
-  const [showAuth, setShowAuth] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Preload assets
@@ -44,7 +45,7 @@ const LandingPage = () => {
         <div className="cta-buttons">
           <button 
             className={`btn ${isAuthenticated ? 'btn-profile' : 'btn-primary'}`}
-            onClick={() => isAuthenticated ? navigate('/profile') : setShowAuth(true)}
+            onClick={() => isAuthenticated ? navigate('/profile') : openAuthCard(true)}
           >
             {isAuthenticated ? 'Profile' : 'Sign Up'}
           </button>
@@ -59,14 +60,6 @@ const LandingPage = () => {
       {/* Replace the static product showcase with the scrolling grid */}
       <ScrollingProductGrid />
       
-      {showAuth && (
-        <AuthCard 
-          isVisible={showAuth}
-          onClose={() => setShowAuth(false)}
-          defaultIsSignUp={true}
-        />
-      )}
-
       <Footer />
     </div>
   );
