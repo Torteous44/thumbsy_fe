@@ -24,7 +24,6 @@ const TasteProfile = ({ userId }) => {
         }
 
         const data = await response.json();
-        console.log('Taste Profile Data:', JSON.stringify(data, null, 2));
         setProfileData(data);
       } catch (err) {
         console.error('Taste Profile Error:', err);
@@ -35,7 +34,6 @@ const TasteProfile = ({ userId }) => {
     };
 
     if (userId) {
-      console.log('Fetching taste profile for user:', userId);
       fetchTasteProfile();
     }
   }, [userId]);
