@@ -17,7 +17,6 @@ const ProfilePage = () => {
         const tokenType = localStorage.getItem('token_type');
 
         if (!token) {
-          console.log('No token found, redirecting...');
           navigate('/');
           return;
         }
@@ -29,7 +28,6 @@ const ProfilePage = () => {
             'Accept': 'application/json',
           }
         });
-        console.log(response);
         if (!response.ok) {
           const errorData = await response.text();
           throw new Error(`Failed to fetch profile: ${response.status} ${errorData}`);

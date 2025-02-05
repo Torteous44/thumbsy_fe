@@ -31,7 +31,6 @@ const SearchPage = () => {
   const handleResultsReceived = (results) => {
     setSearchResults(results);
     // You might want to navigate to a results page or show results in this page
-    console.log('Received results:', results);
   };
 
   return (
