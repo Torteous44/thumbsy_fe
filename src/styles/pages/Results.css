@@ -1,5 +1,65 @@
 @import '../fonts.css';
 
+.product-results-container {
+  display: flex;
+  min-height: calc(100vh - 57px);
+  background: #fff;
+  margin-top: 57px;
+  margin-left: 320px;
+}
+
+.recommendation-content {
+  flex: 1;
+  padding: 24px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.product-recommendations-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 24px;
+  padding: 24px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Hide vertical search on mobile, show horizontal search */
+.mobile-search-bar-section {
+  display: none;
+}
+
+/* Grid layout for products */
+.product-recommendations-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .product-results-container {
+    margin-left: 0;
+  }
+
+  .mobile-search-bar-section {
+    display: block;
+    margin-bottom: 24px;
+  }
+
+  .recommendation-content {
+    padding: 16px;
+  }
+
+  .product-recommendations-list {
+    padding: 16px;
+    gap: 16px;
+  }
+}
+
 .results-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -58,14 +118,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: 10rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
 }
 
 .results-controls h2 {
   font-family: 'sohneExtraleicht', sans-serif;
   font-size: 1rem;
   color: #111;
-  padding-left: 10rem;
   margin-top: 3rem;
 }
 
@@ -73,14 +136,27 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  margin-top: 3rem;
 }
 
-.grid-products {
+.thumbsy-products-list {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  max-width: 900px;
-  margin: 0 auto;
+  gap: 16px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.thumbsy-product-wrapper {
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+.thumbsy-product-card {
+  width: 100% !important;
+  flex: none !important;
+  max-width: none !important;
 }
 
 .product-header {
@@ -195,6 +271,37 @@
     margin-top: 1rem;
     font-size: 0.95rem;
     padding: 0.3rem 0.7rem;
+  }
+
+  .results-content {
+    padding: 16px;
+  }
+
+  .thumbsy-results-content {
+    padding: 16px;
+  }
+
+  .results-controls {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4px;
+  }
+
+  .results-controls h2 {
+    margin: 0;
+    font-size: 0.9rem;
+    transform: translateY(18px);
+  }
+
+  .results-sort {
+    margin: 0;
+    gap: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .sort-button {
+    font-size: 0.9rem;
   }
 }
 
@@ -530,11 +637,11 @@
   padding: 0 0.5rem;
 }
 
-.grid-products > div {
+.thumbsy-products-list > div {
   margin-bottom: 3rem;
 }
 
-.grid-products > div:last-child {
+.thumbsy-products-list > div:last-child {
   margin-bottom: 0;
 }
 
@@ -547,6 +654,189 @@
 
   .best-for {
     font-size: 1.5rem;
+  }
+}
+
+/* Add divider to vertical search */
+.thumbsy-vertical-search {
+  border-right: 1px solid #E5E5E5;
+}
+
+.thumbsy-results-content {
+  flex: 1;
+  padding: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Hide vertical search on mobile, show horizontal search */
+.mobile-search-section {
+  display: none;
+}
+
+/* Grid layout for products */
+.thumbsy-products-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .results-page-container {
+    margin-left: 0;
+  }
+
+  .mobile-search-section {
+    display: block;
+    margin-bottom: 24px;
+  }
+
+  .thumbsy-results-content {
+    padding: 16px;
+  }
+
+  .thumbsy-products-list {
+    gap: 12px;
+  }
+}
+
+.product-card-wrapper {
+  width: 100% !important;
+  display: block !important;
+  margin: 0 !important;
+}
+
+/* Target any direct children of the list */
+.product-recommendations-list > * {
+  width: 100% !important;
+  display: block !important;
+  margin: 0 !important;
+}
+
+/* Target the product card and its wrapper */
+.product-card-wrapper,
+.result-card,
+.thumbsy-product-wrapper,
+.thumbsy-product-card {
+  width: 100% !important;
+  display: block !important;
+  margin: 0 !important;
+  flex: none !important;
+}
+
+/* Ensure proper layout within each card */
+.result-main {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+
+.result-content {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .product-recommendations-list {
+    padding: 16px;
+    gap: 16px;
+  }
+  
+  .result-image {
+    width: 80px !important;
+    height: 80px !important;
+  }
+}
+
+.search-loading-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  text-align: center;
+  height: 80px;
+}
+
+.dots-loader {
+  position: absolute;
+  top: -60px;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dots-loader span {
+  width: 8px;
+  height: 8px;
+  background-color: #00DC82;
+  border-radius: 50%;
+  display: inline-block;
+  animation: bounce 1.4s ease-in-out infinite;
+}
+
+.dots-loader span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dots-loader span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+.search-loading-message {
+  font-family: 'sohneBuch', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #666;
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  animation: fadeInOut 15s infinite;
+  width: 200px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.search-loading-message:nth-child(2) {
+  animation-delay: 0s;
+}
+
+.search-loading-message:nth-child(3) {
+  animation-delay: 5s;
+}
+
+.search-loading-message:nth-child(4) {
+  animation-delay: 10s;
+}
+
+@keyframes fadeInOut {
+  0%, 28%, 100% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+  }
+  3%, 25% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
   }
 }
 

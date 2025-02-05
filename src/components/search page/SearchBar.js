@@ -2,7 +2,6 @@ import React, { useState, memo, useMemo, useEffect, useRef, useCallback } from '
 import { motion, AnimatePresence } from 'framer-motion';
 import RangeSlider from './RangeSlider';
 import '../../styles/components/search bar/SearchBar.css';
-import { useNavigate } from 'react-router-dom';
 import { useModal } from '../../contexts/ModalContext';
 
 const SearchBar = memo(({ onSearch, onExpandChange }) => {
@@ -149,8 +148,6 @@ const SearchBar = memo(({ onSearch, onExpandChange }) => {
     setPriceRange(newRange);
   };
 
-  const navigate = useNavigate();
-
   const { openAuthCard } = useModal();
 
   const handleSearch = async () => {
@@ -174,8 +171,8 @@ const SearchBar = memo(({ onSearch, onExpandChange }) => {
       review_sources: reviewSources.map(rs => rs.value.toLowerCase().replace(' ', '_'))
     };
 
-    // Navigate to results page
-    navigate('/results', { state: { query: searchData } });
+    // Call onSearch instead of navigating
+    onSearch(searchData);
   };
 
   const filterInputRef = useRef(null);

@@ -4,6 +4,8 @@ import '../../styles/components/product cards/ProductDetail.css';
 import LikeButton from './LikeButton';
 
 const ProductDetail = ({ product, onClose }) => {
+  const [activeTab, setActiveTab] = React.useState('specs');
+
   return (
     <motion.div 
       className="product-detail-overlay"
@@ -19,71 +21,86 @@ const ProductDetail = ({ product, onClose }) => {
         exit={{ y: 20, opacity: 0 }}
         onClick={e => e.stopPropagation()}
       >
-        <div className="product-header">
-          <div className="title-price">
-            {product.product_name}
-            <span className="price-tag">{product.price}</span>
+        <div className="product-header-simple">
+          <div className="header-left">
+            <p className="best-for">The best for {product.user_persona}</p>
           </div>
-          <div className="header-actions">
-            <div className="like-button-cell">
-              <LikeButton productId={product.id} />
-            </div>
-            <button className="close-button" onClick={onClose}>×</button>
+          <div className="header-right">
+            <LikeButton productId={product.id} />
+            <button 
+              className="close-button" 
+              onClick={onClose}
+              aria-label="Close details"
+            >
+              ×
+            </button>
           </div>
         </div>
 
-        <div className="product-content">
-          <div className="product-image-container">
-            {(!product.image_url || product.image_url === 'https://example.com/default-image.png') ? (
-              <div className="image-error-container">
-                <div className="image-error">
-                  <img 
-                    src="/assets/icons/thumbsy-icon.svg" 
-                    alt="Error loading content"
-                    className="error-icon"
-                  />
-                  <span>Oops.. something went wrong.</span>
-                </div>
-              </div>
-            ) : (
-              <img src={product.image_url} alt={product.product_name} />
-            )}
-            <div className="key-features">
-              {product.key_features?.map((feature, index) => (
-                <span key={index} className="feature-item">&nbsp;{feature}</span>
-              ))}
-            </div>
+        <div className="product-main-content">
+          <div className="product-image-section">
+            <img src={product.image_url} alt={product.product_name} />
           </div>
 
-          <div className="product-info">
-            <p className="description">{product.description}</p>
+          <div className="product-info-simple">
+            <h2>{product.product_name}</h2>
+            <p className="brand-name">{product.brand}</p>
             
-            <div className="info-grid">
-              <div className="info-section">
-                <h3>Perfect For</h3>
-                <p>{product.user_persona}</p>
-              </div>
+            <p className="main-description">{product.description}</p>
 
-              <div className="info-section">
-                <h3>Why It's Special</h3>
-                <p>{product.competitive_edge}</p>
-              </div>
+            <button className="buy-button">
+              {product.price} 
+              <span className="arrow">→</span>
+            </button>
 
-              <div className="info-section">
-                <h3>Brand</h3>
-                <p>{product.brand_reputation}</p>
-              </div>
+            <div className="descriptors">
+              {product.key_features?.map((feature, index) => (
+                <div key={index} className="descriptor-item">
+                  {feature}
+                </div>
+              ))}
             </div>
 
-            {product.awards && (
-              <div className="awards-section">
-                {product.awards.map((award, index) => (
-                  <div key={index} className="award-tag">
-                    🏆 {award}
-                  </div>
-                ))}
+            <div className="why-special">
+              <h3>Why it's special</h3>
+              <p>{product.competitive_edge}</p>
+            </div>
+            <div className="why-special">
+              <h3>{product.brand}</h3>
+              <p>{product.brand_reputation}</p>
+            </div>
+
+            <div className="bottom-section">
+              <div className="bottom-tabs">
+                <button 
+                  className={`tab ${activeTab === 'specs' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('specs')}
+                >
+                  Specs
+                </button>
+                <button 
+                  className={`tab ${activeTab === 'reviews' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('reviews')}
+                >
+                  Reviews
+                </button>
+                <button 
+                  className={`tab ${activeTab === 'awards' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('awards')}
+                >
+                  Awards
+                </button>
               </div>
-            )}
+              <div className="tab-content">
+                {activeTab === 'specs' && (
+                  <>
+                    <div>Specifications</div>
+                    <div>{product.specifications}</div>
+                  </>
+                )}
+                {/* ... rest of the tab content ... */}
+              </div>
+            </div>
           </div>
         </div>
       </motion.div>
