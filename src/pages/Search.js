@@ -4,9 +4,9 @@ import ProductDetail from '../components/results page/ProductDetail';
 import SearchBar from '../components/search page/SearchBar';
 import ProductCard from '../components/results page/ProductCard';
 import VerticalSearchBar from '../components/search page/VerticalSearchBar';
-import '../styles/pages/Results.css';
+import '../styles/pages/Search.css';
 
-const Results = () => {
+const SearchPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [results, setResults] = useState([]);
@@ -214,4 +214,4 @@ const Results = () => {
   );
 };
 
-export default Results; 
+export default SearchPage; 

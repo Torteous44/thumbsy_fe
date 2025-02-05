@@ -108,10 +108,11 @@
   font-size: 14px;
   color: #000;
   margin-top: 8px;
+  padding: 0 1rem;
 }
 
 .thumbsy-range-slider {
-  flex: 1;
+  flex: 1.5;
   position: relative;
   height: 2px;
   background: #E5E5E5;

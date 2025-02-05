@@ -3,13 +3,14 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.5rem 0;
+  padding: 0.5rem 2rem;
+  width: 100%;
 }
 
 /* The container for both range inputs and the highlight track */
 .range-slider {
   position: relative;
-  flex: 1;
+  flex: 1.5;
   height: 2px;
   background: #EAEAEA; /* Inactive portion */
   border-radius: 1px;
@@ -85,5 +86,16 @@
 .price-range span {
   font-size: 14px;
   color: #666;
-  min-width: 60px;
+  min-width: 20px;
+  text-align: center; /* Center the text */
+}
+
+/* Add this new rule to ensure first span is right-aligned */
+.price-range span:first-child {
+  text-align: right;
+}
+
+/* Add this new rule to ensure last span is left-aligned */
+.price-range span:last-child {
+  text-align: left;
 } 
