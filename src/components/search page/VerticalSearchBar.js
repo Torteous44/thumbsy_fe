@@ -1,15 +1,120 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { debounce } from 'lodash';
 import RangeSlider from './RangeSlider';
 import '../../styles/components/search bar/VerticalSearchBar.css';
+import { useModal } from '../../contexts/ModalContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 const VerticalSearchBar = ({ onSearch }) => {
+  const { openAuthCard } = useModal();
+  const { isAuthenticated } = useAuth();
   const [query, setQuery] = useState('');
   const [characteristics, setCharacteristics] = useState([]);
   const [selectedCharacteristics, setSelectedCharacteristics] = useState([]);
   const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [currentPlaceholder, setCurrentPlaceholder] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  
+  const typewriterRef = useRef(null);
+  const currentIndexRef = useRef(0);
+  const currentPositionRef = useRef(0);
+
+  const placeholders = useMemo(() => [
+    "Sneakers...",
+    "Gaming laptop...",
+    "Wireless headphones...",
+    "Smart watch...",
+    "Coffee maker...",
+    "Backpack...",
+    "Running shoes...",
+    "Smartphone...",
+    "Digital camera...",
+    "Bluetooth speaker...",
+    "Mechanical keyboard...",
+    "Gaming mouse...",
+    "Yoga mat...",
+    "Air purifier...",
+    "Electric scooter...",
+    "Drone...",
+    "Fitness tracker...",
+    "Standing desk...",
+    "Robot vacuum...",
+    "Ergonomic chair...",
+    "Smart thermostat...",
+    "Portable charger...",
+    "Wireless earbuds...",
+    "Gaming console...",
+    "Tablet...",
+    "Smart doorbell...",
+    "Blender...",
+    "Air fryer...",
+    "Security camera...",
+    "Smart light bulbs...",
+    "Electric toothbrush...",
+    "Instant pot...",
+    "Noise cancelling headphones...",
+    "Smart speaker...",
+    "Projector...",
+    "Smartpen...",
+    "Water bottle...",
+    "Sunglasses...",
+    "Hiking boots...",
+    "Sleeping bag..."
+  ], []);
+
+  const typePlaceholder = useCallback(() => {
+    const typeChar = () => {
+      const currentText = placeholders[currentIndexRef.current];
+      if (currentPositionRef.current <= currentText.length) {
+        setCurrentPlaceholder(currentText.slice(0, currentPositionRef.current));
+        currentPositionRef.current++;
+        typewriterRef.current = setTimeout(typeChar, 75);
+      } else {
+        typewriterRef.current = setTimeout(erasePlaceholder, 2000);
+      }
+    };
+
+    const erasePlaceholder = () => {
+      const currentText = placeholders[currentIndexRef.current];
+      if (currentPositionRef.current > 0) {
+        currentPositionRef.current--;
+        setCurrentPlaceholder(currentText.slice(0, currentPositionRef.current));
+        typewriterRef.current = setTimeout(erasePlaceholder, 50);
+      } else {
+        currentIndexRef.current = (currentIndexRef.current + 1) % placeholders.length;
+        typewriterRef.current = setTimeout(typeChar, 500);
+      }
+    };
+
+    currentPositionRef.current = 0;
+    typeChar();
+  }, [placeholders]);
+
+  useEffect(() => {
+    if (!isTyping) {
+      typePlaceholder();
+    }
+    return () => {
+      clearTimeout(typewriterRef.current);
+    };
+  }, [isTyping, typePlaceholder]);
+
+  const handleInputFocus = () => {
+    setIsTyping(true);
+    setCurrentPlaceholder('');
+    clearTimeout(typewriterRef.current);
+  };
+
+  const handleInputBlur = () => {
+    if (!query) {
+      setIsTyping(false);
+      currentPositionRef.current = 0;
+      currentIndexRef.current = 0;
+      typePlaceholder();
+    }
+  };
 
   const fetchCharacteristics = async (category) => {
     if (!category.trim()) {
@@ -71,14 +176,18 @@ const VerticalSearchBar = ({ onSearch }) => {
   };
 
   const handleSearch = () => {
-    // Format the search parameters to match the endpoint requirements
+    if (!isAuthenticated) {
+      openAuthCard(true);
+      return;
+    }
+
     const searchParams = {
       query: query.trim(),
       min_price: priceRange.min,
       max_price: priceRange.max,
       characteristics: selectedCharacteristics,
-      review_sources: [], // Empty as per requirement
-      brands: [""] // Empty as per requirement
+      review_sources: [],
+      brands: [""]
     };
     
     onSearch(searchParams);
@@ -99,7 +208,9 @@ const VerticalSearchBar = ({ onSearch }) => {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Sneakers..."
+            placeholder={currentPlaceholder}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
           />
         </div>
 
