@@ -6,6 +6,16 @@ import LikeButton from './LikeButton';
 const ProductDetail = ({ product, onClose }) => {
   const [activeTab, setActiveTab] = React.useState('specs');
 
+  React.useEffect(() => {
+    // Add class when component mounts
+    document.body.classList.add('modal-open');
+    
+    // Remove class when component unmounts
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, []);
+
   return (
     <motion.div 
       className="product-detail-overlay"

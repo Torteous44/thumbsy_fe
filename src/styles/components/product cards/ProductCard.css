@@ -227,16 +227,17 @@
 .result-main {
   display: flex;
   gap: 24px;
-  align-items: center;
+  align-items: stretch;
   width: 100%;
   min-width: 0;
   flex-wrap: nowrap;
 }
 
 .result-image {
-  width: 144px;
-  height: 144px;
-  background: #F8F8F8;
+  width: 180px;
+  height: 180px;
+  background: white;
+  border: 1px solid #E5E5E5;
   border-radius: 12px;
   overflow: hidden;
   position: relative;
@@ -276,9 +277,19 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   overflow-wrap: break-word;
   word-wrap: break-word;
+  min-height: 204px;
+  position: relative;
+}
+
+.like-button-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 40px;
 }
 
 .title-row {
@@ -287,62 +298,61 @@
   align-items: flex-start;
   gap: 16px;
   margin: 0;
-  margin-bottom: 8px;
   width: 100%;
   min-width: 0;
 }
 
 .result-title {
   margin: 0;
-  font-family: 'sohneBuch', sans-serif;
+  font-family: 'sohneBuch', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 18px;
   line-height: 1.2;
   color: #111;
-  font-weight: 500;
+  font-weight: 400;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
   word-break: break-word;
+  display: block;
+  width: calc(100% - 48px);
+  font-feature-settings: "kern" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .result-brand {
-  font-family: 'sohneLeicht', sans-serif;
+  font-family: 'sohneLeicht', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 14px;
   line-height: 1.2;
   color: #666;
   margin: 0;
-  padding-top: 2px;
+  padding-top: 4px;
+  margin-bottom: 2px;
+  font-weight: 400;
+  font-feature-settings: "kern" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.add-to-taste-profile {
-  font-family: 'sohneLeicht', sans-serif;
-  font-size: 14px;
-  color: #666;
-  background: none;
-  border: none;
-  padding: 8px 16px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.add-to-taste-profile:hover {
-  color: #333;
-}
 
 .result-description {
   margin: 0;
-  font-family: 'sohneLeicht', sans-serif;
+  margin-top: 12px;
+  font-family: 'sohneLeicht', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 14px;
   line-height: 1.5;
   color: #333;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  overflow: hidden;
   text-overflow: ellipsis;
-  word-break: break-word;
+  word-break: wrap;
+  font-weight: 400;
+  font-feature-settings: "kern" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .result-action {
@@ -352,13 +362,20 @@
   margin-top: 8px;
 }
 
+.result-price-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
 .result-price {
   font-family: 'sohneLeicht', sans-serif;
   font-size: 14px;
   background: #1a1a1a;
   color: white;
   padding: 6px 12px;
-  border-radius: 20px;
+  border-radius: 10px;
+  display: inline-block;
 }
 
 .learn-more {
@@ -368,8 +385,11 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 6px 12px;
+  padding: 2px 6px;
   transition: color 0.2s ease;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 .learn-more:hover {
