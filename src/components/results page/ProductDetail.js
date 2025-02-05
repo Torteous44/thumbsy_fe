@@ -43,16 +43,20 @@ const ProductDetail = ({ product, onClose }) => {
           </div>
 
           <div className="product-info-simple">
-            <h2>{product.product_name}</h2>
-            <p className="brand-name">{product.brand}</p>
-            
+            <h2 className="product-title">{product.product_name}</h2>
+            <p className="brand-name-title">{product.brand}</p>
             <p className="main-description">{product.description}</p>
-
             <button className="buy-button">
               {product.price} 
-              <span className="arrow">→</span>
+              <img 
+                src="/assets/icons/DiagonalUpArrow.svg" 
+                alt="Open link" 
+                className="diagonal-arrow"
+              />
             </button>
+          </div>
 
+          <div className="product-details-section">
             <div className="descriptors">
               {product.key_features?.map((feature, index) => (
                 <div key={index} className="descriptor-item">
