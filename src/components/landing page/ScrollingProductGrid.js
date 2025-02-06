@@ -4,7 +4,7 @@ import '../../styles/components/ScrollingProductGrid.css';
 
 // Move images array outside component
 const images = [
-  { src: "/assets/images/image.png", alt: "Product 1" },
+  { src: "/assets/images/image-16.webp", alt: "Product 1" },
   { src: "/assets/images/image-1.png", alt: "Product 2" },
   { src: "/assets/images/image-2.png", alt: "Product 3" },
   { src: "/assets/images/image-3.png", alt: "Product 4" },
@@ -15,7 +15,7 @@ const images = [
   { src: "/assets/images/image-8.png", alt: "Product 9" },
   { src: "/assets/images/image-9.png", alt: "Product 10" },
   { src: "/assets/images/image-10.png", alt: "Product 11" },
-  { src: "/assets/images/image-11.png", alt: "Product 12" },
+  { src: "/assets/images/image-11.avif", alt: "Product 12" },
 ];
 
 const ScrollingProductGrid = () => {
