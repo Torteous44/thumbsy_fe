@@ -20,7 +20,7 @@
   display: flex !important;
   flex-direction: column !important;
   gap: 24px;
-  width: 100%;
+  width: 80%;
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
@@ -121,7 +121,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 80%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
@@ -216,10 +216,7 @@
   transform: translateY(-2px);
 }
 
-.result-feature.users-liked::before {
-  content: "👍";
-  font-size: 0.75rem;
-}
+
 
 .price-icon {
   width: 16px;
@@ -678,7 +675,7 @@
 
 /* Add divider to vertical search */
 .thumbsy-vertical-search {
-  border-right: 1px solid #E5E5E5;
+  border-right: 1px solid #d9d9d9;
 }
 
 .thumbsy-results-content {
@@ -892,20 +889,6 @@
   background: #333;
 }
 
-.result-card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 24px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border: 1px solid #EAEAEA;
-  width: 100%;
-  min-height: 192px;
-  display: flex;
-  max-width: 100%;
-  box-sizing: border-box;
-  margin-right: 0;
-}
 
 @media (max-width: 768px) {
   .result-card {

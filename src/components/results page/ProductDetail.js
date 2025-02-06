@@ -53,7 +53,7 @@ const ProductDetail = ({ product, onClose }) => {
             <p className="best-for">The best for {product.user_persona}</p>
           </div>
           <div className="header-right">
-            <LikeButton productId={product.id} />
+            <LikeButton productId={product.id} className="product-detail-like-button" />
             <button 
               className="close-button" 
               onClick={onClose}

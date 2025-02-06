@@ -4,88 +4,67 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  width: 35px;
+  height: 35px;
 }
 
-/* Hide the default checkbox */
-.container input {
-  opacity: 0;
+.like-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-.container {
-  display: block;
-  position: relative;
-  cursor: pointer;
-  font-size: 12px;
-  user-select: none;
-}
-
-/* Create a custom checkbox */
-.checkmark {
-  position: relative;
+  padding: 0;
+  transition: transform 0.2s ease;
+  width: 35px;
+  height: 35px;
+  position: absolute;
   top: 0;
   left: 0;
-  height: 3em;
-  width: 3em;
-  background-color: transparent;
-  border-radius: 5px;
-  transition: .2s ease-in-out;
+}
+
+.like-action:hover {
+  transform: scale(1.05);
+}
+
+.thumbsy-icon {
+  width: 35px;
+  height: 35px;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.thumbsy-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/public/assets/icons/thumbsy-icon.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 0 0.5px rgba(128, 128, 128, 0.95))
+         drop-shadow(0 0 0.5px rgba(128, 128, 128, 0.95));
+  opacity: 0.3;
+  z-index: 1;
+  transform: translateZ(0);
+}
+
+.thumbsy-icon img {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.2s ease;
+  position: relative;
   z-index: 2;
 }
 
-.like {
-  position: relative;
-  font-size: 0.8em;
-  top: -3.5em;
-  text-align: center;
-  z-index: -1;
-  color: transparent;
+.like-action.liked .thumbsy-icon::before {
+  opacity: 0;
 }
 
-.icon {
-  margin: 0.2em;
-  fill: #808080;
-  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother transition */
-}
-
-.checkmark:hover {
-  background-color: transparent;
-}
-
-.checkmark:hover .icon {
-  fill: #666;
-  transform: scale(1.08) rotate(-5deg); /* Reduced scale and rotation */
-  transform-origin: center;
-}
-
-/* When the checkbox is checked, add a blue background */
-.container input:checked ~ .checkmark {
-  background-color: transparent;
-}
-
-.container input:checked ~ .like {
-  color: white;
-  animation: 0.6s up_3951;
-}
-
-.container input:checked ~ .checkmark .icon {
-  fill: #76c785;
-  transform: scale(1);
-  animation: likeAnimation 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); /* Softer curve, shorter duration */
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Show the checkmark when checked */
-.container input:checked ~ .checkmark:after {
-  display: block;
+.like-action.liked .thumbsy-icon img {
+  opacity: 1;
 }
 
 /* Additional styles for different contexts */
@@ -105,9 +84,9 @@
 /* Updated tooltip position to left */
 .like-tooltip {
   position: absolute;
-  right: calc(100% + 1px);
-  top: 40%;
-  transform: translateY(calc(-50% - 1.5em));
+  right: calc(100% + 8px);  /* Position to the left with 8px gap */
+  top: 50%;
+  transform: translateY(-50%);
   background-color: #f5f5f5;
   color: #666;
   padding: 4px 8px;
@@ -117,120 +96,13 @@
   letter-spacing: 0.2px;
   white-space: nowrap;
   pointer-events: none;
+  opacity: 0;
+  animation: fadeIn 0.15s ease forwards;
   z-index: 1000;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  opacity: 1; /* Changed from 0 */
-  animation: tooltipAppear 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Simplified arrow */
 .like-tooltip::before {
   display: none;
-}
-
-@keyframes up_3951 {
-  100% {
-    transform: translateY(-2em);
-  }
-}
-
-@keyframes likeAnimation {
-  0% {
-    transform: scale(1);
-  }
-  30% {
-    transform: scale(1.12) rotate(-8deg); /* Reduced scale and rotation */
-  }
-  60% {
-    transform: scale(0.92) rotate(0); /* Softer bounce back */
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes tooltipAppear {
-  0% {
-    opacity: 0;
-    transform: translate(4px, calc(-50% - 1.5em));
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0, calc(-50% - 1.5em));
-  }
-}
-
-/* Optional: Add a subtle ripple effect on click */
-.checkmark::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: rgba(50, 205, 50, 0.2);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.container input:checked ~ .checkmark::after {
-  animation: ripple 0.6s ease-out;
-}
-
-@keyframes ripple {
-  0% {
-    width: 0;
-    height: 0;
-    opacity: 0.5;
-  }
-  100% {
-    width: 3.5em;
-    height: 3.5em;
-    opacity: 0;
-  }
-}
-
-.status-message {
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 11px;
-  font-weight: 500;
-  color: limegreen;
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Show status message when liked - fixed selector */
-.like-button-container input:checked ~ .status-message {
-  animation: statusAppear 1.8s cubic-bezier(0.2, 0, 0, 1) forwards;
-}
-
-@keyframes statusAppear {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, 10px);
-  }
-  15% {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-  85% {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -5px);
-  }
-}
-
-/* Ensure proper stacking context */
-.like-button-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

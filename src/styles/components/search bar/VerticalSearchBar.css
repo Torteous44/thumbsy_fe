@@ -10,7 +10,6 @@
   top: 57px;
   left: 0;
   z-index: 999;
-  border-right: 1px solid #E5E5E5;
 }
 
 .thumbsy-search-header {
@@ -51,9 +50,9 @@
   }
 
 .thumbsy-search-input input {
-    width: 100%;
+    width: 95%;
     padding: 16px;
-    border: 1px solid #E5E5E5;
+    border: 1px solid #d9d9d9;
     border-radius: 12px;
     font-size: 14px;
     outline: none;
