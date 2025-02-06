@@ -1,0 +1,10 @@
+# Exported from Render on 2025-02-06T13:04:30Z
+services:
+- type: web
+  name: thumbsy_fe
+  runtime: static
+  repo: https://github.com/Torteous44/thumbsy_fe
+  branch: production
+  buildCommand: npm run build
+  staticPublishPath: build
+version: "1"
