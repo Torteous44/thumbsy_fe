@@ -7,6 +7,7 @@ body.modal-open {
 }
 
 .product-detail-overlay {
+  /* Overlay for the product detail modal */
   position: fixed;
   top: 0;
   left: 0;
@@ -25,6 +26,7 @@ body.modal-open {
 }
 
 .product-detail-content {
+  /* Main content area of the product detail modal */
   background: white;
   border-radius: 16px;
   width: 100%;
@@ -60,22 +62,30 @@ body.modal-open {
 }
 
 .product-header-simple {
+  /* Header section for product details, including title and brand */
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  /* Reduced from default to minimize gap between header and content below */
+  margin-bottom: 0.5rem;
 }
 
 .best-for {
+  /* Text indicating the best use or feature of the product */
   font-size: 1.1rem;
-  color: #000;
+  color: #000000;
   font-family: 'sohneBuch', sans-serif;
-  border-bottom: 1px solid #000;
   display: inline-block;
-  padding-bottom: 2px;
-  margin-bottom: 0rem;
+  /* Space between text and underline */
+  padding-bottom: 8px;
+  border-bottom: 1px solid #D9D9D9;
+  width: calc(130%);
+  /* Small gap between underline and content below */
+  margin-bottom: 0.5rem;
 }
 
 .product-header-simple h1 {
+  /* Main title of the product */
   font-size: 2rem;
   font-family: 'sohneHalbfett', sans-serif;
   color: #000;
@@ -84,33 +94,41 @@ body.modal-open {
 }
 
 .brand-name-title {
-  font-size: 0.95rem;
+  /* Brand name display */
+  font-size: 1rem;
   color: #616161;
-  margin: 0.3rem 0;
+  /* Small vertical spacing around brand name */
+  margin: 0.1rem 0; /*done*/
   font-family: 'sohneLeicht', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-weight: 200;
 }
 
 .add-to-profile {
+  /* Hidden button for adding product to profile */
   display: none;
 }
 
 .product-main-content {
+  /* Main content area for product information */
   display: block;
   position: relative;
 }
 
 .product-top-section {
+  /* Top section containing the product image */
   display: block;
   position: relative;
   min-height: 320px;  /* Height of image + margins */
 }
 
 .product-image-section {
+  /* Section for displaying the product image */
   float: left;
   width: 260px;
   height: 260px;
-  margin-right: 2rem;
+  margin-right: 2rem; /* Space between image and text */
+  /* Removed top margin to align with text content */
+  margin-top: 0;
   margin-bottom: 1rem;
   border: 1px solid #E5E5E5;
   border-radius: 12px;
@@ -118,12 +136,12 @@ body.modal-open {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 1.5rem;
   background: white;
   cursor: zoom-in;
 }
 
 .product-image-section img {
+  /* Styles for the product image */
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -131,35 +149,39 @@ body.modal-open {
 }
 
 .product-info-simple {
-  display: flex;
-  flex-direction: column;
-  margin-left: 260px;
+  /* Section for product information, including title and description */
+  margin-left: 260px; /* Space for image */
   max-width: 600px;
   position: relative;
-  height: 320px;  /* Match min-height of top section */
+  height: 320px;
+  /* Removed margin-top to eliminate extra space after header */
 }
 
 .product-info-simple .product-title {
+  /* Title of the product */
   font-size: 1.5rem;
-  margin-bottom: 0.25rem;
   font-family: 'sohneBuch', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   font-weight: 550;
+  /* Removed all margins to control spacing through parent elements */
+  margin: 0;
 }
 
 .product-info-simple .main-description {
-  margin-bottom: 1rem;
+  /* Larger margin at top to separate from title/brand section */
+  margin-top: 1rem;
+  /* Reduced bottom margin to control spacing with buy button */
+  margin-bottom: 2rem;  
   font-weight: 200;
   color: #000000;
-  font-family: 'sohneLeicht', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'sohneLeicht', sans-serif;
   max-height: 140px;
   width: auto;
   min-width: 610px;
-  margin-top: 0.25rem;
 }
 
 .buy-button {
-  position: absolute;
-  bottom: 0;
+  /* Button for purchasing the product */
+  position: relative;
   align-self: flex-start;
   background: #000;
   color: white;
@@ -170,18 +192,19 @@ body.modal-open {
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1.4rem;
   width: fit-content;
   font-family: 'sohneBuch', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  transform: translateY(-3px);
 }
 
 .buy-button .diagonal-arrow {
+  /* Icon for the buy button */
   width: 10px;
   height: 10px;
 }
 
 .arrow {
+  /* Styles for arrow indicators */
   font-size: 1rem;
   font-weight: 200;
 }
@@ -190,10 +213,12 @@ body.modal-open {
 .why-special,
 .bottom-tabs,
 .tab-content {
+  /* General styles for descriptor sections and tabs */
   clear: none;
 }
 
 .descriptors {
+  /* Grid layout for product descriptors */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
@@ -204,6 +229,7 @@ body.modal-open {
 }
 
 .descriptor-item {
+  /* Individual descriptor item styles */
   color: #666;
   font-size: 0.95rem;
   text-align: center;
@@ -219,6 +245,7 @@ body.modal-open {
 }
 
 .why-special {
+  /* Section highlighting special features of the product */
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: 2rem;
@@ -230,6 +257,7 @@ body.modal-open {
 }
 
 .why-special h3 {
+  /* Heading for special features */
   font-size: 0.95rem;
   font-family: 'sohneLeicht', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   color: #000;
@@ -241,6 +269,7 @@ body.modal-open {
 }
 
 .why-special p {
+  /* Description for special features */
   font-size: 0.95rem;
   font-family: 'sohneLeicht', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   color: #000;
@@ -252,10 +281,12 @@ body.modal-open {
 
 /* Bottom tabs and content */
 .bottom-section {
+  /* Section for bottom tabs and content */
   margin-top: 2.5rem;
 }
 
 .bottom-tabs {
+  /* Tab navigation for product details */
   display: flex;
   gap: 2rem;
   margin-bottom: 1.5rem;
@@ -263,6 +294,7 @@ body.modal-open {
 }
 
 .tab {
+  /* Individual tab styles */
   color: #666;
   font-size: 0.95rem;
   padding: 0.5rem 0;
@@ -274,12 +306,14 @@ body.modal-open {
 }
 
 .tab.active {
+  /* Styles for the active tab */
   color: #000;
   border-bottom: 1px solid #000;
   font-family: 'sohneHalbfett', sans-serif;
 }
 
 .tab-content {
+  /* Content area for the selected tab */
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: 2rem;
@@ -290,22 +324,26 @@ body.modal-open {
 }
 
 .brand-name {
+  /* Brand name styling */
   color: #000000;
   font-weight: 300;
 }
 
 .brand-description {
+  /* Description of the brand */
   color: #333;
   margin-bottom: 0;
 }
 
 .header-right {
+  /* Right section of the header, typically for actions */
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
 .close-button {
+  /* Button to close the product detail modal */
   background: none;
   border: none;
   font-size: 24px;
@@ -316,11 +354,13 @@ body.modal-open {
 }
 
 .close-button:hover {
+  /* Hover styles for the close button */
   color: #333;
   background: #f5f5f5;
 }
 
 .zoomed-image-overlay {
+  /* Overlay for zoomed product images */
   position: fixed;
   top: 0;
   left: 0;
@@ -335,6 +375,7 @@ body.modal-open {
 }
 
 .zoomed-image {
+  /* Styles for the zoomed product image */
   max-width: 90vw;
   max-height: 90vh;
   object-fit: contain;
@@ -345,6 +386,7 @@ body.modal-open {
 }
 
 @media (max-width: 768px) {
+  /* Responsive styles for screens smaller than 768px */
   .product-detail-content {
     min-width: unset;  /* Remove min-width constraint */
     padding: 1rem;
@@ -415,6 +457,7 @@ body.modal-open {
 }
 
 @media (max-width: 480px) {
+  /* Responsive styles for screens smaller than 480px */
   .descriptors {
     grid-template-columns: 1fr;
   }

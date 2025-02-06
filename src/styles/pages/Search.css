@@ -20,10 +20,12 @@
   display: flex !important;
   flex-direction: column !important;
   gap: 24px;
-  padding: 24px;
   width: 100%;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  overflow: visible;
+  padding: 0 24px;
 }
 
 /* Hide vertical search on mobile, show horizontal search */
@@ -57,6 +59,7 @@
   .product-recommendations-list {
     padding: 16px;
     gap: 16px;
+    max-width: 100%;
   }
 }
 
@@ -119,7 +122,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
   position: relative;
@@ -297,7 +300,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 0 4px;
+    padding: 0 16px;
+    max-width: 100%;
   }
 
   .results-controls h2 {
@@ -718,9 +722,9 @@
 }
 
 .product-card-wrapper {
-  width: 100% !important;
-  display: block !important;
-  margin: 0 !important;
+  width: 100%;
+  position: relative;
+  overflow: visible;
 }
 
 /* Target any direct children of the list */
@@ -886,6 +890,30 @@
 
 .results-error button:hover {
   background: #333;
+}
+
+.result-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #EAEAEA;
+  width: 100%;
+  min-height: 192px;
+  display: flex;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-right: 0;
+}
+
+@media (max-width: 768px) {
+  .result-card {
+    padding: 16px;
+    min-height: auto;
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 
