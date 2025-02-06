@@ -119,6 +119,7 @@ const VerticalSearchBar = ({ onSearch }) => {
   const fetchCharacteristics = async (category) => {
     if (!category.trim()) {
       setCharacteristics([]);
+      setSelectedCharacteristics([]);
       return;
     }
     
@@ -141,6 +142,7 @@ const VerticalSearchBar = ({ onSearch }) => {
       
       const data = await response.json();
       setCharacteristics(data.suggestions || []);
+      setSelectedCharacteristics([]);
     } catch (err) {
       setError(err.message || 'Failed to load suggestions');
       console.error('Error fetching characteristics:', err);
