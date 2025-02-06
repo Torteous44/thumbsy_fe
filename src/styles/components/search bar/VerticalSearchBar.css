@@ -225,26 +225,45 @@
 }
 
 .thumbsy-error {
-  color: #FF4D4F;
-  margin: 16px 0;
-  padding: 12px;
-  background: #FFF1F0;
-  border-radius: 8px;
-  font-size: 14px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  padding: 10px 14px;
+  margin: 8px 0;
+  background-color: rgba(254, 226, 226, 0.5);
+  border: 1px solid rgba(252, 165, 165, 0.3);
+  border-radius: 8px;
+}
+
+.thumbsy-error p {
+  color: #666666;
+  font-size: 13px;
+  margin: 0;
+  flex: 1;
+  line-height: 1.4;
+}
+
+.thumbsy-error svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  opacity: 0.6;
 }
 
 .thumbsy-retry-button {
-  padding: 4px 8px;
-  background: none;
-  border: 1px solid #FF4D4F;
-  color: #FF4D4F;
+  padding: 4px 10px;
+  background-color: rgba(220, 38, 38, 0.1);
+  color: #666666;
+  border: 1px solid rgba(220, 38, 38, 0.2);
   border-radius: 4px;
+  font-size: 13px;
   cursor: pointer;
-  font-size: 12px;
-  margin-left: auto;
+  transition: all 0.2s ease;
+}
+
+.thumbsy-retry-button:hover {
+  background-color: rgba(220, 38, 38, 0.15);
+  border-color: rgba(220, 38, 38, 0.3);
 }
 
 @media (max-width: 768px) {
