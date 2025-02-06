@@ -15,6 +15,7 @@ const SearchPage = () => {
   const [error, setError] = useState(null);
   const [sortBy, setSortBy] = useState('');
   const [sortDirection, setSortDirection] = useState('asc');
+  let requestCounter = 0;
 
   const headerData = useMemo(() => {
     if (!location.state?.query) return null;
@@ -54,7 +55,24 @@ const SearchPage = () => {
     }
   };
 
+  const timestamp = () => new Date().toISOString();
+
+  const handleSearch = (searchParams) => {
+    console.log(`[${timestamp()}] handleSearch called`);
+    navigate('/search', { state: { query: searchParams } });
+  };
+
+  useEffect(() => {
+    console.log(`[${timestamp()}] useEffect triggered by location.state change`);
+    if (location.state?.query) {
+      console.log(`[${timestamp()}] Calling fetchResults from useEffect`);
+      fetchResults(location.state.query);
+    }
+  }, [location.state?.query]);
+
   const fetchResults = async (searchParams) => {
+    const currentRequest = ++requestCounter;
+    console.log(`[${timestamp()}] Starting request #${currentRequest}`);
     setIsLoading(true);
     setError(null);
     setResults([]);
@@ -114,24 +132,15 @@ const SearchPage = () => {
         }
       }
 
+      console.log(`[${timestamp()}] Completed request #${currentRequest}`);
     } catch (err) {
+      console.log(`[${timestamp()}] Failed request #${currentRequest}`);
       setError('Failed to load recommendations. Please try again.');
       console.error('Error fetching results:', err);
     } finally {
       setIsLoading(false);
     }
   };
-
-  const handleSearch = (searchParams) => {
-    navigate('/search', { state: { query: searchParams } });
-    fetchResults(searchParams);
-  };
-
-  useEffect(() => {
-    if (location.state?.query) {
-      fetchResults(location.state.query);
-    }
-  }, [location.state?.query]);
 
   return (
     <div className="product-results-container">
