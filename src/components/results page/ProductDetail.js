@@ -5,6 +5,7 @@ import LikeButton from './LikeButton';
 
 const ProductDetail = ({ product, onClose }) => {
   const [activeTab, setActiveTab] = React.useState('specs');
+  const [isImageZoomed, setIsImageZoomed] = React.useState(false);
 
   React.useEffect(() => {
     // Add class when component mounts
@@ -16,6 +17,11 @@ const ProductDetail = ({ product, onClose }) => {
     };
   }, []);
 
+  const handleImageClick = (e) => {
+    e.stopPropagation();
+    setIsImageZoomed(!isImageZoomed);
+  };
+
   return (
     <motion.div 
       className="product-detail-overlay"
@@ -24,6 +30,17 @@ const ProductDetail = ({ product, onClose }) => {
       exit={{ opacity: 0 }}
       onClick={onClose}
     >
+      {isImageZoomed && (
+        <div className="zoomed-image-overlay" onClick={handleImageClick}>
+          <img 
+            src={product.image_url} 
+            alt={product.product_name} 
+            className="zoomed-image"
+            onClick={handleImageClick}
+            style={{ cursor: 'zoom-out' }}
+          />
+        </div>
+      )}
       <motion.div 
         className="product-detail-content"
         initial={{ y: 20, opacity: 0 }}
@@ -48,22 +65,28 @@ const ProductDetail = ({ product, onClose }) => {
         </div>
 
         <div className="product-main-content">
-          <div className="product-image-section">
-            <img src={product.image_url} alt={product.product_name} />
-          </div>
-
-          <div className="product-info-simple">
-            <h2 className="product-title">{product.product_name}</h2>
-            <p className="brand-name-title">{product.brand}</p>
-            <p className="main-description">{product.description}</p>
-            <button className="buy-button">
-              {product.price} 
+          <div className="product-top-section">
+            <div className="product-image-section" onClick={handleImageClick}>
               <img 
-                src="/assets/icons/DiagonalUpArrow.svg" 
-                alt="Open link" 
-                className="diagonal-arrow"
+                src={product.image_url} 
+                alt={product.product_name} 
+                style={{ cursor: 'zoom-in' }}
               />
-            </button>
+            </div>
+
+            <div className="product-info-simple">
+              <h2 className="product-title">{product.product_name}</h2>
+              <p className="brand-name-title">{product.brand}</p>
+              <p className="main-description">{product.description}</p>
+              <button className="buy-button">
+                {product.price} 
+                <img 
+                  src="/assets/icons/DiagonalUpArrow.svg" 
+                  alt="Open link" 
+                  className="diagonal-arrow"
+                />
+              </button>
+            </div>
           </div>
 
           <div className="product-details-section">
