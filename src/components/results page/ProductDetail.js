@@ -91,10 +91,12 @@ const ProductDetail = ({ product, onClose }) => {
 
           <div className="product-details-section">
             <div className="descriptors">
-              {product.key_features?.map((feature, index) => (
+              {product.key_features?.map((item, index) => (
                 <div key={index} className="descriptor-item">
-                  <span className="adjective">adjectives</span>
-                  <span className="descriptor">{feature}</span>
+                  <span className="adjective">
+                    {item.adjectives.charAt(0).toUpperCase() + item.adjectives.slice(1)}
+                  </span>
+                  <span className="descriptor">{item.feature}</span>
                 </div>
               ))}
             </div>
@@ -122,12 +124,6 @@ const ProductDetail = ({ product, onClose }) => {
                 >
                   Reviews
                 </button>
-                <button 
-                  className={`tab ${activeTab === 'awards' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('awards')}
-                >
-                  Awards
-                </button>
               </div>
               <div className="tab-content">
                 {activeTab === 'specs' && (
@@ -136,7 +132,12 @@ const ProductDetail = ({ product, onClose }) => {
                     <div>{product.specifications}</div>
                   </>
                 )}
-                {/* ... rest of the tab content ... */}
+                {activeTab === 'reviews' && (
+                  <>
+                    <div>Reviews</div>
+                    {/* Reviews content */}
+                  </>
+                )}
               </div>
             </div>
           </div>

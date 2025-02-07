@@ -16,6 +16,7 @@ const VerticalSearchBar = ({ onSearch }) => {
   const [error, setError] = useState(null);
   const [currentPlaceholder, setCurrentPlaceholder] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isButtonCooldown, setIsButtonCooldown] = useState(false);
   
   const typewriterRef = useRef(null);
   const currentIndexRef = useRef(0);
@@ -187,6 +188,10 @@ const VerticalSearchBar = ({ onSearch }) => {
       return;
     }
 
+    if (isButtonCooldown) {
+      return;
+    }
+
     const searchParams = {
       query: query.trim(),
       min_price: priceRange.min,
@@ -196,6 +201,14 @@ const VerticalSearchBar = ({ onSearch }) => {
       brands: [""]
     };
     
+    // Start cooldown
+    setIsButtonCooldown(true);
+
+    // Use setTimeout instead of interval
+    setTimeout(() => {
+      setIsButtonCooldown(false);
+    }, 1000);
+
     onSearch(searchParams);
   };
 
@@ -287,7 +300,7 @@ const VerticalSearchBar = ({ onSearch }) => {
         <button 
           className="thumbsy-generate-button"
           onClick={handleSearch}
-          disabled={!query.trim()}
+          disabled={!query.trim() || isButtonCooldown}
         >
           Generate recommendations
         </button>
