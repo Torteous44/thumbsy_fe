@@ -8,12 +8,16 @@ const ProductDetail = ({ product, onClose }) => {
   const [isImageZoomed, setIsImageZoomed] = React.useState(false);
 
   React.useEffect(() => {
-    // Add class when component mounts
+    // Store the current scroll position
+    const scrollY = window.scrollY;
+    document.documentElement.style.setProperty('--scroll-position', `-${scrollY}px`);
     document.body.classList.add('modal-open');
     
-    // Remove class when component unmounts
+    // Cleanup function
     return () => {
       document.body.classList.remove('modal-open');
+      // Restore the scroll position
+      window.scrollTo(0, parseInt(scrollY || '0'));
     };
   }, []);
 

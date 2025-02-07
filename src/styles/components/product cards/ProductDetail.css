@@ -1,9 +1,10 @@
 @import '../../fonts.css';
 
 body.modal-open {
-  overflow: hidden;
-  height: 100vh;
-  padding-right: 15px; /* Prevents layout shift when scrollbar disappears */
+  position: fixed;
+  width: 100%;
+  top: var(--scroll-position);
+  overflow-y: scroll;
 }
 
 .product-detail-overlay {
