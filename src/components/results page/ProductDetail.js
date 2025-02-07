@@ -93,7 +93,8 @@ const ProductDetail = ({ product, onClose }) => {
             <div className="descriptors">
               {product.key_features?.map((feature, index) => (
                 <div key={index} className="descriptor-item">
-                  {feature}
+                  <span className="adjective">adjectives</span>
+                  <span className="descriptor">{feature}</span>
                 </div>
               ))}
             </div>

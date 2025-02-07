@@ -14,7 +14,7 @@
   justify-content: center;
   cursor: pointer;
   padding: 0;
-  transition: transform 0.2s ease;
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   width: 35px;
   height: 35px;
   position: absolute;
@@ -24,6 +24,10 @@
 
 .like-action:hover {
   transform: scale(1.05);
+}
+
+.like-action:active {
+  transform: scale(0.95);
 }
 
 .thumbsy-icon {
@@ -59,12 +63,28 @@
   z-index: 2;
 }
 
+/* Add these new keyframes for the bounce animation */
+@keyframes thumbsyBounce {
+  0% { transform: scale(1) rotate(0deg); }
+  30% { transform: scale(1.25) rotate(5deg); }
+  50% { transform: scale(0.95) rotate(-5deg); }
+  70% { transform: scale(1.1) rotate(3deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Update the liked state animation */
+.like-action.liked .thumbsy-icon {
+  animation: thumbsyBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
 .like-action.liked .thumbsy-icon::before {
   opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
 .like-action.liked .thumbsy-icon img {
   opacity: 1;
+  transition: opacity 0.2s ease;
 }
 
 /* Additional styles for different contexts */
@@ -81,28 +101,46 @@
   position: relative; /* If not already set */
 }
 
-/* Updated tooltip position to left */
+/* Updated tooltip styles */
 .like-tooltip {
   position: absolute;
-  right: calc(100% + 8px);  /* Position to the left with 8px gap */
+  right: calc(100% + 8px);  /* Keep 8px gap from button */
   top: 50%;
   transform: translateY(-50%);
-  background-color: #f5f5f5;
-  color: #666;
-  padding: 4px 8px;
+  background-color: rgba(255, 255, 255, 0.75);
+  color: rgb(0, 0, 0), 0, 0);
+  padding: 6px 10px;
   border-radius: 4px;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.2px;
   white-space: nowrap;
   pointer-events: none;
   opacity: 0;
-  animation: fadeIn 0.15s ease forwards;
+  transition: opacity 0.2s ease;
   z-index: 1000;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* Simplified arrow */
-.like-tooltip::before {
-  display: none;
+/* Add fade-in effect when tooltip is shown */
+.like-tooltip {
+  opacity: 0;
+  transform: translateY(-50%) translateX(5px);
+  transition: all 0.2s ease;
+}
+
+.like-button-container:hover .like-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Add a small arrow pointing to the button */
+.like-tooltip::after {
+  content: '';
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 4px;
+  border-style: solid;
+  border-color: transparent transparent transparent rgba(0, 0, 0, 0.75);
 }

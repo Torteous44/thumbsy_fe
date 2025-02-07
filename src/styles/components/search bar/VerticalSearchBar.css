@@ -13,23 +13,29 @@
 }
 
 .thumbsy-search-header {
-  margin-bottom: 18px;
+  margin-bottom: 24px;
 }
+
 
 .thumbsy-search-header h2 {
   font-size: 28px;
   font-weight: 500;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+  margin-top: 14px;
   color: #000;
   font-family: 'sohneBuch', sans-serif;
+
 }
 
 .thumbsy-search-header p {
   color: #666;
   font-size: 14px;
+
   font-family: 'sohneLeicht', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin-bottom: 14px;
+  margin-top: 4px;
 
 }
 
@@ -47,6 +53,7 @@
   font-feature-settings: "kern" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin-bottom: 8px;
   }
 
 .thumbsy-search-input input {
@@ -84,11 +91,14 @@
 
 .thumbsy-characteristics {
   margin: 16px 0;
+  margin-top: 24px; /*done*/
+  margin-bottom: 24px; /*done*/
 }
 
 .thumbsy-characteristics h3 {
   font-size: 14px;
   margin-bottom: 16px;
+  margin-top: 8px;
   color: #000;
   font-weight: 400;
   font-family: 'sohneBuch', sans-serif;
@@ -101,6 +111,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-top: 8px;
+  margin-bottom: 12px;
 }
 
 .thumbsy-characteristic-tag {
